@@ -21,4 +21,5 @@ add_executable(AirClip AirClipServer.cpp
         NetworkConnection.cpp
         NetworkConnection.h
         DatabaseController.cpp
-        DatabaseController.h)
+        DatabaseController.h
+        AirClipServer.h)
