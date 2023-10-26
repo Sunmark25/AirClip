@@ -3,3 +3,11 @@
 //
 
 #include "UI.h"
+
+void UI::captureEvent() {
+
+}
+
+void UI::notifyDevice() {
+
+}

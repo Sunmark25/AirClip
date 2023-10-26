@@ -4,4 +4,16 @@
 
 #include "ClipboardEntry.h"
 
-//TODO:
+
+ClipboardEntry::ClipboardEntry(const std::string &content, const std::string &contentPath, const std::string &type) {
+
+}
+
+std::string ClipboardEntry::getContent() const {
+}
+
+std::string ClipboardEntry::getContentPath() const {
+}
+
+std::string ClipboardEntry::getType() const {
+}

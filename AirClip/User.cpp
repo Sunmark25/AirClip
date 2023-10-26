@@ -3,3 +3,14 @@
 //
 
 #include "User.h"
+
+User::User(std::string userId, std::string userName) {
+
+}
+
+std::string User::getUserId() {
+}
+
+void User::connectDevice() {
+
+}

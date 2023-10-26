@@ -1,14 +1,19 @@
-//
-// Created by Tingrui Zhang on 2023-10-25.
-//
+#ifndef NETWORKCONNECTION_H
+#define NETWORKCONNECTION_H
 
-#ifndef AIRCLIP_NETWORKCONNECTION_H
-#define AIRCLIP_NETWORKCONNECTION_H
-
+#include <string>
+#include <vector>
+#include "Device.h" // Include the appropriate header for the Device class
 
 class NetworkConnection {
+private:
+    std::string ipAddress;
 
+public:
+    explicit NetworkConnection(const std::string& ipAddress);
+
+    // Method to scan the network and retrieve a list of devices
+    std::vector<Device> scanNetwork();
 };
 
-
-#endif //AIRCLIP_NETWORKCONNECTION_H
+#endif // NETWORKCONNECTION_H

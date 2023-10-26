@@ -1,6 +1,22 @@
 #include <iostream>
+#include "AirClipServer.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+
+int AirClipServer::main() {
+
+}
+
+void AirClipServer::startServer() {
+
+}
+
+void AirClipServer::stopServer() {
+
+}
+
+void AirClipServer::newConnection(std::string wtConnectionId) {
+
+}
+
+UserManager AirClipServer::userManager() {
 }

@@ -3,7 +3,8 @@ project(AirClip)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(AirClip AirClipServer.cpp
+add_executable(
+        AirClip AirClipServer.cpp
         UserManager.cpp
         UserManager.h
         User.cpp
@@ -22,4 +23,5 @@ add_executable(AirClip AirClipServer.cpp
         NetworkConnection.h
         DatabaseController.cpp
         DatabaseController.h
-        AirClipServer.h)
+        AirClipServer.h
+)

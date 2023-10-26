@@ -1,14 +1,28 @@
-//
-// Created by Tingrui Zhang on 2023-10-25.
-//
+#ifndef USERMANAGER_H
+#define USERMANAGER_H
 
-#ifndef AIRCLIP_USERMANAGER_H
-#define AIRCLIP_USERMANAGER_H
-
+#include <vector>
+#include <string>
+#include "User.h"
 
 class UserManager {
+private:
+    std::vector<User> activeUsers;
 
+public:
+    UserManager();
+
+    // Function to find a user by their username
+    std::string findUser(std::string userName);
+
+    // Function to authenticate a user
+    bool authenticateUser(std::string userName, std::string password);
+
+    // Function to register a new user
+    std::string registerUser(std::string userName, std::string password);
+
+    // Function to finish user login
+    void finishUserLogIn(std::string userId, std::string wtConnectionId, std::string userName);
 };
 
-
-#endif //AIRCLIP_USERMANAGER_H
+#endif // USERMANAGER_H

@@ -1,14 +1,13 @@
-//
-// Created by Tingrui Zhang on 2023-10-25.
-//
-
-#ifndef AIRCLIP_UI_H
-#define AIRCLIP_UI_H
-
+#ifndef UI_H
+#define UI_H
 
 class UI {
+public:
+    // Method to capture UI events
+    void captureEvent();
 
+    // Method to notify devices
+    void notifyDevice();
 };
 
-
-#endif //AIRCLIP_UI_H
+#endif // UI_H
