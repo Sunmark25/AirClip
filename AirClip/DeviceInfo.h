@@ -11,7 +11,7 @@ private:
     std::string networkAddress;
 
 public:
-    DeviceInfo(const std::string& deviceId, const std::string& wtConnectionId, const std::string& deviceType, const std::string& networkAddress);
+    explicit DeviceInfo(const std::string& deviceId, const std::string& wtConnectionId, const std::string& deviceType, const std::string& networkAddress);
 
     // Getter method to retrieve device information
     [[nodiscard]] DeviceInfo getDeviceInfo() const;

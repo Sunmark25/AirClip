@@ -8,4 +8,8 @@ add_executable(
         NetworkConnection.cpp
         NetworkConnection.h
         AirClipServer.h
+        User.cpp
+        UserManager.cpp
+        DeviceInfo.cpp
+        Device.cpp
 )

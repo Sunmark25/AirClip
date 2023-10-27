@@ -4,17 +4,20 @@
 
 #ifndef AIRCLIP_AIRCLIPSERVER_H
 #define AIRCLIP_AIRCLIPSERVER_H
-//#include "UserManager.h"
+#include "UserManager.h"
 #include "NetworkConnection.h"
 
 class AirClipServer{
 private:
-    //UserManager userManager();
+    UserManager *userManager;
 
     void stopServer();
-    void newConnection(std::string wtConnectionId);
+    void newConnection(const std::string &wtConnectionId);
 
 public:
+    explicit AirClipServer();
+
+
     void startServer();
 };
 
