@@ -12,11 +12,18 @@ private:
     UserManager *userManager;
 
     void stopServer();
+
+    /**
+     * This method is used to handle a new connection to the server
+     *
+     * @param wtConnectionId The wt connection ID which corresponds to the user
+     */
     void newConnection(const std::string &wtConnectionId);
 
 public:
-    explicit AirClipServer();
-
+    explicit AirClipServer() {
+        userManager = new UserManager();
+    }
 
     void startServer();
 };

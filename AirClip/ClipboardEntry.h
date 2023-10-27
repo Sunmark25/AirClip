@@ -10,7 +10,9 @@ private:
     std::string type;
 
 public:
-    ClipboardEntry(const std::string& content, const std::string& contentPath, const std::string& type);
+    ClipboardEntry(const std::string &content, const std::string &contentPath, const std::string &type) {
+
+    }
 
     // Getter method to retrieve content
     [[nodiscard]] std::string getContent() const;

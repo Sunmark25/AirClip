@@ -10,7 +10,9 @@ private:
     std::vector<User> activeUsers;
 
 public:
-    explicit UserManager();
+    explicit UserManager() {
+
+    }
 
     /**
      * This method is used to find a user in the database and return their userId if they exist
@@ -31,7 +33,7 @@ public:
     bool authenticateUser(const std::string &userName, const std::string &password);
 
     /**
-     * This method is used to register a new user in the database using their username and password.
+     * This method is used to register a new user in the database using their username and password
      *
      * @param userName The username of the new user
      * @param password The password for the new user
@@ -40,10 +42,11 @@ public:
     std::string registerUser(const std::string &userName, const std::string &password);
 
     /**
-     * This method is used to finish the login for the user
+     * This method is used to finish the login for the user by creating a User object
+     * and connecting the device to the user
      *
      * @param userId The userId for the user being logged in
-     * @param wtConnectionId The corresponding wt connection ID (for their web page) for the user
+     * @param wtConnectionId The corresponding wt connection ID (for user's device web page) for the user's device
      * @param userName The username for the user being logged in
      */
     void finishUserLogIn(const std::string &userId, const std::string &wtConnectionId, const std::string &userName);

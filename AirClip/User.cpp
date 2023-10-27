@@ -4,11 +4,6 @@
 
 #include "User.h"
 
-User::User(const std::string userId, const std::string userName) {
-    this->userId = userId;
-    this->userName = userName;
-}
-
 std::string User::getUserId() {
     return userId;
 }

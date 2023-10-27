@@ -4,10 +4,6 @@
 
 #include "DatabaseController.h"
 
-DatabaseController::DatabaseController(const std::string &databasePath) {
-
-}
-
 void DatabaseController::connectToDatabase() {
 
 }

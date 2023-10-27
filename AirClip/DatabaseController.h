@@ -13,7 +13,9 @@ private:
     void connectToDatabase();
 
 public:
-    DatabaseController(const std::string& databasePath);
+    DatabaseController(const std::string &databasePath) {
+
+    }
 
     // Method to close the database connection
     void closeDatabaseConnection();

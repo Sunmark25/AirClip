@@ -33,6 +33,11 @@ private:
     void listenToUI();
 
 public:
+    /**
+     * The constructor for Device which takes the wtConnectionId and binds the deviceInfo to device
+     *
+     * @param wtConnectionId The corresponding wt connection ID (for device's web page) for the device
+     */
     explicit Device(const std::string &wtConnectionId) {
         deviceInfo = new DeviceInfo("", wtConnectionId, "", "");
     }

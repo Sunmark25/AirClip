@@ -4,8 +4,6 @@
 
 #include "UserManager.h"
 
-UserManager::UserManager() {
-}
 
 std::string UserManager::findUser(const std::string &userName) {
     // Use a select statement to get userid from the database using userName
@@ -22,7 +20,7 @@ std::string UserManager::findUser(const std::string &userName) {
 
 bool UserManager::authenticateUser(const std::string &userName, const std::string &password) {
     // Use a select statement to see if the username and password match the ones in the database
-    std::string match = "some match";
+    std::string match = userName + password;
 
     // If the userId is not empty (or whatever the query would return)
     // then return the userId matching the userName
