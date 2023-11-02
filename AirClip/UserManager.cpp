@@ -4,20 +4,41 @@
 
 #include "UserManager.h"
 
-UserManager::UserManager() {
 
+std::string UserManager::findUser(const std::string &userName) {
+    // Use a select statement to get userid from the database using userName
+    std::string userId = "temp01";
+
+    // If the userId is not empty (or whatever the query would return)
+    // then return the userId matching the userName
+    if (!userId.empty()) {
+        return userId;
+    } else { // Otherwise, return an empty string
+        return "";
+    }
 }
 
-std::string UserManager::findUser(std::string userName) {
+bool UserManager::authenticateUser(const std::string &userName, const std::string &password) {
+    // Use a select statement to see if the username and password match the ones in the database
+    std::string match = userName + password;
+
+    // If the userId is not empty (or whatever the query would return)
+    // then return the userId matching the userName
+    return !match.empty();
 }
 
-bool UserManager::authenticateUser(std::string userName, std::string password) {
+std::string UserManager::registerUser(const std::string &userName, const std::string &password) {
+    // Do an insert query to add the user to the database (add their username and password)
+    // The query should return the userId for the newly added user
+    std::string userId = "temp02";
+
+    return userId;
 }
 
-std::string UserManager::registerUser(std::string userName, std::string password) {
+void UserManager::finishUserLogIn(const std::string &userId, const std::string &wtConnectionId, const std::string &userName) {
+    // Create a new user with the given userId and username
+    auto newUser = new User(userId, userName);
 
-}
-
-void UserManager::finishUserLogIn(std::string userId, std::string wtConnectionId, std::string userName) {
-
+    // Connect the device to the user
+    newUser->connectDevice(wtConnectionId);
 }

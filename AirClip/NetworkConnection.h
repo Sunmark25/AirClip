@@ -3,17 +3,35 @@
 
 #include <string>
 #include <vector>
-#include "Device.h" // Include the appropriate header for the Device class
+//#include "Device.h" // Include the appropriate header for the Device class
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <string>
+
 
 class NetworkConnection {
-private:
-    std::string ipAddress;
-
 public:
-    explicit NetworkConnection(const std::string& ipAddress);
+    NetworkConnection(const std::string &ipAddress, int port);
+    ~NetworkConnection();
+    bool startServer();
+    bool acceptConnection();
+    bool readData(char* buffer, size_t bufferSize);
+    bool sendData(const char* data);
+    void closeConnection();
 
-    // Method to scan the network and retrieve a list of devices
-    std::vector<Device> scanNetwork();
+    // std::vector<Device> scanNetwork();
+    bool runningServer;
+
+private:
+    int server_fd, new_socket;
+    struct sockaddr_in address;
+    socklen_t addrlen;
+    std::string ipAddress;
+    int port;
 };
 
 #endif // NETWORKCONNECTION_H

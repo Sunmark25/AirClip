@@ -12,7 +12,7 @@ class ClipboardEntry;
 
 class Device {
 private:
-    DeviceInfo deviceInfo;
+    DeviceInfo *deviceInfo;
     std::vector<int> clipboardEntryIds;
 
     // Method to synchronize clipboard content to the device
@@ -33,10 +33,13 @@ private:
     void listenToUI();
 
 public:
-    explicit Device(std::string wtConnectionId);
-
-    Device::Device(std::string wtConnectionId) {
-
+    /**
+     * The constructor for Device which takes the wtConnectionId and binds the deviceInfo to device
+     *
+     * @param wtConnectionId The corresponding wt connection ID (for device's web page) for the device
+     */
+    explicit Device(const std::string &wtConnectionId) {
+        deviceInfo = new DeviceInfo("", wtConnectionId, "", "");
     }
 
     // Method to connect the device to a server
@@ -52,7 +55,7 @@ public:
     void removeDevice();
 
     // Method to create a thread for the device
-    std::thread createThread();
+    static std::thread createThread();
 
 };
 
