@@ -2,26 +2,48 @@
 #define DATABASECONTROLLER_H
 
 #include <string>
-#include  // Include the appropriate header for DatabaseConnection
+#include <stdio.h>
+#include <sqlite3.h>
+#include <iostream>
+
 
 class DatabaseController {
 private:
-    //TODO: implement SQL here as the database
- //   DatabaseConnection connection;
+    sqlite3 *db;
+    char *zErrMsg;
 
-    // Method to establish a connection to the database
-    void connectToDatabase();
+    // Static callback function that matches the signature expected by sqlite3_exec
+    static int callback(void* NotUsed, int argc, char** argv, char** azColName);
 
 public:
-    DatabaseController(const std::string &databasePath) {
-
+    // Constructor
+    DatabaseController(const char* filename) : db(nullptr), zErrMsg(nullptr) {
+        int rc = sqlite3_open(filename, &db);
+        if(rc) {
+            std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
+            exit(0);
+        } else {
+            std::cerr << "Opened database successfully" << std::endl;
+        }
     }
 
-    // Method to close the database connection
-    void closeDatabaseConnection();
+    // Destructor
+    ~DatabaseController() {
+        sqlite3_close(db);
+    }
 
-    // Method to retrieve the database connection
- //   DatabaseConnection getConnection();
+    // Member functions
+    void createTable();
+    void insertSQL(const char *sql);
+    void selectSQL(const char *sql);
+    void updateSQL(const char *sql);
+    void deleteSQL(const char *sql);
+
+    // Prevent copying or moving the Database object.
+    DatabaseController(const DatabaseController&) = delete;
+    DatabaseController& operator=(const DatabaseController&) = delete;
+    DatabaseController(DatabaseController&&) = delete;
+    DatabaseController& operator=(DatabaseController&&) = delete;
 };
 
 #endif // DATABASECONTROLLER_H

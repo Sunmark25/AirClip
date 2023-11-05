@@ -2,28 +2,37 @@
 #define DEVICEINFO_H
 
 #include <string>
+using namespace std;
+
 
 class DeviceInfo {
 private:
-    std::string deviceId;
-    std::string wtConnectionId;
-    std::string deviceType;
-    std::string networkAddress;
+    string deviceId;
+    string wtConnectionId;
+    string deviceType;
+    string networkAddress;
 
 public:
-    explicit DeviceInfo(const std::string &deviceId, const std::string &wtConnectionId, const std::string &deviceType,
-                        const std::string &networkAddress) {
 
+    DeviceInfo(const string &deviceId, const string &wtConnectionId, const string &deviceType, const string &networkAddress){
+        this->deviceId = deviceId;
+        this->wtConnectionId = wtConnectionId;
+        this->deviceType = deviceType;
+        this->networkAddress = networkAddress;
     }
 
-    // Getter method to retrieve device information
-    [[nodiscard]] DeviceInfo getDeviceInfo() const;
+    std::string getDeviceId() const;
+    std::string getWtConnectionId() const;
+    std::string getDeviceType() const;
+    std::string getNetworkAddress() const;
 
-    // Method to add device information
-    bool addDeviceInfo(const DeviceInfo& info);
+    void setDeviceId(const std::string &value);
+    void setWtConnectionId(const std::string &value);
+    void setDeviceType(const std::string &value);
+    void setNetworkAddress(const std::string &value);
 
-    // Method to update device information
     bool updateDeviceInfo(const DeviceInfo& newInfo);
+
 };
 
 #endif // DEVICEINFO_H

@@ -21,7 +21,7 @@ private:
     void newConnection(const std::string &wtConnectionId);
 
 public:
-    explicit AirClipServer() {
+    AirClipServer() {
         userManager = new UserManager();
     }
 

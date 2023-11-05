@@ -2,25 +2,29 @@
 #define CLIPBOARDHELPER_H
 
 #include <string>
-#include <vector>
-#include "ClipboardEntry.h" // Include the appropriate header for ClipboardEntry
+#include <iostream>
+#include <sstream>
 
 class ClipboardHelper {
+private:
+    static std::string buffer; // Static buffer to hold the latest SQL statement
+
+    static const std::string escape(const std::string &input);
+
+
 public:
-    // Method to save a clipboard entry for a user
-    static bool saveClipboardEntry(const std::string& userId, const ClipboardEntry& entry);
+    // Generate INSERT SQL statement
+    static const char* generateInsertSQL(const std::string& userName, const std::string& userID, const std::string& deviceID, const std::string& deviceName);
 
-    // Method to get a clipboard entry for a user by entry ID
-    static ClipboardEntry getClipboardEntry(const std::string& userId, int entryId);
+    // Generate DELETE SQL statement
+    static const char* generateDeleteSQL(const std::string& userID);
 
-    // Method to remove a clipboard entry for a user by entry ID
-    static bool removeClipboardEntry(const std::string& userId, int entryId);
+    // Generate SELECT ALL SQL statement
+    static const char* generateSelectAllSQL();
 
-    // Method to get the clipboard history for a user
-    static std::vector<ClipboardEntry> getClipboardHistory(const std::string& userId);
+    // Generate UPDATE SQL statement
+    static const char* generateUpdateSQL(const std::string& userID, const std::string& newUserName, const std::string& newDeviceID, const std::string& newDeviceName);
 
-    // Method to search the clipboard history for a user by a query string
-    static std::vector<ClipboardEntry> searchClipboardHistory(const std::string& userId, const std::string& query);
 };
 
 #endif // CLIPBOARDHELPER_H
