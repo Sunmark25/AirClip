@@ -21,6 +21,8 @@
 //
 //}
 
+std::string ClipboardHelper::buffer;  // Initialize the static member variable (fixes build linker error)
+
 const char* ClipboardHelper::generateInsertSQL(const std::string& userName, const std::string& userID, const std::string& deviceID, const std::string& deviceName) {
     std::stringstream sql;
     sql << "INSERT INTO AIRCLIP (userName, userID, deviceID, deviceName) VALUES ("

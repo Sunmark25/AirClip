@@ -3,6 +3,9 @@ project(AirClip)
 
 set(CMAKE_CXX_STANDARD 20)
 
+# Find the SQLite3 library
+find_package(SQLite3 REQUIRED)
+
 add_executable(
         AirClip AirClipServer.cpp
         AirClipServer.h
@@ -17,3 +20,6 @@ add_executable(
         ClipboardHelper.cpp
         ClipboardHelper.h
 )
+
+# Link your target against SQLite3
+target_link_libraries(AirClip SQLite::SQLite3)
