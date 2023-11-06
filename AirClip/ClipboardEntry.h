@@ -10,25 +10,41 @@ enum class Type{
 
 class ClipboardEntry {
 private:
+    std::string clipboardEntryID;
     std::string content;
     std::string contentPath;
     Type type;
+    std::string userID;
 
 public:
-    ClipboardEntry(const std::string &content, const std::string &contentPath, Type type) {
+    ClipboardEntry(const std::string clipboardEntryID, const std::string &content,
+                   const std::string &contentPath, Type type, const std::string &userID) {
+        this->clipboardEntryID = clipboardEntryID;
         this->content = content;
         this->contentPath = contentPath;
         this->type = type;
+        this->userID = userID;
     }
 
-    // Getter method to retrieve content
+    std::string getClipboardEntryID() const;
+
     std::string getContent() const;
 
-    // Getter method to retrieve content path
     std::string getContentPath() const;
 
-    // Getter method to retrieve type
     std::string getType() const;
+
+    std::string getUserID() const;
+
+    void setClipboardEntryID(const std::string& id);
+
+    void setContent(const std::string& newContent);
+
+    void setContentPath(const std::string& newPath);
+
+    void setType(Type newType);
+
+    void setUserID(const std::string& newUserID);
 };
 
 #endif // CLIPBOARDENTRY_H
