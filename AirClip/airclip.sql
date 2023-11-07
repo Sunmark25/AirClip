@@ -20,20 +20,20 @@ DROP TABLE User;
 
 CREATE TABLE IF NOT EXISTS User (
     userID INTEGER PRIMARY KEY AUTOINCREMENT,
-    userName TEXT NOT NULL,
     username TEXT NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    fullName TEXT NOT NULL
 );
 
 
-INSERT INTO User (username, password)
-VALUES ('jboersen', 'Password123');
+INSERT INTO User (username, password, fullName)
+VALUES ('jboersen', 'Password123', 'Jarrett Boersen');
 
-INSERT INTO User (username, password)
-VALUES ('jboersen2', 'Password123!');
+INSERT INTO User (username, password, fullName)
+VALUES ('jsmith', 'Password123!', 'John Smith');
 
-INSERT INTO User (username, password)
-VALUES ('kboersen', 'Password123?');
+INSERT INTO User (username, password, fullName)
+VALUES ('tcook', 'I<3Apple!', 'Tim Cook');
 
 
 select *

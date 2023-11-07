@@ -4,8 +4,16 @@
 
 #include "User.h"
 
-std::string User::getUserId() {
-    return userId;
+std::string User::getUserID() {
+    return userID;
+}
+
+std::string User::getUsername() {
+    return username;
+}
+
+std::string User::getFullName() {
+    return fullName;
 }
 
 void User::connectDevice(const std::string &wtConnectionId) {
