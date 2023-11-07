@@ -8,35 +8,35 @@
 
 void ClipboardHelper::saveClipboardEntry(const ClipboardEntry &entry)
 {
-    char* sql_code = generateClipboardEntryInsertSQL(entry.getClipboardEntryID(), entry.getContent(), entry.getContentPath(), entry.getType(), entry.getUserID());
-    DatabaseController::insertSQL(sql_code);
+    std::string sql_code = generateClipboardEntryInsertSQL(entry.getClipboardEntryID(), entry.getContent(), entry.getContentPath(), entry.getType(), entry.getUserID());
+    dbc->insertSQL(sql_code);
 }
 
-ClipboardEntry ClipboardHelper::getClipboardEntry(const std::string &userId)
-{
-    char* sql_code = generateClipboardEntrySelectAllSQL();
-    //TODO: need a method that return entry from database
-    return NULL;
-}
+//ClipboardEntry ClipboardHelper::getClipboardEntry(const std::string &userId)
+//{
+//    char* sql_code = generateClipboardEntrySelectAllSQL();
+//    //TODO: need a method that return entry from database
+//    return NULL;
+//}
 
 void ClipboardHelper::removeClipboardEntry(const std::string &clipBoardEntryId)
 {
-    char* sql_code = generateClipboardEntryDeleteSQL(clipBoardEntryId);
-    DatabaseController::deleteSQL(sql_code);
+    std::string sql_code = generateClipboardEntryDeleteSQL(clipBoardEntryId);
+    dbc->deleteSQL(sql_code);
 }
 
-std::vector<ClipboardEntry> ClipboardHelper::getClipboardHistory(const std::string &userId)
-{
-    std::vector<ClipboardEntry> entry_history;
-    char* sql_code = generateClipboardEntrySelectAllSQL();
-    //TODO: a loop uses getClipboardEntry() from the database.
-    return NULL;
-}
-
-ClipboardHelper::searchClipboardHistory(const std::string &content)
-{
-    //TODO: search sql database stuff and return multiple values
-}
+//std::vector<ClipboardEntry> ClipboardHelper::getClipboardHistory(const std::string &userId)
+//{
+//    std::vector<ClipboardEntry> entry_history;
+//    char* sql_code = generateClipboardEntrySelectAllSQL();
+//    //TODO: a loop uses getClipboardEntry() from the database.
+//    return NULL;
+//}
+//
+//ClipboardHelper::searchClipboardHistory(const std::string &content)
+//{
+//    //TODO: search sql database stuff and return multiple values
+//}
 
 std::string ClipboardHelper::buffer;  // Initialize the static member variable (fixes build linker error)
 
@@ -49,7 +49,7 @@ const std::string ClipboardHelper::getType(Type type) {
     }
 }
 
-const char* ClipboardHelper::generateAirClipInsertSQL(const std::string& userName, const std::string& userID, const std::string& deviceID, const std::string& deviceName) {
+const std::string ClipboardHelper::generateAirClipInsertSQL(const std::string& userName, const std::string& userID, const std::string& deviceID, const std::string& deviceName) {
     std::stringstream sql;
     sql << "INSERT INTO AIRCLIP (userName, userID, deviceID, deviceName) VALUES ("
         << "'" << escape(userName) << "', "
@@ -60,19 +60,19 @@ const char* ClipboardHelper::generateAirClipInsertSQL(const std::string& userNam
     return buffer.c_str();
 }
 
-const char* ClipboardHelper::generateAirClipDeleteSQL(const std::string &userID) {
+const std::string ClipboardHelper::generateAirClipDeleteSQL(const std::string &userID) {
     std::stringstream sql;
     sql << "DELETE FROM AIRCLIP WHERE userID = '" << escape(userID) << "';";
     buffer = sql.str();
     return buffer.c_str();
 }
 
-const char* ClipboardHelper::generateAirClipSelectAllSQL() {
+const std::string ClipboardHelper::generateAirClipSelectAllSQL() {
     buffer = "SELECT * FROM AIRCLIP;";
     return buffer.c_str();
 }
 
-const char* ClipboardHelper::generateAirClipUpdateSQL(const std::string &userID, const std::string &newUserName,
+const std::string ClipboardHelper::generateAirClipUpdateSQL(const std::string &userID, const std::string &newUserName,
                                                const std::string &newDeviceID, const std::string &newDeviceName) {
     std::stringstream sql;
     sql << "UPDATE AIRCLIP SET "
@@ -84,7 +84,7 @@ const char* ClipboardHelper::generateAirClipUpdateSQL(const std::string &userID,
     return buffer.c_str();
 }
 
-const char* ClipboardHelper::generateClipboardEntryInsertSQL(const std::string &clipboardEntryID,
+const std::string ClipboardHelper::generateClipboardEntryInsertSQL(const std::string &clipboardEntryID,
                                                              const std::string &content, const std::string &contentPath,
                                                              Type type, const std::string &userID) {
     std::stringstream sql;
@@ -96,19 +96,19 @@ const char* ClipboardHelper::generateClipboardEntryInsertSQL(const std::string &
     sql << "'" << escape(getType(type)) << "');";
 }
 
-const char* ClipboardHelper::generateClipboardEntryDeleteSQL(const std::string &clipboardEntryID) {
+const std::string ClipboardHelper::generateClipboardEntryDeleteSQL(const std::string &clipboardEntryID) {
     std::stringstream sql;
     sql << "DELETE FROM CLIPBOARDENTRY WHERE clipboardEntryID = '" << escape(clipboardEntryID) << "';";
     buffer = sql.str();
     return buffer.c_str();
 }
 
-const char* ClipboardHelper::generateClipboardEntrySelectAllSQL() {
+const std::string ClipboardHelper::generateClipboardEntrySelectAllSQL() {
     buffer = "SELECT * FROM CLIPBOARDENTRY;";
     return buffer.c_str();
 }
 
-const char* ClipboardHelper::generateClipboardEntryUpdateSQL(const std::string &clipboardEntryID,
+const std::string ClipboardHelper::generateClipboardEntryUpdateSQL(const std::string &clipboardEntryID,
                                                              const std::string &newContent, const std::string &newContentPath,
                                                              Type newType, const std::string &newUserID) {
     std::stringstream sql;

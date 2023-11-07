@@ -17,6 +17,7 @@
 #include <Wt/WFlags.h>
 
 #include <memory>
+#include "ClipboardHelper.h"
 
 
 class UI : public Wt::WContainerWidget {

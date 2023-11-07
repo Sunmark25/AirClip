@@ -24,17 +24,10 @@ find_package(Boost REQUIRED COMPONENTS system thread)
 
 # Source files
 set(SOURCES
-        AirClipServer.cpp
-        AirClipServer.h
-        NetworkConnection.cpp
-        NetworkConnection.h
-        User.cpp
-        UserManager.cpp
-        DeviceInfo.cpp
-        Device.cpp
         UI.cpp
         UI.h
         DatabaseController.cpp
+        DatabaseController.h
         ClipboardHelper.cpp
         ClipboardHelper.h
         ClipboardEntry.cpp
@@ -52,6 +45,8 @@ add_executable(${MY_PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME}
         Wt::Wt
         Wt::HTTP
+
+        SQLite::SQLite3
         ${Boost_LIBRARIES}
 )
 
