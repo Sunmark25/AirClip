@@ -1,7 +1,7 @@
 #include "DatabaseController.h"
 
 // Required for the singleton to be thread safe
-DatabaseController* DatabaseController::pInstance_{nullptr};
+DatabaseController *DatabaseController::dbInstance_{nullptr};
 std::mutex DatabaseController::mutex_;
 
 /**
@@ -9,26 +9,24 @@ std::mutex DatabaseController::mutex_;
  * and then we make sure again that the variable is null and then we
  * set the value.
  */
-DatabaseController *DatabaseController::getInstance(const char* filename)
-{
+DatabaseController *DatabaseController::getInstance(const char *filename) {
     std::lock_guard<std::mutex> lock(mutex_);
-    if (pInstance_ == nullptr)
-    {
-        pInstance_ = new DatabaseController(filename);
+    if (dbInstance_ == nullptr) {
+        dbInstance_ = new DatabaseController(filename);
     }
-    return pInstance_;
+    return dbInstance_;
 }
 
 // Callback function definition
-int DatabaseController::callback(void* NotUsed, int argc, char** argv, char** azColName) {
-    for(int i = 0; i < argc; i++) {
+int DatabaseController::callback(void *NotUsed, int argc, char **argv, char **azColName) {
+    for (int i = 0; i < argc; i++) {
         std::cout << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << std::endl;
     }
     std::cout << std::endl;
     return 0;
 }
 
-void DatabaseController::createTable(){
+void DatabaseController::createTable() {
     const char *sql = "CREATE TABLE IF NOT EXISTS AIRCLIP (\n"
                       "    userName TEXT NOT NULL,\n"
                       "    userID VARCHAR(6) PRIMARY KEY CHECK (userID GLOB 'us[a-z][a-z][0-9][0-9]'),\n"
@@ -89,7 +87,7 @@ std::vector<std::vector<std::string>> DatabaseController::selectData(const std::
     std::vector<std::vector<std::string>> resultData;
 
     // Used to store the prepared statement
-    sqlite3_stmt* stmt;
+    sqlite3_stmt *stmt;
 
     // Prepare the select statement call to the database using the sql query
     // Use c_str() to convert the string to a C string
@@ -99,8 +97,8 @@ std::vector<std::vector<std::string>> DatabaseController::selectData(const std::
     if (rc != SQLITE_OK) {
         std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
         return resultData;
-    } else { // Otherwise, display it completed successfully
-        std::cout << "Select successfully" << std::endl;
+    } else { // Otherwise, display there are no errors
+        std::cout << "No errors in select statement" << std::endl;
     }
 
     // Loop through each row
@@ -112,7 +110,7 @@ std::vector<std::vector<std::string>> DatabaseController::selectData(const std::
 
         // Loop through each column and add the value as a string to the row
         for (int i = 0; i < numColumns; i++) {
-            const char* columnValue = reinterpret_cast<const char*>(sqlite3_column_text(stmt, i));
+            const char *columnValue = reinterpret_cast<const char *>(sqlite3_column_text(stmt, i));
             rowData.emplace_back(columnValue);
         }
 
@@ -153,7 +151,11 @@ void DatabaseController::showTables() {
     selectSQL(sql); // Call the selectSQL method to show the tables
 }
 
-bool DatabaseController::isTableEmpty(const std::vector<std::vector<std::string>> &tableData) {
-    // Return true if the row vector and column 0 vector are not empty, otherwise, return false
-    return !tableData.empty() && !tableData[0].empty();
+bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>> &tableData) {
+    // Return true if the row vector and column 0 vector are empty, otherwise, return false
+    if (tableData.empty()) {
+        return true;
+    } else {
+        return tableData[0].empty();
+    }
 }

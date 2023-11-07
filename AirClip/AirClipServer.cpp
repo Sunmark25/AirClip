@@ -1,4 +1,3 @@
-#include <iostream>
 #include "AirClipServer.h"
 
 void AirClipServer::startServer() {
@@ -9,6 +8,9 @@ void AirClipServer::startServer() {
         fprintf(stderr, "Failed to start server\n");
         exit(EXIT_FAILURE);
     }
+
+    // Used to test the newConnection class and children classes
+    // newConnection("");
 
     while (true) {
         if (server.acceptConnection()) {
@@ -30,7 +32,7 @@ void AirClipServer::stopServer() {
 void AirClipServer::newConnection(const std::string &wtConnectionId) {
     // Used to store the username and password for testing
     // This will have to be received from the client
-    const std::string username = "test";
+    const std::string username = "tmikgree";
     const std::string password = "password123";
     const std::string fullName = "Test MikGee";
 

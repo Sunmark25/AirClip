@@ -14,7 +14,7 @@ std::string UserManager::findUser(const std::string &username) {
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
 
     // If the userID was found (the table wasn't empty) then return the userID
-    if (!DatabaseController::isTableEmpty(tableData)) {
+    if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string userID = tableData[0][0];
 
         std::cout << "User ID: " << userID << std::endl;
@@ -35,7 +35,7 @@ std::string UserManager::getFullName(const std::string &userID) {
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
 
     // If the fullName was found (the table wasn't empty) then return it
-    if (!DatabaseController::isTableEmpty(tableData)) {
+    if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string fullName = tableData[0][0];
 
         std::cout << "Full name: " << fullName << std::endl;
@@ -50,13 +50,14 @@ std::string UserManager::getFullName(const std::string &userID) {
 
 bool UserManager::authenticateUser(const std::string &username, const std::string &password) {
     // Define the query to authenticate a user based on the given username and password
-    std::string query = "SELECT userID FROM User WHERE username = '" + username + "' AND password = '" + password + "';";
+    std::string query =
+            "SELECT userID FROM User WHERE username = '" + username + "' AND password = '" + password + "';";
 
     // Look for the user matching the credentials
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
 
     // If the there was a user found (the table wasn't empty) then return true
-    if (!DatabaseController::isTableEmpty(tableData)) {
+    if (!DatabaseController::tableIsEmpty(tableData)) {
         std::cout << "Matching login credentials for " << username << "found" << std::endl;
 
         return true;
@@ -67,9 +68,12 @@ bool UserManager::authenticateUser(const std::string &username, const std::strin
     }
 }
 
-std::string UserManager::registerUser(const std::string &username, const std::string &password, const std::string &fullName) {
+std::string
+UserManager::registerUser(const std::string &username, const std::string &password, const std::string &fullName) {
     // Define the query to add a new user with the given username and password
-    std::string query = "INSERT INTO User ('username', 'password', 'fullName') VALUES ('" + username + "', '" + password + "', '" + fullName + "');";
+    std::string query =
+            "INSERT INTO User ('username', 'password', 'fullName') VALUES ('" + username + "', '" + password + "', '" +
+            fullName + "');";
 
     // Try to add (insert) the new user in the database
     bool success = dbc->insertSQL(query);
@@ -84,7 +88,8 @@ std::string UserManager::registerUser(const std::string &username, const std::st
     }
 }
 
-void UserManager::finishUserLogIn(const std::string &userID, const std::string &wtConnectionId, const std::string &username) {
+void UserManager::finishUserLogIn(const std::string &userID, const std::string &wtConnectionId,
+                                  const std::string &username) {
     // Get the user's full name using their userID
     const std::string fullName = getFullName(userID);
 

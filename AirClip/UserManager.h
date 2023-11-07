@@ -14,7 +14,7 @@ private:
 
 public:
     explicit UserManager() {
-        //dbc.
+        dbc = DatabaseController::getInstance("");
     }
 
     /**
