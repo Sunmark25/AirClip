@@ -1,13 +1,41 @@
 #ifndef UI_H
 #define UI_H
+#include <Wt/WApplication.h>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WLineEdit.h>
+#include <Wt/WTableView.h>
+#include <Wt/WStandardItemModel.h>
+#include <Wt/WStandardItem.h>
+#include <Wt/WVBoxLayout.h>
+#include <Wt/WText.h>
 
-class UI {
+#include <memory>
+
+
+class UI : public Wt::WContainerWidget {
 public:
-    // Method to capture UI events
-    void captureEvent();
+    UI(); // Constructor
 
-    // Method to notify devices
-    void notifyDevice();
+    void setupUI(); // Sets up the user interface
+
+private:
+    // Helper functions for actions
+    void copyContentToTable(const std::string& content);
+    void clearTable();
+    void copyContentFromTextBox();
+
+    // Widgets and model pointers
+    Wt::WLineEdit* textBox_;
+    Wt::WPushButton* copyButton_;
+    Wt::WPushButton* clearButton_;
+    Wt::WTableView* tableView_; // To display copied contents
+    Wt::WText* airclipLabel_;   // "airclip" label
+    Wt::WPushButton* deleteButton_;
+    Wt::WPushButton* exportButton_;
+    Wt::WAnchor* downloadLink_;
+    std::shared_ptr<Wt::WStandardItemModel> tableModel_; // Model for the tableView
+
 };
 
 #endif // UI_H
