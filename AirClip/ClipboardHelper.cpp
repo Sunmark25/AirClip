@@ -1,26 +1,42 @@
 #include "ClipboardHelper.h"
+#include "DatabaseController.h"
+#include <vector>
+
 
 //TODO: Retrieve Information For ClipboardEntry
 //TODO: Generate Default Value For SQL
 
-//bool ClipboardHelper::saveClipboardEntry(const std::string &userId, const ClipboardEntry &entry) {
-//}
-//
-//ClipboardEntry ClipboardHelper::getClipboardEntry(const std::string &userId, int entryId) {
-//}
-//
-//bool ClipboardHelper::removeClipboardEntry(const std::string &userId, int entryId) {
-//}
-//
-//std::vector<ClipboardEntry> ClipboardHelper::getClipboardHistory(const std::string &userId) {
-//
-//}
-//
-//std::vector<ClipboardEntry>
-//
-//ClipboardHelper::searchClipboardHistory(const std::string &userId, const std::string &query) {
-//
-//}
+void ClipboardHelper::saveClipboardEntry(const ClipboardEntry &entry)
+{
+    char* sql_code = generateClipboardEntryInsertSQL(entry.getClipboardEntryID(), entry.getContent(), entry.getContentPath(), entry.getType(), entry.getUserID());
+    DatabaseController::insertSQL(sql_code);
+}
+
+ClipboardEntry ClipboardHelper::getClipboardEntry(const std::string &userId)
+{
+    char* sql_code = generateClipboardEntrySelectAllSQL();
+    //TODO: need a method that return entry from database
+    return NULL;
+}
+
+void ClipboardHelper::removeClipboardEntry(const std::string &clipBoardEntryId)
+{
+    char* sql_code = generateClipboardEntryDeleteSQL(clipBoardEntryId);
+    DatabaseController::deleteSQL(sql_code);
+}
+
+std::vector<ClipboardEntry> ClipboardHelper::getClipboardHistory(const std::string &userId)
+{
+    std::vector<ClipboardEntry> entry_history;
+    char* sql_code = generateClipboardEntrySelectAllSQL();
+    //TODO: a loop uses getClipboardEntry() from the database.
+    return NULL;
+}
+
+ClipboardHelper::searchClipboardHistory(const std::string &content)
+{
+    //TODO: search sql database stuff and return multiple values
+}
 
 std::string ClipboardHelper::buffer;  // Initialize the static member variable (fixes build linker error)
 
