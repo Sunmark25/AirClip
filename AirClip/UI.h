@@ -1,5 +1,6 @@
 #ifndef UI_H
 #define UI_H
+
 #include <Wt/WApplication.h>
 #include <Wt/WContainerWidget.h>
 #include <Wt/WPushButton.h>
@@ -9,6 +10,11 @@
 #include <Wt/WStandardItem.h>
 #include <Wt/WVBoxLayout.h>
 #include <Wt/WText.h>
+#include <Wt/WLayout.h>
+#include <Wt/WAnchor.h>
+#include <Wt/WHBoxLayout.h>
+#include <Wt/WLength.h>
+#include <Wt/WFlags.h>
 
 #include <memory>
 
@@ -16,6 +22,7 @@
 class UI : public Wt::WContainerWidget {
 public:
     UI(); // Constructor
+    virtual ~UI() = default; // Virtual destructor for proper cleanup
 
     void setupUI(); // Sets up the user interface
 
@@ -34,6 +41,7 @@ private:
     Wt::WPushButton* deleteButton_;
     Wt::WPushButton* exportButton_;
     Wt::WAnchor* downloadLink_;
+
     std::shared_ptr<Wt::WStandardItemModel> tableModel_; // Model for the tableView
 
 };

@@ -1,0 +1,83 @@
+/* Apply a general normalization rule */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the body for some basic padding */
+body {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style the title */
+.title {
+    font-size: 80px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.full-height {
+    height: 100vh; /* Set height to 100% of the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-content {
+    text-align: center;
+}
+
+/* Enlarge and style the text box */
+.largeTextBox {
+    width: 100%; /* Full width */
+    height: 40px; /* Fixed height */
+    font-size: 10px; /* Larger font size */
+    padding: 4px 8px; /* Some padding inside the text box */
+    margin-bottom: 10px; /* Margin at the bottom */
+    border: 1px solid #ccc; /* A subtle border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Style the buttons with a consistent look */
+.button {
+    background-color: #f2f2f2; /* A light grey background */
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer; /* A pointer cursor to indicate it's clickable */
+    border-radius: 4px;
+    margin-right: 5px; /* Spacing between buttons */
+}
+
+.dropdown-button {
+    background-color: #f2f2f2; /* A light grey background */
+    font-weight: bold;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer; /* A pointer cursor to indicate it's clickable */
+    border-radius: 4px;
+    margin-right: 5px; /* Spacing between buttons */
+}
+.dropdown-button-active {
+    background-color: darkgrey; /* A different background color to highlight */
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Style the table view to be more readable */
+.table-view {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+    margin-top: 10px; /* Margin at the top */
+}
+
+
+

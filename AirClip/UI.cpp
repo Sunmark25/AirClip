@@ -34,17 +34,31 @@ void UI::setupUI() {
     // Add buttons container to the main vbox
     vbox->addWidget(std::move(buttonsContainer));
 
-    // Title for the table of copied content
-    auto tableTitle = vbox->addWidget(std::make_unique<Wt::WText>("History"));
-    tableTitle->addStyleClass("title2");
+    // Dropdown button for history
+    auto dropdownButton = vbox->addWidget(std::make_unique<Wt::WPushButton>("History"));
+    dropdownButton->addStyleClass("dropdown-button");
+
+    // Container for the table view, initially hidden
+    auto tableContainer = vbox->addWidget(std::make_unique<Wt::WContainerWidget>());
+    tableContainer->hide();
 
     // Table for displaying copied content
     tableModel_ = std::make_shared<Wt::WStandardItemModel>(0, 1);
-    tableView_ = vbox->addWidget(std::make_unique<Wt::WTableView>());
+    tableView_ = tableContainer->addWidget(std::make_unique<Wt::WTableView>());
     tableView_->setModel(tableModel_);
     tableView_->addStyleClass("table-view");
 
-
+    // Connect the dropdown button to show/hide the table container
+    dropdownButton->clicked().connect([=] {
+        if (tableContainer->isHidden()) {
+            tableContainer->show();
+            dropdownButton->addStyleClass("dropdown-button-active");  // Highlight the button when shown
+        }
+        else {
+            tableContainer->hide();
+            dropdownButton->removeStyleClass("dropdown-button-active");  // Remove highlight when hidden
+        }
+    });
 
 
     // Connect signals to slots
