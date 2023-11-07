@@ -25,6 +25,12 @@ public:
      */
     std::string findUser(const std::string &username);
 
+    /**
+     * This method is used to find a user's full name in the database based on their userID if it exists
+     *
+     * @param userID The userID for the user being logged in
+     * @return The fullName for the user if their userID matches an entry, otherwise it returns an empty string
+     */
     std::string getFullName(const std::string &userID);
 
     /**

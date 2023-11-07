@@ -4,11 +4,11 @@
 
 // TODO: Remove?
 
-#include "DatabaseController.h"
+#include "../AirClip/DatabaseController.h"
 
 int main() {
     // Connect to the database
-    DatabaseController* dbc = DatabaseController::getInstance("../../AirClip.sqlite");
+    DatabaseController* dbc = DatabaseController::getInstance("../AirClip.sqlite");
 
     // Show the tables in it
     dbc->showTables();
