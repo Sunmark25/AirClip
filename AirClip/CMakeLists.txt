@@ -22,14 +22,10 @@ find_package(SQLite3 REQUIRED)
 #)
 
 # For the DatabaseTest file
-#add_executable(
-#        AirClip DatabaseTest.cpp
-#        DatabaseController.cpp
-#        DatabaseController.h
-#)
-
 add_executable(
-        AirClip DatabaseController.cpp
+        AirClip DatabaseTest.cpp
+        DatabaseController.cpp
+        DatabaseController.h
 )
 
 # Link your target against SQLite3

@@ -6,7 +6,7 @@
 
 int main() {
     // Connect to the database
-    auto dbc = new DatabaseController("../../AirClip.sqlite");
+    DatabaseController* dbc = DatabaseController::GetInstance("../../AirClip.sqlite");
 
     // Show the tables in it
     dbc->showTables();

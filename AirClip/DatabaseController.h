@@ -12,7 +12,7 @@ private:
     char *zErrMsg;
 
     // Required for the singleton to be thread safe
-    static DatabaseController * pinstance_;
+    static DatabaseController * pInstance_;
     static std::mutex mutex_;
 
     // Static callback function that matches the signature expected by sqlite3_exec
@@ -33,8 +33,6 @@ protected:
         } else {
             std::cout << "Opened database successfully" << std::endl;
         }
-
-        value_ = filename;
     }
 
     // Destructor
@@ -42,16 +40,15 @@ protected:
         sqlite3_close(db);
     }
 
-    std::string value_;
-
 public:
     /**
      * This is the static method that controls the access to the singleton
      * instance. On the first run, it creates a singleton object and places it
      * into the static field. On subsequent runs, it returns the client existing
-     * object stored in the static field.
+     * object stored in the static field and you can provided an empty string for
+     * the file name.
      */
-    static DatabaseController *GetInstance(const char* filename);
+    static DatabaseController *getInstance(const char* filename);
 
     // Member functions
     void createTable();
@@ -62,11 +59,6 @@ public:
     void deleteSQL(const std::string &sql);
     void showTables();
     static bool isTableEmpty(const std::vector<std::vector<std::string>> &tableData);
-
-    // TODO: Remove
-    std::string value() const{
-        return value_;
-    }
 
     // Prevent copying or moving the database object.
     DatabaseController(const DatabaseController&) = delete;

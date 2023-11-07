@@ -1,4 +1,3 @@
-#include <thread>
 #include "DatabaseController.h"
 
 // TODO: Use prepared statements for efficiency, easier replacements and security (prevents SQL injection):
@@ -47,36 +46,22 @@ void DatabaseController::showTables() {
  */
 
 // Required for the singleton to be thread safe
-DatabaseController* DatabaseController::pinstance_{nullptr};
+DatabaseController* DatabaseController::pInstance_{nullptr};
 std::mutex DatabaseController::mutex_;
 
 /**
- * The first time we call GetInstance we will lock the storage location
+ * The first time we call getInstance we will lock the storage location
  * and then we make sure again that the variable is null and then we
  * set the value.
  */
-DatabaseController *DatabaseController::GetInstance(const char* filename)
+DatabaseController *DatabaseController::getInstance(const char* filename)
 {
     std::lock_guard<std::mutex> lock(mutex_);
-    if (pinstance_ == nullptr)
+    if (pInstance_ == nullptr)
     {
-        pinstance_ = new DatabaseController(filename);
+        pInstance_ = new DatabaseController(filename);
     }
-    return pinstance_;
-}
-
-void ThreadFoo(){
-    // Following code emulates slow initialization.
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    DatabaseController* singleton = DatabaseController::GetInstance("FOO");
-    std::cout << singleton->value() << "\n";
-}
-
-void ThreadBar(){
-    // Following code emulates slow initialization.
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    DatabaseController* singleton = DatabaseController::GetInstance("BAR");
-    std::cout << singleton->value() << "\n";
+    return pInstance_;
 }
 
 // Callback function definition
@@ -199,19 +184,4 @@ void DatabaseController::showTables() {
 bool DatabaseController::isTableEmpty(const std::vector<std::vector<std::string>> &tableData) {
     // Return true if the row vector and column 0 vector are not empty, otherwise, return false
     return !tableData.empty() && !tableData[0].empty();
-}
-
-// Converted to a singleton using: https://refactoring.guru/design-patterns/singleton/cpp/example#example-1
-
-int main()
-{
-    std::cout <<"If you see the same value, then singleton was reused (yay!\n" <<
-              "If you see different values, then 2 singletons were created (booo!!)\n\n" <<
-              "RESULT:\n";
-    std::thread t1(ThreadFoo);
-    std::thread t2(ThreadBar);
-    t1.join();
-    t2.join();
-
-    return 0;
 }
