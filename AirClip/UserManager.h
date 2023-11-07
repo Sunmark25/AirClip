@@ -3,15 +3,18 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 #include "User.h"
+#include "DatabaseController.h"
 
 class UserManager {
 private:
     std::vector<User> activeUsers;
+    DatabaseController *dbc; // Store a reference to the database controller singleton
 
 public:
     explicit UserManager() {
-
+        //dbc.
     }
 
     /**
