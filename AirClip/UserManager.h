@@ -25,6 +25,8 @@ public:
      */
     std::string findUser(const std::string &username);
 
+    std::string getFullName(const std::string &userID);
+
     /**
      * This method is used to authenticate a user by checking if
      * their given username and password match in the database
@@ -54,7 +56,7 @@ public:
      * @param username The username for the user being logged in (E.g., jsmith)
      * @param fullName The full name of the user (E.g., John Smith)
      */
-    void finishUserLogIn(const std::string &userID, const std::string &wtConnectionId, const std::string &username, const std::string &fullName);
+    void finishUserLogIn(const std::string &userID, const std::string &wtConnectionId, const std::string &username);
 };
 
 #endif // USERMANAGER_H

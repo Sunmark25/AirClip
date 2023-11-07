@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS CLIPBOARDENTRY (
     content TEXT,
     contentPath TEXT,
     contentType TEXT NOT NULL,
-    CONSTRAINT contentType CHECK (contentT IN ('text', 'image', 'file')),
+    CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file')),
     FOREIGN KEY (userID) REFERENCES AIRCLIP(userID)
     );
 
@@ -27,7 +27,7 @@ VALUES ('Peter', 'uspe00', 'depe00', 'hpLaptop');
 
 -- -------------- User tables --------------
 
-DROP TABLE User;
+-- DROP TABLE User;
 
 CREATE TABLE IF NOT EXISTS User (
     userID INTEGER PRIMARY KEY AUTOINCREMENT,

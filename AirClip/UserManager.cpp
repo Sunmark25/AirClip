@@ -27,6 +27,27 @@ std::string UserManager::findUser(const std::string &username) {
     }
 }
 
+std::string UserManager::getFullName(const std::string &userID) {
+    // Define the query to find a user based on their user ID
+    std::string query = "SELECT fullName FROM User WHERE userID = '" + userID + "';";
+
+    // Look for the fullName matching the userID
+    std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
+
+    // If the fullName was found (the table wasn't empty) then return it
+    if (!DatabaseController::isTableEmpty(tableData)) {
+        std::string fullName = tableData[0][0];
+
+        std::cout << "Full name: " << fullName << std::endl;
+
+        return fullName;
+    } else { // Otherwise, return an empty string
+        std::cout << "No match for userID" << std::endl;
+
+        return "";
+    }
+}
+
 bool UserManager::authenticateUser(const std::string &username, const std::string &password) {
     // Define the query to authenticate a user based on the given username and password
     std::string query = "SELECT userID FROM User WHERE username = '" + username + "' AND password = '" + password + "';";
@@ -63,7 +84,10 @@ std::string UserManager::registerUser(const std::string &username, const std::st
     }
 }
 
-void UserManager::finishUserLogIn(const std::string &userID, const std::string &wtConnectionId, const std::string &username, const std::string &fullName) {
+void UserManager::finishUserLogIn(const std::string &userID, const std::string &wtConnectionId, const std::string &username) {
+    // Get the user's full name using their userID
+    const std::string fullName = getFullName(userID);
+
     // Create a new user with the given userID, username and full name
     auto newUser = new User(userID, username, fullName);
 

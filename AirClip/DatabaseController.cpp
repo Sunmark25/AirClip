@@ -1,50 +1,5 @@
 #include "DatabaseController.h"
 
-// TODO: Use prepared statements for efficiency, easier replacements and security (prevents SQL injection):
-//  https://stackoverflow.com/questions/61794729/how-does-prepared-statements-in-sqlite-c-work'
-
-// Example:
-/*
-void DatabaseController::showTables() {
-    std::string colName = "name";
-    std::string sql = "SELECT " + colName + " FROM sqlite_master\n"
-                                            "WHERE type=?\n"
-                                            "ORDER BY " + colName + ";";
-
-    sqlite3_stmt* stmt;
-
-    // Use prepare_v2 to execute the same SQL statement with different parameter values, or
-    // to allow the use placeholders in the SQL statement for security (e.g., to prevent SQL injection).
-    // Use c_str() to convert the string to a C string
-    int rc = sqlite3_prepare_v2(
-            db,             // the handle to your (opened and ready) database
-            sql.c_str(),    // the sql statement, utf-8 encoded
-            sql.length(),   // max length of sql statement
-            &stmt,          // this is an "out" parameter, the compiled statement goes here
-            nullptr);       // pointer to the tail end of sql statement (when there are
-    // multiple statements inside the string; can be null)
-    if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
-    }
-
-    std::string type = "table";
-    // Replaces ?
-    sqlite3_bind_text(
-            stmt,               // previously compiled prepared statement object
-            1,                  // parameter index, 1-based
-            type.c_str(),       // the data
-            type.length(),      // length of data
-            SQLITE_STATIC);
-
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        const char* tableName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        std::cout << "Table Name: " << tableName << std::endl;
-    }
-
-    sqlite3_finalize(stmt);
-}
- */
-
 // Required for the singleton to be thread safe
 DatabaseController* DatabaseController::pInstance_{nullptr};
 std::mutex DatabaseController::mutex_;

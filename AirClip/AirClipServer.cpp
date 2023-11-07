@@ -32,6 +32,7 @@ void AirClipServer::newConnection(const std::string &wtConnectionId) {
     // This will have to be received from the client
     const std::string username = "test";
     const std::string password = "password123";
+    const std::string fullName = "Test MikGee";
 
     // Get the user's name from the database if it exists
     std::string newUserId = userManager->findUser(username);
@@ -41,7 +42,7 @@ void AirClipServer::newConnection(const std::string &wtConnectionId) {
         // Try to authenticate the user, if their credentials are correct this will be true
         bool authenticated = userManager->authenticateUser(username,password);
 
-        // If the user was authenticated...
+        // If the user was authenticated then finish logging them in
         if (authenticated) {
             std::cout << "User authenticated" << std::endl;
 
@@ -51,9 +52,9 @@ void AirClipServer::newConnection(const std::string &wtConnectionId) {
             std::cout << "Invalid username and password given" << std::endl;
             // Inform the user
         }
-    } else { // Otherwise, if the user couldn't be found register a new user
+    } else { // Otherwise, if the user couldn't be found then register a new user and log them in
         // Register a new user using the username and password
-        std::string registeredUsersId = userManager->registerUser(username,password);
+        std::string registeredUsersId = userManager->registerUser(username,password, fullName);
 
         // Call finishUserLogIn to finish logging the user in
         userManager->finishUserLogIn(registeredUsersId, wtConnectionId, username);

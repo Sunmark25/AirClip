@@ -54,7 +54,11 @@ public:
     void createTable();
     bool insertSQL(const std::string &sql);
     void selectSQL(const std::string &sql);
+
+    // Using prepared statements for efficiency, easier replacements and security (prevents SQL injection):
+    // https://stackoverflow.com/questions/61794729/how-does-prepared-statements-in-sqlite-c-work'
     std::vector<std::vector<std::string>> selectData(const std::string &sql);
+
     void updateSQL(const std::string &sql);
     void deleteSQL(const std::string &sql);
     void showTables();
