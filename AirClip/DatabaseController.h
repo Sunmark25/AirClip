@@ -2,7 +2,6 @@
 #define DATABASECONTROLLER_H
 
 #include <string>
-#include <stdio.h>
 #include <sqlite3.h>
 #include <iostream>
 
@@ -12,34 +11,56 @@ private:
     sqlite3 *db;
     char *zErrMsg;
 
+    // Required for the singleton to be thread safe
+    static DatabaseController * pInstance_;
+    static std::mutex mutex_;
+
     // Static callback function that matches the signature expected by sqlite3_exec
     static int callback(void* NotUsed, int argc, char** argv, char** azColName);
 
-public:
+/**
+ * The DatabaseController's constructor/destructor should always be protected to
+ * prevent direct construction/desctruction calls with the `new`/`delete`
+ * operator.
+ */
+protected:
     // Constructor
-    DatabaseController(const char* filename) : db(nullptr), zErrMsg(nullptr) {
+    explicit DatabaseController(const char* filename) : db(nullptr), zErrMsg(nullptr) {
         int rc = sqlite3_open(filename, &db);
         if(rc) {
             std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
             exit(0);
         } else {
-            std::cerr << "Opened database successfully" << std::endl;
+            std::cout << "Opened database successfully" << std::endl;
         }
     }
 
     // Destructor
     ~DatabaseController() {
-        sqlite3_close(db);
+        sqlite3_close(db); // TODO: This might need to be called else where (or add a method added to close it)
     }
+
+public:
+    /**
+     * This is the static method that controls the access to the singleton
+     * instance. On the first run, it creates a singleton object and places it
+     * into the static field. On subsequent runs, it returns the client existing
+     * object stored in the static field and you can provided an empty string for
+     * the file name.
+     */
+    static DatabaseController *getInstance(const char* filename);
 
     // Member functions
     void createTable();
-    void insertSQL(const char *sql);
-    void selectSQL(const char *sql);
-    void updateSQL(const char *sql);
-    void deleteSQL(const char *sql);
+    bool insertSQL(const std::string &sql);
+    void selectSQL(const std::string &sql);
+    std::vector<std::vector<std::string>> selectData(const std::string &sql);
+    void updateSQL(const std::string &sql);
+    void deleteSQL(const std::string &sql);
+    void showTables();
+    static bool isTableEmpty(const std::vector<std::vector<std::string>> &tableData);
 
-    // Prevent copying or moving the Database object.
+    // Prevent copying or moving the database object.
     DatabaseController(const DatabaseController&) = delete;
     DatabaseController& operator=(const DatabaseController&) = delete;
     DatabaseController(DatabaseController&&) = delete;

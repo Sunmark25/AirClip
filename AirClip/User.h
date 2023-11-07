@@ -15,8 +15,9 @@ class Device;
 
 class User {
 private:
-    std::string userId;
-    std::string userName;
+    std::string userID;
+    std::string username;
+    std::string fullName;
     std::vector<Device*> activeDevices;
     std::vector<std::thread> activeDeviceThreads;
 
@@ -24,19 +25,32 @@ public:
     /**
      * The constructor for User
      *
-     * @param userId The user's ID in the database
-     * @param userName The username for the user
+     * @param userID The user's ID in the database
+     * @param username The username for the user
      */
-    User(const std::string userId, const std::string userName) {
-        this->userId = userId;
-        this->userName = userName;
+    User(const std::string userID, const std::string username, const std::string fullName) {
+        this->userID = userID;
+        this->username = username;
+        this->fullName = fullName;
     }
 
     /**
      * This getter method is used to get the user's ID
      * @return The user's ID
      */
-    std::string getUserId();
+    std::string getUserID();
+
+    /**
+     * This getter method is used to get the user's username
+     * @return The user's username
+     */
+    std::string getUsername();
+
+    /**
+     * This getter method is used to get the user's full name
+     * @return The user's full name
+     */
+    std::string getFullName();
 
     /**
      * This method is used to connect a device for the user. It is responsible for
