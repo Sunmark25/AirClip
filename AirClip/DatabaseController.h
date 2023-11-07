@@ -37,7 +37,7 @@ protected:
 
     // Destructor
     ~DatabaseController() {
-        sqlite3_close(db);
+        sqlite3_close(db); // TODO: This might need to be called else where (or add a method added to close it)
     }
 
 public:
