@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS CLIPBOARDENTRY (
     contentPath TEXT,
     contentType TEXT NOT NULL,
     CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file'))
-    );
+);
 
 
 INSERT INTO AIRCLIP (userName, userID, deviceID, deviceName)

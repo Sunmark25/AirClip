@@ -15,6 +15,6 @@ std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env)
 }
 
 int main(int argc, char **argv) {
-    DatabaseController::getInstance("airclip.db");
+    DatabaseController::getInstance("../../AirClip.sqlite");
     return Wt::WRun(argc, argv, &createApplication);
 }
