@@ -84,7 +84,7 @@ void UI::updateTable() {
 void UI::clearTable() {
     tableModel_->removeRows(0, tableModel_->rowCount());
 
-    std::string deleteSQL = ClipboardHelper::generateClipboardEntryDeleteSQL(userId);
+    std::string deleteSQL = ClipboardHelper::generateClipboardEntryDeleteUserSQL(userId);
 
     dbc->deleteSQL(deleteSQL);
 }
