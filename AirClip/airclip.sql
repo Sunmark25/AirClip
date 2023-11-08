@@ -6,18 +6,18 @@ CREATE TABLE IF NOT EXISTS AIRCLIP (
 );
 
 CREATE TABLE IF NOT EXISTS CLIPBOARDENTRY (
-    clipboardEntryID VARCHAR(8) PRIMARY KEY CHECK (clipboardEntryID GLOB 'cl[0-9][0-9][0-9][0-9][0-9][0-9]'),
-    userID VARCHAR(6) NOT NULL UNIQUE CHECK (userID GLOB 'us[a-z][a-z][0-9][0-9]'),
+    clipboardEntryID VARCHAR(8) PRIMARY KEY AUTOINCREMENT,
+    userID VARCHAR(6) NOT NULL UNIQUE,
     content TEXT,
     contentPath TEXT,
     contentType TEXT NOT NULL,
-    CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file')),
-    FOREIGN KEY (userID) REFERENCES AIRCLIP(userID)
+    CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file'))
     );
 
 
 INSERT INTO AIRCLIP (userName, userID, deviceID, deviceName)
 VALUES ('Peter', 'uspe00', 'depe00', 'hpLaptop');
+
 
 
 -- userID format -> us(a-z)(a-z)(0-9)(0-9)

@@ -32,20 +32,22 @@ public:
     // Generate UPDATE SQL statement
     static const std::string generateAirClipUpdateSQL(const std::string& userID, const std::string& newUserName, const std::string& newDeviceID, const std::string& newDeviceName);
 
-    static const std::string generateClipboardEntryInsertSQL(const std::string& clipboardEntryID, const std::string& content,
+    static const std::string generateClipboardEntryInsertSQL(const std::string& content,
                                                        const std::string& contentPath, Type type, const std::string& userID);
 
-    const std::string generateClipboardEntryDeleteSQL(const std::string &clipboardEntryID);
+    static const std::string generateClipboardEntryDeleteSQL(const std::string &clipboardEntryID);
 
-    const std::string generateClipboardEntrySelectAllSQL();
+    static const std::string generateClipboardEntrySelectAllSQL();
 
-    const std::string generateClipboardEntryUpdateSQL(const std::string &clipboardEntryID, const std::string &newContent,
+    static const std::string generateClipboardEntryUpdateSQL(const std::string &clipboardEntryID, const std::string &newContent,
                                                 const std::string &newContentPath, Type newType,
                                                 const std::string &newUserID);
 
-    void saveClipboardEntry(const ClipboardEntry &entry);
+    static const std::string generateClipboardEntryDeleteUserSQL(const std::string &userID);
 
-    void removeClipboardEntry(const std::string &clipBoardEntryId);
+    static void saveClipboardEntry(const ClipboardEntry &entry);
+
+    static void removeClipboardEntry(const std::string &clipBoardEntryId);
 };
 
 #endif // CLIPBOARDHELPER_H

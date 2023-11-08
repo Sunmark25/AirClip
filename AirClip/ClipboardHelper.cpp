@@ -6,11 +6,11 @@
 //TODO: Retrieve Information For ClipboardEntry
 //TODO: Generate Default Value For SQL
 
-void ClipboardHelper::saveClipboardEntry(const ClipboardEntry &entry)
-{
-    std::string sql_code = generateClipboardEntryInsertSQL(entry.getClipboardEntryID(), entry.getContent(), entry.getContentPath(), entry.getType(), entry.getUserID());
-    dbc->insertSQL(sql_code);
-}
+//void ClipboardHelper::saveClipboardEntry(const ClipboardEntry &entry)
+//{
+//    std::string sql_code = generateClipboardEntryInsertSQL(entry.getContent(), entry.getContentPath(), entry.getType(), entry.getUserID());
+//    dbc->insertSQL(sql_code);
+//}
 
 //ClipboardEntry ClipboardHelper::getClipboardEntry(const std::string &userId)
 //{
@@ -19,11 +19,11 @@ void ClipboardHelper::saveClipboardEntry(const ClipboardEntry &entry)
 //    return NULL;
 //}
 
-void ClipboardHelper::removeClipboardEntry(const std::string &clipBoardEntryId)
-{
-    std::string sql_code = generateClipboardEntryDeleteSQL(clipBoardEntryId);
-    dbc->deleteSQL(sql_code);
-}
+//void ClipboardHelper::removeClipboardEntry(const std::string &clipBoardEntryId)
+//{
+//    std::string sql_code = generateClipboardEntryDeleteSQL(clipBoardEntryId);
+//    dbc->deleteSQL(sql_code);
+//}
 
 //std::vector<ClipboardEntry> ClipboardHelper::getClipboardHistory(const std::string &userId)
 //{
@@ -84,12 +84,11 @@ const std::string ClipboardHelper::generateAirClipUpdateSQL(const std::string &u
     return buffer.c_str();
 }
 
-const std::string ClipboardHelper::generateClipboardEntryInsertSQL(const std::string &clipboardEntryID,
+const std::string ClipboardHelper::generateClipboardEntryInsertSQL(
                                                              const std::string &content, const std::string &contentPath,
                                                              Type type, const std::string &userID) {
     std::stringstream sql;
-    sql << "INSERT INTO CLIPBOARDENTRY (clipboardEntryID, userID, content, contentPath, contentType) VALUES (";
-    sql << "'" << escape(clipboardEntryID) << "', ";
+    sql << "INSERT INTO CLIPBOARDENTRY (userID, content, contentPath, contentType) VALUES (";
     sql << "'" << escape(userID) << "', ";
     sql << "'" << escape(content) << "', ";
     sql << "'" << escape(contentPath) << "', ";
@@ -99,6 +98,13 @@ const std::string ClipboardHelper::generateClipboardEntryInsertSQL(const std::st
 const std::string ClipboardHelper::generateClipboardEntryDeleteSQL(const std::string &clipboardEntryID) {
     std::stringstream sql;
     sql << "DELETE FROM CLIPBOARDENTRY WHERE clipboardEntryID = '" << escape(clipboardEntryID) << "';";
+    buffer = sql.str();
+    return buffer.c_str();
+}
+
+const std::string ClipboardHelper::generateClipboardEntryDeleteUserSQL(const std::string &userID) {
+    std::stringstream sql;
+    sql << "DELETE FROM CLIPBOARDENTRY WHERE userID = '" << escape(userID) << "';";
     buffer = sql.str();
     return buffer.c_str();
 }

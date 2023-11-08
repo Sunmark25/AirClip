@@ -26,8 +26,12 @@ public:
     virtual ~UI() = default; // Virtual destructor for proper cleanup
 
     void setupUI(); // Sets up the user interface
+    DatabaseController *dbc; // Store a reference to the database controller singleton
+
 
 private:
+    std::string userId = "000001";
+
     // Helper functions for actions
     void copyContentToTable(const std::string& content);
     void clearTable();
@@ -44,7 +48,6 @@ private:
     Wt::WAnchor* downloadLink_;
 
     std::shared_ptr<Wt::WStandardItemModel> tableModel_; // Model for the tableView
-
 };
 
 #endif // UI_H

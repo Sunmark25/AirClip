@@ -69,12 +69,16 @@ void UI::setupUI() {
 void UI::copyContentToTable(const std::string& content) {
     auto row = tableModel_->rowCount();
     tableModel_->insertRows(row, 1);
+    ClipboardHelper::generateClipboardEntryInsertSQL(content, "", Type::Text, userId);
+
     auto item = std::make_unique<Wt::WStandardItem>(Wt::WString::fromUTF8(content));
     tableModel_->setItem(row, 0, std::move(item));
 }
 
 void UI::clearTable() {
     tableModel_->removeRows(0, tableModel_->rowCount());
+
+    ClipboardHelper::generateClipboardEntryDeleteSQL(userId);
 }
 
 void UI::copyContentFromTextBox() {
