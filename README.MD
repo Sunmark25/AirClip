@@ -9,15 +9,16 @@ Whether you are working on a project that involves copying and pasting frequentl
 Explore the features and capabilities of AirClip, and follow the instructions in this documentation to get started with building and running the application on your system.
 
 For any inquiries, feedback, or contributions, please feel free to contact the project's authors listed in the "Authors" section below.
+
 ## Table of Contents
-- [About AirClip](#about-airclip)
-- [Getting Started](#getting-started)
-    - [Required Libraries and Third-Party Tools](#required-libraries-and-third-party-tools)
-    - [Building from Source Code](#building-from-source-code)
-- [Features](#features)
-- [Running the Application](#running-the-application)
-- [Running the Tests](#running-the-tests)
-- [Authors](#authors)
+- [About AirClip](#markdown-header-about-airclip)
+- [Getting Started](#markdown-header-getting-started)
+   - [Required Libraries and Third-Party Tools](#markdown-header-required-libraries-and-third-party-tools)
+   - [Building from Source Code](#markdown-header-building-from-source-code)
+- [Features](#markdown-header-features)
+- [Running the Application](#markdown-header-running-the-application)
+- [Running the Tests](#markdown-header-running-the-tests)
+- [Authors](#markdown-header-authors)
 
 ## Required Libraries and Third-Party Tools
 To **build and run** AirClip, you will need the following libraries and tools:
