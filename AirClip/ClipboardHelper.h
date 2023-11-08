@@ -13,12 +13,24 @@ private:
 
     static const std::string escape(const std::string &input);
 
-    DatabaseController *dbc; // Store a reference to the database controller singleton
+//    static DatabaseController *dbc; // Store a reference to the database controller singleton
 
 
 public:
 
+//    ClipboardHelper() {
+//        dbc = DatabaseController::getInstance("");
+//    }
+
+    static void saveClipboardEntry(const ClipboardEntry &entry);
+
+    static ClipboardEntry* getClipboardEntry(const std::string &userId, const int entryNum);
+
+    static void removeClipboardEntry(const std::string &clipBoardEntryId);
+
     static const std::string getType(Type type);
+
+    static Type stringToType(std::string typeString) ;
 
     // Generate INSERT SQL statement
     static const std::string generateAirClipInsertSQL(const std::string& userName, const std::string& userID, const std::string& deviceID, const std::string& deviceName);
@@ -45,9 +57,6 @@ public:
 
     static const std::string generateClipboardEntryDeleteUserSQL(const std::string &userID);
 
-    static void saveClipboardEntry(const ClipboardEntry &entry);
-
-    static void removeClipboardEntry(const std::string &clipBoardEntryId);
 };
 
 #endif // CLIPBOARDHELPER_H

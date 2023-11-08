@@ -1,9 +1,5 @@
 #include "UI.h"
 
-UI::UI() {
-    setupUI();
-}
-
 void UI::setupUI() {
     auto vbox = setLayout(std::make_unique<Wt::WVBoxLayout>());
     Wt::WApplication::instance()->useStyleSheet("styles.css");
@@ -60,30 +56,48 @@ void UI::setupUI() {
         }
     });
 
+    // Define the query to get all the clipboard entries for a user using their userID
+    std::string query = "SELECT * FROM CLIPBOARDENTRY WHERE userID ='" + userId + "';";
+
+    // Look for the fullName matching the userID
+    std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
+
+    for (int i = 0; i < tableData.size(); i++) {
+        updateTable();
+    }
 
     // Connect signals to slots
     copyButton_->clicked().connect(this, &UI::copyContentFromTextBox);
     clearButton_->clicked().connect(this, &UI::clearTable);
 }
 
-void UI::copyContentToTable(const std::string& content) {
+void UI::updateTable() {
     auto row = tableModel_->rowCount();
     tableModel_->insertRows(row, 1);
-    ClipboardHelper::generateClipboardEntryInsertSQL(content, "", Type::Text, userId);
 
-    auto item = std::make_unique<Wt::WStandardItem>(Wt::WString::fromUTF8(content));
+    auto clipboardEntry = ClipboardHelper::getClipboardEntry(userId, row);
+
+    auto item = std::make_unique<Wt::WStandardItem>(Wt::WString::fromUTF8(clipboardEntry->getContent()));
     tableModel_->setItem(row, 0, std::move(item));
 }
 
 void UI::clearTable() {
     tableModel_->removeRows(0, tableModel_->rowCount());
 
-    ClipboardHelper::generateClipboardEntryDeleteSQL(userId);
+    std::string deleteSQL = ClipboardHelper::generateClipboardEntryDeleteSQL(userId);
+
+    dbc->deleteSQL(deleteSQL);
 }
 
 void UI::copyContentFromTextBox() {
     if (!textBox_->text().empty()) {
-        copyContentToTable(textBox_->text().toUTF8());
+        std::string content = textBox_->text().toUTF8();
+
+        std::string insertSQL = ClipboardHelper::generateClipboardEntryInsertSQL(content, "", Type::Text, userId);
+        dbc->insertSQL(insertSQL);
+
         textBox_->setText("");  // Clear the textBox after copying
+
+        updateTable();
     }
 }
