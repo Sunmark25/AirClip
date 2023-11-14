@@ -32,7 +32,7 @@ public:
 
     std::string getContentPath() const;
 
-    std::string getType() const;
+    Type getType() const;
 
     std::string getUserID() const;
 

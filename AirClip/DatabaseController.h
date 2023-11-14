@@ -5,7 +5,6 @@
 #include <sqlite3.h>
 #include <iostream>
 
-
 class DatabaseController {
 private:
     sqlite3 *db;
@@ -33,6 +32,8 @@ protected:
         } else {
             std::cout << "Opened database successfully" << std::endl;
         }
+
+        initializeDatabase(); // Initializes the database if required (creates it and adds tables)
     }
 
     // Destructor
@@ -68,6 +69,8 @@ public:
     void showTables();
 
     static bool tableIsEmpty(const std::vector<std::vector<std::string>> &tableData);
+
+    void initializeDatabase();
 
     // Prevent copying or moving the database object.
     DatabaseController(const DatabaseController &) = delete;

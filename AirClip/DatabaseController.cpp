@@ -29,8 +29,8 @@ int DatabaseController::callback(void *NotUsed, int argc, char **argv, char **az
 void DatabaseController::createTable() {
     const char *sql = "CREATE TABLE IF NOT EXISTS AIRCLIP (\n"
                       "    userName TEXT NOT NULL,\n"
-                      "    userID VARCHAR(6) PRIMARY KEY CHECK (userID GLOB 'us[a-z][a-z][0-9][0-9]'),\n"
-                      "    deviceID VARCHAR(6) NOT NULL UNIQUE CHECK (deviceID GLOB 'de[a-z][a-z][0-9][0-9]'),\n"
+                      "    userID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                      "    deviceID INTEGER NOT NULL UNIQUE,\n"
                       "    deviceName TEXT NOT NULL\n"
                       ");";
     int rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
@@ -41,15 +41,16 @@ void DatabaseController::createTable() {
         std::cout << "Table created successfully" << std::endl;
     }
 
+
     const char *clipboardEntry = "CREATE TABLE IF NOT EXISTS CLIPBOARDENTRY (\n"
-                                 "    clipboardEntryID VARCHAR(8) PRIMARY KEY CHECK (clipboardEntryID GLOB 'cl[0-9][0-9][0-9][0-9][0-9][0-9]'),\n"
-                                 "    userID VARCHAR(6) NOT NULL UNIQUE CHECK (userID GLOB 'us[a-z][a-z][0-9][0-9]'),\n"
+                                 "    clipboardEntryID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                                 "    userID INTEGER NOT NULL,\n"
                                  "    content TEXT,\n"
                                  "    contentPath TEXT,\n"
                                  "    contentType TEXT NOT NULL,\n"
-                                 "    CONSTRAINT contentType CHECK (contentT IN ('text', 'image', 'file')),\n"
-                                 "    FOREIGN KEY (userID) REFERENCES AIRCLIP(userID)\n"
-                                 "    );";
+                                 "    CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file'))\n"
+                                 ");";
+
     int exec = sqlite3_exec(db, clipboardEntry, callback, 0, &zErrMsg);
     if (exec != SQLITE_OK) {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
@@ -157,5 +158,23 @@ bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>
         return true;
     } else {
         return tableData[0].empty();
+    }
+}
+
+void DatabaseController::initializeDatabase() {
+    std::string sql = "SELECT name FROM sqlite_master\n"
+                      "WHERE type='table'\n"
+                      "AND name = 'AIRCLIP';";
+
+    bool tableAirClipExists = !tableIsEmpty(selectData(sql));
+
+    sql = "SELECT name FROM sqlite_master\n"
+          "WHERE type='table'\n"
+          "AND name = 'CLIPBOARDENTRY';";
+
+    bool tableClipboardEntryExists = !tableIsEmpty(selectData(sql));
+
+    if (!tableAirClipExists || !tableClipboardEntryExists) {
+        createTable();
     }
 }

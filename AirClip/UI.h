@@ -17,20 +17,26 @@
 #include <Wt/WFlags.h>
 
 #include <memory>
+#include "ClipboardHelper.h"
 
 
 class UI : public Wt::WContainerWidget {
 public:
-    UI(); // Constructor
+    DatabaseController *dbc; // Store a reference to the database controller singleton
+
+    // Constructor
+    UI() {
+        dbc = DatabaseController::getInstance("");
+
+        setupUI();
+    }
+
     virtual ~UI() = default; // Virtual destructor for proper cleanup
 
     void setupUI(); // Sets up the user interface
 
 private:
-    // Helper functions for actions
-    void copyContentToTable(const std::string& content);
-    void clearTable();
-    void copyContentFromTextBox();
+    std::string userId = "1";
 
     // Widgets and model pointers
     Wt::WLineEdit* textBox_;
@@ -44,6 +50,10 @@ private:
 
     std::shared_ptr<Wt::WStandardItemModel> tableModel_; // Model for the tableView
 
+    // Helper functions for actions
+    void updateTable();
+    void clearTable();
+    void copyContentFromTextBox();
 };
 
 #endif // UI_H
