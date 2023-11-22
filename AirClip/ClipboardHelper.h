@@ -30,7 +30,7 @@ public:
 
     static const std::string getType(Type type);
 
-    static Type stringToType(std::string typeString) ;
+    static Type stringToType(std::string typeString);
 
     // Generate INSERT SQL statement
     static const std::string generateAirClipInsertSQL(const std::string& userName, const std::string& userID, const std::string& deviceID, const std::string& deviceName);

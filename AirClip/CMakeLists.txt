@@ -22,6 +22,15 @@ find_package(SQLite3 REQUIRED)
 find_package(Wt REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system thread)
 
+# Fetch Crow
+include(FetchContent)
+FetchContent_Declare(
+        Crow
+        GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(crow)
+
 # Source files
 set(SOURCES
         UI.cpp
@@ -32,7 +41,8 @@ set(SOURCES
         ClipboardHelper.h
         ClipboardEntry.cpp
         ClipboardEntry.h
-        main.cpp
+#        main.cpp
+        NetworkTest.cpp
 )
 
 #Include the css file
@@ -48,6 +58,8 @@ target_link_libraries(${PROJECT_NAME}
 
         SQLite::SQLite3
         ${Boost_LIBRARIES}
+
+        Crow::Crow
 )
 
 # Set the RPATH to include the library directory
