@@ -37,6 +37,25 @@ int main() {
                 return crow::response{os.str()};
             });
 
+    // TODO: Improve, add authentication so this can't be spoofed
+    // Use: `curl -d '{"username":"<username>","content":"<string-content>"}' 0.0.0.0:18080/api/clipboard/send`
+    CROW_ROUTE(app, "/api/clipboard/send")
+            .methods("POST"_method)([](const crow::request& req) {
+                auto jsonData = crow::json::load(req.body);
+
+                if (!jsonData)
+                    return crow::response(400);
+
+                std::cout << "Username: " << jsonData["username"].s() << std::endl;
+                std::cout << "Content: " << jsonData["content"].s() << std::endl;
+
+                return crow::response{"Received!"};
+            });
+
+    // TODO: Implement a websocket to listen for clipboard changes from the server
+    // https://stackoverflow.com/a/12442805
+    // https://crowcpp.org/master/guides/websockets/
+
     //set the port, set the app to run on multiple threads, and run the app
     app.port(18080).multithreaded().run();
 }
