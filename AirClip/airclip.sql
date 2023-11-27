@@ -1,28 +1,27 @@
-CREATE TABLE IF NOT EXISTS AIRCLIP (
-    userName TEXT NOT NULL,
-    userID VARCHAR(6) PRIMARY KEY CHECK (userID GLOB 'us[a-z][a-z][0-9][0-9]'),
-    deviceID VARCHAR(6) NOT NULL UNIQUE CHECK (deviceID GLOB 'de[a-z][a-z][0-9][0-9]'),
-    deviceName TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS User (
+    userID VARCHAR(6) PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS CLIPBOARDENTRY (
+CREATE TABLE IF NOT EXISTS ClipboardEntry (
     clipboardEntryID VARCHAR(8) PRIMARY KEY AUTOINCREMENT,
-    userID VARCHAR(6) NOT NULL UNIQUE,
+    timeAdded TEXT,
+    deviceID VARCHAR(6) NOT NULL,
+    userTag TEXT,
     content TEXT,
-    contentPath TEXT,
-    contentType TEXT NOT NULL,
-    CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file'))
+    contentPath TEXT
 );
 
+CREATE TABLE IF NOT EXISTS Device(
+    deviceID VARCHAR(6) PRIMARY KEY AUTOINCREMENT,
+    deviceName TEXT NOT NULL,
+    userID VARCHAR(6) NOT NULL
+);
 
-INSERT INTO AIRCLIP (userName, userID, deviceID, deviceName)
-VALUES ('Peter', 'uspe00', 'depe00', 'hpLaptop');
-
-
-
--- userID format -> us(a-z)(a-z)(0-9)(0-9)
--- deviceID format -> de(a-z)(a-z)(0-9)(0-9)
--- clipboardEntryID -> cl(0-9)(0-9)(0-9)(0-9)(0-9)(0-9)
+-- Time Format Must use ISO8601 string format
+-- YYYY-MM-DD HH:MM:SS.SSS
+-- E.g. 2016-01-01 10:20:05.123
 
 
 -- -------------- TABLES THAT WORK WITH QUERIES --------------
@@ -30,21 +29,21 @@ VALUES ('Peter', 'uspe00', 'depe00', 'hpLaptop');
 DROP TABLE AIRCLIP;
 
 CREATE TABLE IF NOT EXISTS AIRCLIP (
-    userName TEXT NOT NULL,
-    userID INTEGER PRIMARY KEY AUTOINCREMENT,
-    deviceID INTEGER NOT NULL UNIQUE,
-    deviceName TEXT NOT NULL
+                                       userName TEXT NOT NULL,
+                                       userID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                       deviceID INTEGER NOT NULL UNIQUE,
+                                       deviceName TEXT NOT NULL
 );
 
 DROP TABLE CLIPBOARDENTRY;
 
 CREATE TABLE IF NOT EXISTS CLIPBOARDENTRY (
-    clipboardEntryID INTEGER PRIMARY KEY AUTOINCREMENT,
-    userID INTEGER NOT NULL,
-    content TEXT,
-    contentPath TEXT,
-    contentType TEXT NOT NULL,
-    CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file'))
+                                              clipboardEntryID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              userID INTEGER NOT NULL,
+                                              content TEXT,
+                                              contentPath TEXT,
+                                              contentType TEXT NOT NULL,
+                                              CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file'))
 );
 
 
@@ -61,10 +60,10 @@ SELECT * FROM CLIPBOARDENTRY;
 -- DROP TABLE User;
 
 CREATE TABLE IF NOT EXISTS User (
-    userID INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL,
-    fullName TEXT NOT NULL
+                                    userID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    username TEXT NOT NULL,
+                                    password TEXT NOT NULL,
+                                    fullName TEXT NOT NULL
 );
 
 
