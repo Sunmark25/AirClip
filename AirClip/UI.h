@@ -8,52 +8,61 @@
 #include <Wt/WTableView.h>
 #include <Wt/WStandardItemModel.h>
 #include <Wt/WStandardItem.h>
-#include <Wt/WVBoxLayout.h>
 #include <Wt/WText.h>
 #include <Wt/WLayout.h>
 #include <Wt/WAnchor.h>
 #include <Wt/WHBoxLayout.h>
+#include <Wt/WVBoxLayout.h>
 #include <Wt/WLength.h>
 #include <Wt/WFlags.h>
+#include <Wt/WDialog.h>
+#include <Wt/WLabel.h>
 
+#include <sstream>
+#include <iterator>
+#include <list>
+#include <map>
 #include <memory>
-#include "ClipboardHelper.h"
 
+#include <chrono>
+#include <sstream>
+
+struct Entry {
+    std::string content;
+    std::string uniqueId; // Unique identifier for each entry
+};
 
 class UI : public Wt::WContainerWidget {
+
 public:
-    DatabaseController *dbc; // Store a reference to the database controller singleton
-
-    // Constructor
-    UI() {
-        dbc = DatabaseController::getInstance("");
-
-        setupUI();
-    }
-
-    virtual ~UI() = default; // Virtual destructor for proper cleanup
+    UI(); // Constructor
+    ~UI() override = default; // Virtual destructor for proper cleanup
 
     void setupUI(); // Sets up the user interface
 
 private:
-    std::string userId = "1";
+    // Helper functions for actions
+
+//    void clearEntriesContainer();
+    void onQuitClicked();       //Slots for handling the Quit button click
+    void onbackToTopClicked();
+    void createEntry(const std::string &entryText, WContainerWidget *container);
+    void toggleExpand(Wt::WText *textWidget, Wt::WContainerWidget *entryContainer,Wt::WPushButton *expandButton);
+    void showClearConfirmationDialog();
 
     // Widgets and model pointers
     Wt::WLineEdit* textBox_;
-    Wt::WPushButton* copyButton_;
+
+    Wt::WPushButton* searchButton_;
     Wt::WPushButton* clearButton_;
-    Wt::WTableView* tableView_; // To display copied contents
-    Wt::WText* airclipLabel_;   // "airclip" label
-    Wt::WPushButton* deleteButton_;
-    Wt::WPushButton* exportButton_;
-    Wt::WAnchor* downloadLink_;
+//    Wt::WPushButton* signOutButton_;        // sign out button
+    Wt::WPushButton* quitButton_;
+    Wt::WPushButton* backToTopButton_;
 
-    std::shared_ptr<Wt::WStandardItemModel> tableModel_; // Model for the tableView
+    //   Wt::WPushButton* moveToTopButton_;
 
-    // Helper functions for actions
-    void updateTable();
-    void clearTable();
-    void copyContentFromTextBox();
+    Wt::WText* airclipLabel_;       // "Airclip" label
+
 };
 
 #endif // UI_H

@@ -1,103 +1,264 @@
+/**
+ * @class UI
+ * @brief This class handles the user interface for the web application using Wt.
+ *
+ * The UI class is responsible for setting up and managing the graphical components
+ * of the web application. It includes methods for creating the layout, handling user
+ * interactions, and managing dynamic content. This class uses Wt's widgets and layouts
+ * to construct a user-friendly interface.
+ */
+
 #include "UI.h"
 
+UI::UI() {
+    setupUI();
+}
+
+/**
+    * @brief Sets up the user interface of the application.
+    *
+    * This method constructs the main layout and widgets of the application. It includes
+    * the creation and configuration of buttons, labels, input fields, and containers. It
+    * also binds event handlers to the widgets for user interaction.
+    */
 void UI::setupUI() {
     auto vbox = setLayout(std::make_unique<Wt::WVBoxLayout>());
     Wt::WApplication::instance()->useStyleSheet("styles.css");
+
+    // Top horizontal box for Sign Out, Quit and clear history buttons
+    auto topHBox = std::make_unique<Wt::WHBoxLayout>();
+    topHBox->addStretch(1); // Add stretch to push buttons to the right
+
+    // Clear button
+    auto clearButton = std::make_unique<Wt::WPushButton>("Clear history");
+    clearButton_ = topHBox->addWidget(std::move(clearButton),0,Wt::AlignmentFlag::Right);
+    clearButton_->addStyleClass("button");
+
+    // Sign Out button
+    auto signOutButton = std::make_unique<Wt::WPushButton>("Sign Out");
+    signOutButton->addStyleClass("button");
+    topHBox->addWidget(std::move(signOutButton), 0, Wt::AlignmentFlag::Right);
+
+    // Quit button
+    auto quitButton = std::make_unique<Wt::WPushButton>( "Quit");
+    quitButton_ = topHBox->addWidget(std::move(quitButton),0,Wt::AlignmentFlag::Right);
+    quitButton_->addStyleClass("button");
+
+    // Add topHBox to the main vbox
+    vbox->addLayout(std::move(topHBox));
 
     // "AirClip" title
     airclipLabel_ = vbox->addWidget(std::make_unique<Wt::WText>("AirClip"));
     airclipLabel_->addStyleClass("title");
 
+    // Horizontal box for search functionality
+    auto searchHBox = std::make_unique<Wt::WHBoxLayout>();
+
     // Text Box
-    textBox_ = vbox->addWidget(std::make_unique<Wt::WLineEdit>());
-    textBox_->setPlaceholderText("Input here...");
-    textBox_->addStyleClass("largeTextBox");
+    textBox_ = searchHBox->addWidget(std::make_unique<Wt::WLineEdit>());
+    textBox_->setPlaceholderText("Search history ");
+    textBox_->addStyleClass("rounded-text-field");
 
-    // Buttons container
-    auto buttonsContainer = std::make_unique<Wt::WContainerWidget>();
-    auto hbox = buttonsContainer->setLayout(std::make_unique<Wt::WHBoxLayout>());
-
-    // Copy button
-    copyButton_ = hbox->addWidget(std::make_unique<Wt::WPushButton>("Copy"));
-    copyButton_->addStyleClass("button");
-    // Enable the 'Enter' key to trigger the copy action
-    textBox_->enterPressed().connect(this, &UI::copyContentFromTextBox);
-
-    // Clear button
-    clearButton_ = hbox->addWidget(std::make_unique<Wt::WPushButton>("Clear"));
-    clearButton_->addStyleClass("button");
+    // Search button
+    searchButton_= searchHBox->addWidget(std::make_unique<Wt::WPushButton>("🔍"));
+    searchButton_->addStyleClass("button");
 
     // Add buttons container to the main vbox
-    vbox->addWidget(std::move(buttonsContainer));
+    vbox->addLayout(std::move(searchHBox));
 
     // Dropdown button for history
-    auto dropdownButton = vbox->addWidget(std::make_unique<Wt::WPushButton>("History"));
-    dropdownButton->addStyleClass("dropdown-button");
+    auto dropdownButton_ = vbox->addWidget(std::make_unique<Wt::WPushButton>("History"));
+    dropdownButton_->addStyleClass("dropdown-button");
+    dropdownButton_->addStyleClass("dropdown-button-active");  // Style as active from the start
 
-    // Container for the table view, initially hidden
-    auto tableContainer = vbox->addWidget(std::make_unique<Wt::WContainerWidget>());
-    tableContainer->hide();
+    // Main container for entries with scrollbar
+    auto entriesContainer = vbox->addWidget(std::make_unique<Wt::WContainerWidget>());
+    entriesContainer->setOverflow(Wt::Overflow::Auto, Wt::Orientation::Vertical);
+    entriesContainer->setMaximumSize(Wt::WLength::Auto, Wt::WLength(1000, Wt::LengthUnit::Pixel)); // Dynamic height with max limit
+    entriesContainer->addStyleClass("entries-container");
 
-    // Table for displaying copied content
-    tableModel_ = std::make_shared<Wt::WStandardItemModel>(0, 1);
-    tableView_ = tableContainer->addWidget(std::make_unique<Wt::WTableView>());
-    tableView_->setModel(tableModel_);
-    tableView_->addStyleClass("table-view");
+    // Setup text box action
+    textBox_->enterPressed().connect([=, this] {
+        createEntry(textBox_->text().toUTF8(), entriesContainer);
+        textBox_->setText("");
+    });
 
-    // Connect the dropdown button to show/hide the table container
-    dropdownButton->clicked().connect([=] {
-        if (tableContainer->isHidden()) {
-            tableContainer->show();
-            dropdownButton->addStyleClass("dropdown-button-active");  // Highlight the button when shown
+    // Setup Search button action
+    searchButton_->clicked().connect([=, this] {
+        createEntry(textBox_->text().toUTF8(), entriesContainer);
+        textBox_->setText("");
+    });
+
+    // Connect the dropdown button to show/hide the content container
+    dropdownButton_->clicked().connect([=] {
+        if (entriesContainer->isHidden()) {
+            entriesContainer->show();
+            dropdownButton_->addStyleClass("dropdown-button-active");  // Highlight the button when shown
         }
         else {
-            tableContainer->hide();
-            dropdownButton->removeStyleClass("dropdown-button-active");  // Remove highlight when hidden
+            entriesContainer->hide();
+            dropdownButton_->removeStyleClass("dropdown-button-active");  // Remove highlight when hidden
         }
     });
 
-    // Define the query to get all the clipboard entries for a user using their userID
-    std::string query = "SELECT * FROM CLIPBOARDENTRY WHERE userID ='" + userId + "';";
+    // Back to Top button
+    backToTopButton_ = entriesContainer->addWidget(std::make_unique<Wt::WPushButton>("Back to Top"));
+    backToTopButton_->addStyleClass("back-to-top-button");
 
-    // Look for the fullName matching the userID
-    std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
-
-    for (int i = 0; i < tableData.size(); i++) {
-        updateTable();
-    }
+    entriesContainer->setId("entriesContainer");  // Assigning an ID to the main container
 
     // Connect signals to slots
-    copyButton_->clicked().connect(this, &UI::copyContentFromTextBox);
-    clearButton_->clicked().connect(this, &UI::clearTable);
+    clearButton_->clicked().connect(this, &UI::showClearConfirmationDialog);
+    quitButton_->clicked().connect(this, &UI::onQuitClicked);
+    backToTopButton_->clicked().connect(this, &UI::onbackToTopClicked);
 }
 
-void UI::updateTable() {
-    auto row = tableModel_->rowCount();
-    tableModel_->insertRows(row, 1);
+/**
+     * @brief Creates a new entry in the history container.
+     *
+     * @param entryText The text of the new entry to be added.
+     * @param entriesContainer Pointer to the container widget where the entry will be added.
+     *
+     * This method adds a new entry to the history section of the application. Each entry
+     * includes the provided text and additional UI elements like copy and pin buttons.
+     */
+void UI::createEntry(const std::string& entryText, Wt::WContainerWidget* entriesContainer) {
+    if (!entryText.empty()) {
+        auto entryContainer = std::make_unique<Wt::WContainerWidget>();
+        entryContainer->addStyleClass("entry-container");
 
-    auto clipboardEntry = ClipboardHelper::getClipboardEntry(userId, row);
+        auto vbox = std::make_unique<Wt::WVBoxLayout>();
+        auto textWidget = std::make_unique<Wt::WText>(entryText);
+        textWidget->setInline(false); // Ensure the text is a block element
 
-    auto item = std::make_unique<Wt::WStandardItem>(Wt::WString::fromUTF8(clipboardEntry->getContent()));
-    tableModel_->setItem(row, 0, std::move(item));
+        // Create a unique identifier for each entry
+        std::string WidgetID = "entry_" + std::to_string(rand());
+        textWidget->setId(WidgetID);
+
+        auto bottomHbox = std::make_unique<Wt::WHBoxLayout>();
+        bottomHbox->addStretch(1); // Add stretch to push buttons to the right
+
+        //copy button
+        auto copyButton = std::make_unique<Wt::WPushButton>("Copy");
+        copyButton->addStyleClass("copy-button");
+        // copy button event handling
+        copyButton->clicked().connect([=] {
+            std::string jsCopyText =
+                    "const textArea = document.createElement('textarea');"
+                    "textArea.value = document.getElementById('" + WidgetID + "').innerText;"
+                                                                              "document.body.appendChild(textArea);"
+                                                                              "textArea.focus();"
+                                                                              "textArea.select();"
+                                                                              "try {"
+                                                                              "    const successful = document.execCommand('copy');"
+                                                                              "    const msg = successful ? 'successful' : 'unsuccessful';"
+                                                                              "    console.log('Copy command was ' + msg);"
+                                                                              "} catch (err) {"
+                                                                              "    console.error('Fallback: Oops, unable to copy', err);"
+                                                                              "}"
+                                                                              "document.body.removeChild(textArea);";
+
+            Wt::WApplication::instance()->doJavaScript(jsCopyText);
+        });
+
+        bottomHbox->addWidget(std::move(copyButton), 0, Wt::AlignmentFlag::Right);
+
+        //pin button
+        auto pinButton = std::make_unique<Wt::WPushButton>("📌");
+        pinButton->addStyleClass("pin-button");
+        bottomHbox->addWidget(std::move(pinButton), 0, Wt::AlignmentFlag::Right);
+
+        // add the buttons to entry box
+        vbox->addLayout(std::move(bottomHbox));
+
+
+        if (entryText.size() > 586) {
+            textWidget->addStyleClass("text-collapsed"); // Apply collapsed text style
+            auto expandButton = std::make_unique<Wt::WPushButton>("Show all");
+            expandButton->addStyleClass("expand-button");
+
+            // Connect the expand button to toggle function
+            expandButton->clicked().connect(
+                    [this, textWidget = textWidget.get(), entryContainer = entryContainer.get(), expandButton = expandButton.get()] {
+                        toggleExpand(textWidget, entryContainer, expandButton);
+                    });
+
+            vbox->addWidget(std::move(expandButton));
+        }
+
+        vbox->insertWidget(0, std::move(textWidget)); // Insert text at the beginning of the vbox
+        entryContainer->setLayout(std::move(vbox));
+        entriesContainer->addWidget(std::move(entryContainer));
+
+        textBox_->setText("");      // clear the text field
+    }
 }
 
-void UI::clearTable() {
-    tableModel_->removeRows(0, tableModel_->rowCount());
-
-    std::string deleteSQL = ClipboardHelper::generateClipboardEntryDeleteUserSQL(userId);
-
-    dbc->deleteSQL(deleteSQL);
+/**
+     * @brief Shows a confirmation dialog for clearing history.
+     *
+     * This method displays a JavaScript-based confirmation dialog to the user. If the user
+     * confirms, it will emit a signal to clear the history. This is a placeholder for
+     * future implementation of actual history clearing functionality.
+     */
+void UI::showClearConfirmationDialog() {
+    std::string jsCode =
+            "if (confirm('Are you sure you want to clear the history? This action cannot be undone.')) {"
+            "    Wt.emit('" + this->id() + "', 'clearConfirmed');"
+                                           "} else {"
+                                           "    console.log('Clear cancelled');"
+                                           "}";
+//todo: implement to actual clear the database
+    Wt::WApplication::instance()->doJavaScript(jsCode);
 }
 
-void UI::copyContentFromTextBox() {
-    if (!textBox_->text().empty()) {
-        std::string content = textBox_->text().toUTF8();
+/**
+ * @brief Handles the 'Quit' button click event.
+ *
+ * This method is bound to the 'Quit' button. When invoked, it executes JavaScript
+ * to close the browser window, effectively quitting the application.
+ */
+void UI::onQuitClicked() {
+    Wt::WApplication::instance()->doJavaScript("window.close();");     // Close the browser window
+}
 
-        std::string insertSQL = ClipboardHelper::generateClipboardEntryInsertSQL(content, "", Type::Text, userId);
-        dbc->insertSQL(insertSQL);
+/**
+     * @brief Scrolls the entries container and the page to the top.
+     *
+     * This method is connected to the 'Back to Top' button. It uses JavaScript to scroll
+     * both the entries container and the entire web page back to the top, providing a
+     * quick way for users to navigate back to the start of the content.
+     */
+void UI::onbackToTopClicked() {
+    // JavaScript to scroll the entriesContainer to the top
+    std::string scriptEntriesContainer = "document.getElementById('entriesContainer').scrollTop = 0;";
+    Wt::WApplication::instance()->doJavaScript(scriptEntriesContainer);
 
-        textBox_->setText("");  // Clear the textBox after copying
+    // JavaScript to scroll the entire page to the top
+    std::string scriptPage = "window.scrollTo(0, 0);";
+    Wt::WApplication::instance()->doJavaScript(scriptPage);
+}
 
-        updateTable();
+/**
+     * @brief Toggles the expansion of a text entry.
+     *
+     * @param textWidget Pointer to the text widget that needs to be expanded or collapsed.
+     * @param entryContainer Pointer to the container of the entry.
+     * @param expandButton Pointer to the button controlling the expand/collapse action.
+     *
+     * This method is used to expand or collapse a text entry in the history section.
+     * It changes the style class of the text widget and the text of the expand/collapse
+     * button to reflect the current state (expanded or collapsed).
+     */
+void UI::toggleExpand(Wt::WText *textWidget, Wt::WContainerWidget *entryContainer,Wt::WPushButton *expandButton) {
+    if (textWidget->hasStyleClass("text-collapsed")) {
+        textWidget->removeStyleClass("text-collapsed");
+        textWidget->addStyleClass("text-expanded");
+        entryContainer->addStyleClass("entry-container-expanded");
+        expandButton->setText("Show less");
+    } else {
+        textWidget->removeStyleClass("text-expanded");
+        textWidget->addStyleClass("text-collapsed");
+        expandButton->setText("Show all");
     }
 }

@@ -1,4 +1,21 @@
-/* Apply a general normalization rule */
+/**
+ * @file style.css
+ * @brief Stylesheet for the web application.
+ *
+ * This file contains all the CSS rules for styling the web application. It includes
+ * normalization rules, specific styles for body, titles, buttons, text fields,
+ * and custom classes for different components of the application.
+ */
+
+/* General Styles */
+
+/**
+ * @brief General normalization rule.
+ *
+ * Applies a box-sizing of border-box to all elements, ensuring that padding and border
+ * widths are included in the total width and height of elements. It also resets margins
+ * and paddings to 0 for a consistent starting point across different browsers.
+ */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -31,15 +48,19 @@ body {
     text-align: center;
 }
 
-/* Enlarge and style the text box */
-.largeTextBox {
+.rounded-text-field {
+    border: 1px solid #dcdcdc; /* Light grey border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 8px 16px; /* Top/bottom and left/right padding */
+    font-size: 30px; /* Text size */
     width: 100%; /* Full width */
-    height: 40px; /* Fixed height */
-    font-size: 10px; /* Larger font size */
-    padding: 4px 8px; /* Some padding inside the text box */
-    margin-bottom: 10px; /* Margin at the bottom */
-    border: 1px solid #ccc; /* A subtle border */
-    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.rounded-text-field:focus {
+    outline: none;
+    border-color: #4d90fe; /* Blue border on focus */
+    box-shadow: 0 0 8px rgba(77, 144, 254, 0.5); /* Slight shadow on focus */
 }
 
 /* Style the buttons with a consistent look */
@@ -65,19 +86,140 @@ body {
 }
 .dropdown-button-active {
     background-color: darkgrey; /* A different background color to highlight */
+    font-weight: bold;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer; /* A pointer cursor to indicate it's clickable */
+    border-radius: 4px;
+    margin-right: 5px; /* Spacing between buttons */
 }
 
 /* Hover effect for buttons */
 .button:hover {
-    background-color: #e6e6e6;
+    background-color: darkgrey;
+}
+.pin-button:hover {
+    background-color: darkgrey;
+}
+.expand-button:hover {
+    background-color: darkgrey;
+}
+.copy-button:hover {
+    background-color: darkgrey;
 }
 
-/* Style the table view to be more readable */
-.table-view {
-    width: 100%; /* Full width */
-    border-collapse: collapse; /* Collapse borders */
-    margin-top: 10px; /* Margin at the top */
+/* Style for the main entries container */
+.entries-container {
+    overflow-y: scroll; /* Ensure scrollbar is for vertical scrolling */
 }
 
+.entries-container::-webkit-scrollbar {
+    width: 10px;
+}
 
+.entries-container::-webkit-scrollbar-thumb {
+    background: #888;
+}
 
+.entries-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.entry-container {
+    /* Style for individual entry containers */
+    margin-bottom: 20px;
+    border: 3px solid #f2f2f2;
+    background-color: #f9f9f9;
+    max-height: 200px;     /* Set a maximum height for collapsed state */
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out; /* Smooth transition for expanding */
+}
+.entry-container-expanded {
+    /* Expanded state */
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 3px solid #f2f2f2;
+    background-color: #f9f9f9;
+    max-height: none; /* Remove max-height restriction */
+}
+
+.back-to-top-button {
+    position: fixed; /* Fixed position to float over content */
+    bottom: 20px;    /* Position from bottom */
+    right: 20px;     /* Position from right */
+    padding: 10px 15px; /* Padding for button size */
+    font-size: 14px;
+    color: black;
+    background-color: #f2f2f2; /* Background color */
+    font-weight: bold;
+    border: none;       /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Shadow for 3D effect */
+    z-index: 1000;   /* Ensures the button is above other elements */
+    opacity: 0.8;    /* Slightly transparent */
+    transition: opacity 0.3s, background-color 0.3s; /* Transition for hover effect */
+}
+
+.back-to-top-button:hover {
+    opacity: 1; /* Fully opaque on hover */
+    background-color: darkgrey; /* Darker background on hover */
+}
+
+.expand-button {
+    background-color: #f2f2f2; /* A light grey background */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer; /* A pointer cursor to indicate it's clickable */
+    border-radius: 4px;
+    margin-right: 5px; /* Spacing between buttons */
+    margin-top: 1px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .button, .expand-button {
+        width: 100%;
+        padding: 10px;
+    }
+}
+.text-collapsed {
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 30px;
+
+}
+
+.text-expanded {
+    max-height: none;
+    padding: 30px;
+
+}
+.pin-button {
+    /* Style for the pin button */
+    background-color: #f0f0f0;
+    font-size: 20px;
+    padding: 4px;
+    font-weight: bolder;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer; /* A pointer cursor to indicate it's clickable */
+}
+.copy-button {
+    /* Style for the copy button */
+    background-color: #f0f0f0;
+    font-size: 16px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer; /* A pointer cursor to indicate it's clickable */
+}
+.dialog-label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+    /* Add more styling as needed */
+}
