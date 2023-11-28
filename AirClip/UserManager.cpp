@@ -1,7 +1,3 @@
-//
-// Created by Tingrui Zhang on 2023-10-25.
-//
-
 #include "UserManager.h"
 #include "DatabaseController.h"
 
@@ -27,20 +23,20 @@ std::string UserManager::findUser(const std::string &username) {
     }
 }
 
-std::string UserManager::getFullName(const std::string &userID) {
+std::string UserManager::getPassword(const std::string &userID) {
     // Define the query to find a user based on their user ID
-    std::string query = "SELECT fullName FROM User WHERE userID = '" + userID + "';";
+    std::string query = "SELECT password FROM User WHERE userID = '" + userID + "';";
 
-    // Look for the fullName matching the userID
+    // Look for the password matching the userID
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
 
-    // If the fullName was found (the table wasn't empty) then return it
+    // If the password was found (the table wasn't empty) then return it
     if (!DatabaseController::tableIsEmpty(tableData)) {
-        std::string fullName = tableData[0][0];
+        std::string password = tableData[0][2];
 
-        std::cout << "Full name: " << fullName << std::endl;
+        std::cout << "Encrypted Password: " << password << std::endl;
 
-        return fullName;
+        return password;
     } else { // Otherwise, return an empty string
         std::cout << "No match for userID" << std::endl;
 
@@ -68,15 +64,14 @@ bool UserManager::authenticateUser(const std::string &username, const std::strin
     }
 }
 
-std::string
-UserManager::registerUser(const std::string &username, const std::string &password, const std::string &fullName) {
+
+std::string UserManager::registerUser(const std::string &username, const std::string &password) {
     // Define the query to add a new user with the given username and password
     std::string query =
-            "INSERT INTO User ('username', 'password', 'fullName') VALUES ('" + username + "', '" + password + "', '" +
-            fullName + "');";
+            "INSERT INTO User ('username', 'password') VALUES ('" + username + "', '" + password + "');";
 
     // Try to add (insert) the new user in the database
-    bool success = dbc->insertSQL(query);
+    bool success = dbc->sqlOperation(query);
 
     // If the SQL query completed then return the user's ID
     if (success) {
@@ -88,14 +83,15 @@ UserManager::registerUser(const std::string &username, const std::string &passwo
     }
 }
 
-void UserManager::finishUserLogIn(const std::string &userID, const std::string &wtConnectionId,
+//TODO: Test this with real wtConnectionId
+Device* UserManager::finishUserLogIn(const std::string &userID, const std::string &wtConnectionId,
                                   const std::string &username) {
-    // Get the user's full name using their userID
-    const std::string fullName = getFullName(userID);
+
+    const std::string password = getPassword(userID);
 
     // Create a new user with the given userID, username and full name
-    auto newUser = new User(userID, username, fullName);
+    auto newUser = new User(userID, username, password);
 
     // Connect the device to the user
-    newUser->connectDevice(wtConnectionId);
+    return newUser->connectDevice(wtConnectionId);
 }

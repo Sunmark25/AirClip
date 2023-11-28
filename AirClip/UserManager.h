@@ -26,14 +26,6 @@ public:
     std::string findUser(const std::string &username);
 
     /**
-     * This method is used to find a user's full name in the database based on their userID if it exists
-     *
-     * @param userID The userID for the user being logged in
-     * @return The fullName for the user if their userID matches an entry, otherwise it returns an empty string
-     */
-    std::string getFullName(const std::string &userID);
-
-    /**
      * This method is used to authenticate a user by checking if
      * their given username and password match in the database
      *
@@ -51,7 +43,7 @@ public:
      * @param fullName The full name of the user (E.g., John Smith)
      * @return The userID of the new user
      */
-    std::string registerUser(const std::string &username, const std::string &password, const std::string &fullName);
+    std::string registerUser(const std::string &username, const std::string &password);
 
     /**
      * This method is used to finish the login for the user by creating a User object
@@ -62,7 +54,9 @@ public:
      * @param username The username for the user being logged in (E.g., jsmith)
      * @param fullName The full name of the user (E.g., John Smith)
      */
-    void finishUserLogIn(const std::string &userID, const std::string &wtConnectionId, const std::string &username);
+    Device* finishUserLogIn(const std::string &userID, const std::string &wtConnectionId, const std::string &username);
+
+    std::string getPassword(const std::string &userID);
 };
 
 #endif // USERMANAGER_H

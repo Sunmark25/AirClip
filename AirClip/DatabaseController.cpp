@@ -27,32 +27,45 @@ int DatabaseController::callback(void *NotUsed, int argc, char **argv, char **az
 }
 
 void DatabaseController::createTable() {
-    const char *sql = "CREATE TABLE IF NOT EXISTS AIRCLIP (\n"
-                      "    userName TEXT NOT NULL,\n"
-                      "    userID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                      "    deviceID INTEGER NOT NULL UNIQUE,\n"
-                      "    deviceName TEXT NOT NULL\n"
-                      ");";
-    int rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-    if (rc != SQLITE_OK) {
+    const char *userSQL = "CREATE TABLE IF NOT EXISTS User (\n"
+                          "    userID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                          "    username TEXT NOT NULL UNIQUE,\n"
+                          "    password TEXT NOT NULL\n"
+                          "    );";
+
+    int createUser = sqlite3_exec(db, userSQL, callback, 0, &zErrMsg);
+    if (createUser != SQLITE_OK) {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
         sqlite3_free(zErrMsg);
     } else {
         std::cout << "Table created successfully" << std::endl;
     }
 
-
-    const char *clipboardEntry = "CREATE TABLE IF NOT EXISTS CLIPBOARDENTRY (\n"
+    const char *clipboardEntrySQL = "CREATE TABLE IF NOT EXISTS ClipboardEntry (\n"
                                  "    clipboardEntryID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                                 "    userID INTEGER NOT NULL,\n"
+                                 "    timeAdded TEXT,\n"
+                                 "    deviceID VARCHAR(6) NOT NULL,\n"
+                                 "    userTag TEXT,\n"
                                  "    content TEXT,\n"
-                                 "    contentPath TEXT,\n"
-                                 "    contentType TEXT NOT NULL,\n"
-                                 "    CONSTRAINT contentType CHECK (contentType IN ('text', 'image', 'file'))\n"
-                                 ");";
+                                 "    contentPath TEXT\n"
+                                 "    );";
 
-    int exec = sqlite3_exec(db, clipboardEntry, callback, 0, &zErrMsg);
-    if (exec != SQLITE_OK) {
+    int createCE = sqlite3_exec(db, clipboardEntrySQL, callback, 0, &zErrMsg);
+    if (createCE != SQLITE_OK) {
+        std::cerr << "SQL error: " << zErrMsg << std::endl;
+        sqlite3_free(zErrMsg);
+    } else {
+        std::cout << "Table created successfully" << std::endl;
+    }
+
+    const char *deviceSQL = "CREATE TABLE IF NOT EXISTS Device(\n"
+                            "    deviceID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                            "    deviceName TEXT NOT NULL,\n"
+                            "    userID VARCHAR(6) NOT NULL\n"
+                            "    );";
+
+    int createDevice = sqlite3_exec(db, deviceSQL, callback, 0, &zErrMsg);
+    if (createDevice != SQLITE_OK) {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
         sqlite3_free(zErrMsg);
     } else {
@@ -60,28 +73,18 @@ void DatabaseController::createTable() {
     }
 }
 
-bool DatabaseController::insertSQL(const std::string &sql) {
+bool DatabaseController::sqlOperation(const std::string &sql){
     int rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
     if (rc != SQLITE_OK) {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
         sqlite3_free(zErrMsg);
-        return false; // Return false because the insert failed
+        return false;
     } else {
-        std::cout << "Insert successfully" << std::endl;
-        return true; // Return true because the insert succeeded
+        std::cout << "Operation successfully" << std::endl;
+        return true;
     }
 }
 
-void DatabaseController::selectSQL(const std::string &sql) {
-    // Use c_str() to convert the string to a C string
-    int rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-    if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << zErrMsg << std::endl;
-        sqlite3_free(zErrMsg);
-    } else {
-        std::cout << "Select successfully" << std::endl;
-    }
-}
 
 std::vector<std::vector<std::string>> DatabaseController::selectData(const std::string &sql) {
     // Store the table rows and columns data (Get like so [row][column])
@@ -124,32 +127,12 @@ std::vector<std::vector<std::string>> DatabaseController::selectData(const std::
     return resultData;
 }
 
-void DatabaseController::updateSQL(const std::string &sql) {
-    int rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-    if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << zErrMsg << std::endl;
-        sqlite3_free(zErrMsg);
-    } else {
-        std::cout << "Update successfully" << std::endl;
-    }
-}
-
-void DatabaseController::deleteSQL(const std::string &sql) {
-    int rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-    if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << zErrMsg << std::endl;
-        sqlite3_free(zErrMsg);
-    } else {
-        std::cout << "Delete successfully" << std::endl;
-    }
-}
-
 void DatabaseController::showTables() {
     std::string sql = "SELECT name FROM sqlite_master\n"
                       "WHERE type='table'\n"
                       "ORDER BY name;";
 
-    selectSQL(sql); // Call the selectSQL method to show the tables
+    sqlOperation(sql); // Call the sqlOperation method to show the tables
 }
 
 bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>> &tableData) {
@@ -164,9 +147,9 @@ bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>
 void DatabaseController::initializeDatabase() {
     std::string sql = "SELECT name FROM sqlite_master\n"
                       "WHERE type='table'\n"
-                      "AND name = 'AIRCLIP';";
+                      "AND name = 'User';";
 
-    bool tableAirClipExists = !tableIsEmpty(selectData(sql));
+    bool tableUserExists = !tableIsEmpty(selectData(sql));
 
     sql = "SELECT name FROM sqlite_master\n"
           "WHERE type='table'\n"
@@ -174,7 +157,13 @@ void DatabaseController::initializeDatabase() {
 
     bool tableClipboardEntryExists = !tableIsEmpty(selectData(sql));
 
-    if (!tableAirClipExists || !tableClipboardEntryExists) {
+    sql = "SELECT name FROM sqlite_master\n"
+          "WHERE type='table'\n"
+          "AND name = 'Device';";
+
+    bool tableDeviceExists = !tableIsEmpty(selectData(sql));
+
+    if (!tableUserExists || !tableClipboardEntryExists || !tableDeviceExists) {
         createTable();
     }
 }
