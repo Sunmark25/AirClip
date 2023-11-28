@@ -1,3 +1,16 @@
+/**
+ * @class ClipboardEntry
+ * @brief Represents an entry in the clipboard, with associated metadata.
+ *
+ * This class encapsulates the data for a clipboard entry. It includes attributes such as
+ * the entry's unique identifier, device identifier, content, path of the content, time
+ * when the entry was added, and an optional user tag. It provides getter and setter methods
+ * for each of these attributes.
+ *
+ * @note The constructor allows setting all attributes at the time of object creation,
+ *       with the option to provide empty strings for non-existent attributes.
+ */
+
 #include "ClipboardEntry.h"
 
 std::string ClipboardEntry::getClipboardEntryID() const {

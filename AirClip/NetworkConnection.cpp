@@ -1,11 +1,24 @@
-//
-// Created by Tingrui Zhang on 2023-10-25.
-//
+/**
+ * @class NetworkConnection
+ * @brief Manages network connections for a server-client architecture.
+ *
+ * This class handles network-related functionalities such as starting a server,
+ * accepting client connections, and performing data read and write operations over the network.
+ * It uses socket programming to establish and manage TCP connections.
+ */
 
 #include "NetworkConnection.h"
 
 
-
+/**
+    * @brief Constructor for NetworkConnection.
+    *
+    * Initializes a new NetworkConnection instance. Sets up a socket for the server
+    * using the given IP address and port. If socket creation fails, the program will terminate.
+    *
+    * @param ipAddress The IP address of the server.
+    * @param port The port number on which the server will listen for connections.
+    */
 NetworkConnection::NetworkConnection(const std::string &ipAddress, int port)
         : ipAddress(ipAddress), port(port), addrlen(sizeof(address)) {
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -14,10 +27,21 @@ NetworkConnection::NetworkConnection(const std::string &ipAddress, int port)
     }
 }
 
+/**
+    * @brief Destructor for NetworkConnection.
+    *
+    * Closes the server's file descriptor to properly release the network resources.
+    */
 NetworkConnection::~NetworkConnection() {
     close(server_fd);
 }
 
+/**
+     * @brief Starts the server.
+     *
+     * Sets socket options, binds the server to the given address and port, and starts listening for incoming connections.
+     * @return bool True if the server starts successfully, false if any step fails.
+     */
 bool NetworkConnection::startServer() {
     int opt = 1;
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
@@ -40,6 +64,12 @@ bool NetworkConnection::startServer() {
     return true;
 }
 
+/**
+     * @brief Accepts a new client connection.
+     *
+     * Accepts an incoming client connection request and establishes a connection.
+     * @return bool True if the connection is successfully accepted, false otherwise.
+     */
 bool NetworkConnection::acceptConnection() {
     if ((new_socket = accept(server_fd, (struct sockaddr*)&address, &addrlen)) < 0) {
         perror("accept");
@@ -48,6 +78,14 @@ bool NetworkConnection::acceptConnection() {
     return true;
 }
 
+/**
+     * @brief Reads data from the connected client.
+     *
+     * Reads data sent by the client into the provided buffer.
+     * @param buffer The buffer to store the read data.
+     * @param bufferSize The size of the buffer.
+     * @return bool True if data is successfully read, false otherwise.
+     */
 bool NetworkConnection::readData(char* buffer, size_t bufferSize) {
     ssize_t valread = read(new_socket, buffer, bufferSize - 1);
     if (valread < 0) {
@@ -58,6 +96,13 @@ bool NetworkConnection::readData(char* buffer, size_t bufferSize) {
     return true;
 }
 
+/**
+     * @brief Sends data to the connected client.
+     *
+     * Sends the specified data to the client.
+     * @param data The data to be sent.
+     * @return bool True if the data is successfully sent, false otherwise.
+     */
 bool NetworkConnection::sendData(const char* data) {
     if (send(new_socket, data, strlen(data), 0) < 0) {
         perror("send");
@@ -66,6 +111,11 @@ bool NetworkConnection::sendData(const char* data) {
     return true;
 }
 
+/**
+     * @brief Closes the connection with the client.
+     *
+     * Closes the client's socket, effectively terminating the connection.
+     */
 void NetworkConnection::closeConnection() {
     close(new_socket);
 }

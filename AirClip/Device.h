@@ -13,15 +13,17 @@ class ClipboardEntry;
 
 class Device {
 private:
-    DatabaseController *dbc;
-    DeviceInfo *deviceInfo;
-    std::vector<int> clipboardEntryIds;
+    DatabaseController *dbc; ///< Pointer to the DatabaseController instance for database operations.
+    DeviceInfo *deviceInfo; ///< Pointer to the DeviceInfo instance for storing device-specific information.
+    std::vector<int> clipboardEntryIds; ///< Vector of clipboard entry IDs associated with the device.
 
 public:
     /**
-     * The constructor for Device which takes the wtConnectionId and binds the deviceInfo to device
+     * @brief Constructor for Device.
      *
-     * @param wtConnectionId The corresponding wt connection ID (for device's web page) for the device
+     * Initializes a Device object by creating a DeviceInfo instance and obtaining a DatabaseController instance.
+     *
+     * @param wtConnectionId The Wt connection ID associated with the device's web page.
      */
     explicit Device(const std::string &wtConnectionId) {
         deviceInfo = new DeviceInfo("", wtConnectionId, "", "");

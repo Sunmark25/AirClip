@@ -1,5 +1,25 @@
+/**
+ * @class AirClipServer
+ * @brief Handles server operations for the AirClip application.
+ * @authors Benz, Jarrett
+ * This class is responsible for managing server-side functionalities for the AirClip application.
+ * It includes methods for starting and stopping the server, handling new connections, and performing
+ * user authentication and registration. The class utilizes a `NetworkConnection` object for network
+ * communication and a `UserManager` object for user management.
+ *
+ * @note The implementation details for the start and stop server methods are currently not provided.
+ */
+
 #include "AirClipServer.h"
 
+
+
+/**
+     * @brief Starts the AirClip server.
+     *
+     * Initializes and starts the server on a specified port. Listens for incoming connections and handles
+     * data communication with connected clients. It also logs server activity to the console.
+     */
 void AirClipServer::startServer() {
     std::cout << "Starting Server..." << std::endl;
 
@@ -25,10 +45,24 @@ void AirClipServer::startServer() {
     }
 }
 
+/**
+     * @brief Stops the AirClip server.
+     *
+     * Currently, the implementation details for this method are not provided in the given code snippet.
+     */
 void AirClipServer::stopServer() {
 
 }
 
+/**
+    * @brief Handles a new connection from a client.
+    *
+    * Manages new connections by authenticating existing users or registering new users. The method uses the
+    * provided Wt connection ID, and credentials to interact with the UserManager for authentication and
+    * registration processes.
+    *
+    * @param wtConnectionId The connection ID provided by the Wt framework for the client.
+    */
 void AirClipServer::newConnection(const std::string &wtConnectionId) {
     // Used to store the username and password for testing
     // This will have to be received from the client
@@ -63,6 +97,11 @@ void AirClipServer::newConnection(const std::string &wtConnectionId) {
     }
 }
 
+/**
+ * @brief Entry point for the AirClip server application.
+ *
+ * Instantiates an AirClipServer object and starts the server.
+ */
 int main(){
     AirClipServer airClipServer;
     airClipServer.startServer();

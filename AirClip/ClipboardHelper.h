@@ -9,8 +9,10 @@
 #include "DatabaseController.h"
 #include "User.h"
 
+
 class ClipboardHelper {
 private:
+    // Static Member Variables
     static std::string buffer; // Static buffer to hold the latest SQL statement
 
     static const std::string escape(const std::string &input);
@@ -22,8 +24,6 @@ private:
 
 
 public:
-
-
     static ClipboardEntry *searchClipboardEntry(const std::string &content, const int entryNum);
     static User *getUser(const std::string &userID);
 
@@ -31,6 +31,7 @@ public:
 
     static Type stringToType(std::string typeString) ;
 
+    // SQL Generation Methods
     static const std::string generateCurrentTime();
     static const std::string generateUserInsertSQL(const std::string &username, const std::string &password);
     static const std::string generateUserDeleteSQL(const std::string &username);
@@ -40,8 +41,9 @@ public:
     static const std::string generateClipboardEntryInsertSQL( const std::string timeAdded, const std::string deviceID, const std::string content, const std::string contentPath = "", const std::string userTag = "");
     static const std::string generateClipboardEntryDeleteSQL(const std::string &clipboardEntryID);
     static const std::string generateClipboardEntrySelectSQL(const std::string &clipboardEntryID);
-    static const std::string generateClipboardEntryUpdateSQL(const std::string &clipboardEntryID, const std::string &timeAdded, const std::string &deviceID = "", const std::string &userTag = "", const std::string &content = "", const std::string &contentPath = "");
+    static const std::string generateClipboardEntryUpdateSQL(const std::string &clipboardEntryID, const std::string &timeAdded, const std::string &deviceID = "", const std::string &userTag = "", const std::string &content = "", const std::string &contentPath = "");// Enum Conversion Method
 
+    // Enum Conversion Method
     static const std::string generateDeviceInsertSQL(const std::string &deviceName, const std::string &userID);
     static const std::string generateDeviceSelectSQL(const std::string &deviceID);
 

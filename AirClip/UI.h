@@ -32,37 +32,58 @@ struct Entry {
     std::string uniqueId; // Unique identifier for each entry
 };
 
+/**
+ * @class UI
+ * @brief Manages the user interface for a web application using the Wt C++ Web Toolkit.
+ *
+ * This class is responsible for creating and managing various user interface components
+ * such as buttons, text boxes, and other widgets. It inherits from Wt::WContainerWidget,
+ * utilizing the facilities provided by the Wt library to build an interactive web application UI.
+ */
 class UI : public Wt::WContainerWidget {
-
 public:
-    UI(); // Constructor
-    ~UI() override = default; // Virtual destructor for proper cleanup
+    /**
+     * @brief Constructor for the UI class.
+     *
+     * Initializes a new instance of the UI class, setting up the basic components of the user interface.
+     */
+    UI();
 
-    void setupUI(); // Sets up the user interface
+    /**
+     * @brief Virtual destructor for proper cleanup.
+     *
+     * Ensures that resources allocated by the UI class are properly released when the object is destroyed.
+     */
+    ~UI() override = default;
+
+    /**
+     * @brief Sets up the user interface components.
+     *
+     * This method initializes and arranges various UI components such as buttons, text boxes, and labels.
+     */
+    void setupUI();
 
 private:
-    // Helper functions for actions
-
+    // Private Helper Methods
+    void onQuitClicked(); ///< Handles the Quit button click event.
+    void onbackToTopClicked(); ///< Handles the Back to Top button click event.
+    void createEntry(const std::string &entryText, WContainerWidget *container); ///< Creates a new entry in the UI.
+    void toggleExpand(Wt::WText *textWidget, Wt::WContainerWidget *entryContainer, Wt::WPushButton *expandButton); ///< Toggles the expansion state of an entry.
+    void showClearConfirmationDialog(); ///< Displays a confirmation dialog for clearing entries.
 //    void clearEntriesContainer();
-    void onQuitClicked();       //Slots for handling the Quit button click
-    void onbackToTopClicked();
-    void createEntry(const std::string &entryText, WContainerWidget *container);
-    void toggleExpand(Wt::WText *textWidget, Wt::WContainerWidget *entryContainer,Wt::WPushButton *expandButton);
-    void showClearConfirmationDialog();
 
-    // Widgets and model pointers
-    Wt::WLineEdit* textBox_;
+    // Widgets and Model Pointers
+    Wt::WLineEdit* textBox_; ///< Text box for input.
 
-    Wt::WPushButton* searchButton_;
-    Wt::WPushButton* clearButton_;
+    Wt::WPushButton* searchButton_; ///< Button for initiating a search.
+    Wt::WPushButton* clearButton_; ///< Button for clearing the UI.
+    Wt::WPushButton* quitButton_; ///< Button for quitting the application.
+    Wt::WPushButton* backToTopButton_; ///< Button for returning to the top of the UI.
 //    Wt::WPushButton* signOutButton_;        // sign out button
-    Wt::WPushButton* quitButton_;
-    Wt::WPushButton* backToTopButton_;
+//   Wt::WPushButton* moveToTopButton_;
 
-    //   Wt::WPushButton* moveToTopButton_;
-
-    Wt::WText* airclipLabel_;       // "Airclip" label
-
+    Wt::WText* airclipLabel_; ///< Label displaying "Airclip".
 };
+
 
 #endif // UI_H

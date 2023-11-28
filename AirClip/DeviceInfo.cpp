@@ -1,3 +1,8 @@
+/**
+ * @class DeviceInfo
+ * @brief This class encapsulates various properties of a device, such as its ID, connection ID, name, and network address.
+ */
+
 #include "DeviceInfo.h"
 
 
@@ -33,6 +38,14 @@ void DeviceInfo::setNetworkAddress(const std::string &value) {
     networkAddress = value;
 }
 
+/**
+    * @brief Updates the device information.
+    *
+    * Updates the current device information with the details provided in the newInfo object.
+    *
+    * @param newInfo The new device information to be updated.
+    * @return True if the update is successful, false otherwise.
+    */
 bool DeviceInfo::updateDeviceInfo(const DeviceInfo& newInfo) {
     setDeviceId(newInfo.getDeviceId());
     setWtConnectionId(newInfo.getWtConnectionId());

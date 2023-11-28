@@ -1,3 +1,18 @@
+/**
+ * @class DatabaseController
+ * @brief Manages database operations for the application using SQLite.
+ *
+ * This class is a singleton that provides an interface to interact with a SQLite database.
+ * It includes functionalities to create and initialize the database, execute SQL operations,
+ * and retrieve data. It ensures that only one instance of the database controller exists
+ * within the application at any time, providing a global point of access to the database.
+ *
+ * The class includes mechanisms to prevent copying or moving of the DatabaseController instance,
+ * ensuring that accidental duplication of the database connection is avoided.
+ *
+ * @note The DatabaseController should be accessed via getInstance method to ensure the singleton pattern is maintained.
+ */
+
 #include "DatabaseController.h"
 
 // Required for the singleton to be thread safe
@@ -5,10 +20,13 @@ DatabaseController *DatabaseController::dbInstance_{nullptr};
 std::mutex DatabaseController::mutex_;
 
 /**
- * The first time we call getInstance we will lock the storage location
- * and then we make sure again that the variable is null and then we
- * set the value.
- */
+    * @brief Provides access to the singleton instance of the DatabaseController.
+    *
+    * If the singleton instance does not exist, it is created. Otherwise, the existing instance is returned.
+    *
+    * @param filename The name of the SQLite database file. Provide an empty string if the instance already exists.
+    * @return DatabaseController* The singleton instance of the DatabaseController.
+    */
 DatabaseController *DatabaseController::getInstance(const char *filename) {
     std::lock_guard<std::mutex> lock(mutex_);
     if (dbInstance_ == nullptr) {
@@ -26,6 +44,11 @@ int DatabaseController::callback(void *NotUsed, int argc, char **argv, char **az
     return 0;
 }
 
+/**
+    * @brief Creates a table in the database.
+    *
+    * The implementation details are not provided in the code snippet.
+    */
 void DatabaseController::createTable() {
     const char *userSQL = "CREATE TABLE IF NOT EXISTS User (\n"
                           "    userID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
@@ -73,6 +96,14 @@ void DatabaseController::createTable() {
     }
 }
 
+/**
+    * @brief Executes a SQL operation.
+    *
+    * This method is used to execute SQL commands that do not return data, such as INSERT, UPDATE, and DELETE.
+    *
+    * @param sql The SQL command to be executed.
+    * @return bool True if the operation was successful, false otherwise.
+    */
 bool DatabaseController::sqlOperation(const std::string &sql){
     int rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
     if (rc != SQLITE_OK) {
@@ -85,7 +116,14 @@ bool DatabaseController::sqlOperation(const std::string &sql){
     }
 }
 
-
+/**
+     * @brief Executes a SELECT SQL operation and retrieves data.
+     *
+     * Uses prepared statements for efficiency and security. This method is suitable for SQL queries that retrieve data.
+     *
+     * @param sql The SQL SELECT command to be executed.
+     * @return std::vector<std::vector<std::string>> A 2D vector containing the query results.
+     */
 std::vector<std::vector<std::string>> DatabaseController::selectData(const std::string &sql) {
     // Store the table rows and columns data (Get like so [row][column])
     std::vector<std::vector<std::string>> resultData;
@@ -127,6 +165,11 @@ std::vector<std::vector<std::string>> DatabaseController::selectData(const std::
     return resultData;
 }
 
+/**
+     * @brief Displays the tables present in the database.
+     *
+     * The implementation details are not provided in the code snippet.
+     */
 void DatabaseController::showTables() {
     std::string sql = "SELECT name FROM sqlite_master\n"
                       "WHERE type='table'\n"
@@ -135,6 +178,12 @@ void DatabaseController::showTables() {
     sqlOperation(sql); // Call the sqlOperation method to show the tables
 }
 
+/**
+    * @brief Checks if the given table data is empty.
+    *
+    * @param tableData A 2D vector representing the table data.
+    * @return bool True if the table is empty, false otherwise.
+    */
 bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>> &tableData) {
     // Return true if the row vector and column 0 vector are empty, otherwise, return false
     if (tableData.empty()) {
@@ -144,6 +193,11 @@ bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>
     }
 }
 
+/**
+     * @brief Initializes the database with necessary tables and data.
+     *
+     * The implementation details are not provided in the code snippet.
+     */
 void DatabaseController::initializeDatabase() {
     std::string sql = "SELECT name FROM sqlite_master\n"
                       "WHERE type='table'\n"
