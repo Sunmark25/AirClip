@@ -20,17 +20,17 @@ DatabaseController *DatabaseController::dbInstance_{nullptr};
 std::mutex DatabaseController::mutex_;
 
 /**
-    * @brief Provides access to the singleton instance of the DatabaseController.
-    *
-    * If the singleton instance does not exist, it is created. Otherwise, the existing instance is returned.
-    *
-    * @param filename The name of the SQLite database file. Provide an empty string if the instance already exists.
-    * @return DatabaseController* The singleton instance of the DatabaseController.
-    */
-DatabaseController *DatabaseController::getInstance(const char *filename) {
+ * @brief Provides access to the singleton instance of the DatabaseController.
+ *
+ * If the singleton instance does not exist, it is created. Otherwise, the existing instance is returned.
+ *
+ * @param filename The name of the SQLite database file. Provide an empty string if the instance already exists.
+ * @return DatabaseController* The singleton instance of the DatabaseController.
+ */
+DatabaseController *DatabaseController::getInstance() {
     std::lock_guard<std::mutex> lock(mutex_);
     if (dbInstance_ == nullptr) {
-        dbInstance_ = new DatabaseController(filename);
+        dbInstance_ = new DatabaseController();
     }
     return dbInstance_;
 }
@@ -45,10 +45,10 @@ int DatabaseController::callback(void *NotUsed, int argc, char **argv, char **az
 }
 
 /**
-    * @brief Creates a table in the database.
-    *
-    * The implementation details are not provided in the code snippet.
-    */
+ * @brief Creates a table in the database.
+ *
+ * The implementation details are not provided in the code snippet.
+ */
 void DatabaseController::createTable() {
     const char *userSQL = "CREATE TABLE IF NOT EXISTS User (\n"
                           "    userID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
@@ -61,24 +61,24 @@ void DatabaseController::createTable() {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
         sqlite3_free(zErrMsg);
     } else {
-        std::cout << "Table created successfully" << std::endl;
+        std::cout << "User Table created successfully" << std::endl;
     }
 
     const char *clipboardEntrySQL = "CREATE TABLE IF NOT EXISTS ClipboardEntry (\n"
-                                 "    clipboardEntryID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                                 "    timeAdded TEXT,\n"
-                                 "    deviceID VARCHAR(6) NOT NULL,\n"
-                                 "    userTag TEXT,\n"
-                                 "    content TEXT,\n"
-                                 "    contentPath TEXT\n"
-                                 "    );";
+                                    "    clipboardEntryID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                                    "    timeAdded TEXT,\n"
+                                    "    deviceID VARCHAR(6) NOT NULL,\n"
+                                    "    userTag TEXT,\n"
+                                    "    content TEXT,\n"
+                                    "    contentPath TEXT\n"
+                                    "    );";
 
     int createCE = sqlite3_exec(db, clipboardEntrySQL, callback, 0, &zErrMsg);
     if (createCE != SQLITE_OK) {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
         sqlite3_free(zErrMsg);
     } else {
-        std::cout << "Table created successfully" << std::endl;
+        std::cout << "ClipboardEntry Table created successfully" << std::endl;
     }
 
     const char *deviceSQL = "CREATE TABLE IF NOT EXISTS Device(\n"
@@ -92,19 +92,19 @@ void DatabaseController::createTable() {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
         sqlite3_free(zErrMsg);
     } else {
-        std::cout << "Table created successfully" << std::endl;
+        std::cout << "Device Table created successfully" << std::endl;
     }
 }
 
 /**
-    * @brief Executes a SQL operation.
-    *
-    * This method is used to execute SQL commands that do not return data, such as INSERT, UPDATE, and DELETE.
-    *
-    * @param sql The SQL command to be executed.
-    * @return bool True if the operation was successful, false otherwise.
-    */
-bool DatabaseController::sqlOperation(const std::string &sql){
+ * @brief Executes a SQL operation.
+ *
+ * This method is used to execute SQL commands that do not return data, such as INSERT, UPDATE, and DELETE.
+ *
+ * @param sql The SQL command to be executed.
+ * @return bool True if the operation was successful, false otherwise.
+ */
+bool DatabaseController::sqlOperation(const std::string &sql) {
     int rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
     if (rc != SQLITE_OK) {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
@@ -117,13 +117,13 @@ bool DatabaseController::sqlOperation(const std::string &sql){
 }
 
 /**
-     * @brief Executes a SELECT SQL operation and retrieves data.
-     *
-     * Uses prepared statements for efficiency and security. This method is suitable for SQL queries that retrieve data.
-     *
-     * @param sql The SQL SELECT command to be executed.
-     * @return std::vector<std::vector<std::string>> A 2D vector containing the query results.
-     */
+ * @brief Executes a SELECT SQL operation and retrieves data.
+ *
+ * Uses prepared statements for efficiency and security. This method is suitable for SQL queries that retrieve data.
+ *
+ * @param sql The SQL SELECT command to be executed.
+ * @return std::vector<std::vector<std::string>> A 2D vector containing the query results.
+ */
 std::vector<std::vector<std::string>> DatabaseController::selectData(const std::string &sql) {
     // Store the table rows and columns data (Get like so [row][column])
     std::vector<std::vector<std::string>> resultData;
@@ -139,8 +139,6 @@ std::vector<std::vector<std::string>> DatabaseController::selectData(const std::
     if (rc != SQLITE_OK) {
         std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
         return resultData;
-    } else { // Otherwise, display there are no errors
-        std::cout << "No errors in select statement" << std::endl;
     }
 
     // Loop through each row
@@ -166,24 +164,38 @@ std::vector<std::vector<std::string>> DatabaseController::selectData(const std::
 }
 
 /**
-     * @brief Displays the tables present in the database.
-     *
-     * The implementation details are not provided in the code snippet.
-     */
-void DatabaseController::showTables() {
+ * @brief Gets the tables present in the database.
+ *
+ * @return std::vector<std::string> A vector containing the tables.
+ */
+std::vector<std::string> DatabaseController::getTables() {
     std::string sql = "SELECT name FROM sqlite_master\n"
                       "WHERE type='table'\n"
                       "ORDER BY name;";
 
-    sqlOperation(sql); // Call the sqlOperation method to show the tables
+    std::vector<std::vector<std::string>> tables = selectData(sql); // Call the sqlOperation method to show the tables
+
+    // Flatten the vector
+    std::vector<std::string> flattenedVector;
+
+    // Iterate through the outer vector and concatenate inner vectors
+    for (const auto &innerVector: tables) {
+        flattenedVector.insert(flattenedVector.end(), innerVector.begin(), innerVector.end());
+    }
+
+    return flattenedVector;
 }
 
+//bool DatabaseController::in_array(const std::string &value, const std::vector<std::string> &array) {
+//    return std::find(array.begin(), array.end(), value) != array.end();
+//}
+
 /**
-    * @brief Checks if the given table data is empty.
-    *
-    * @param tableData A 2D vector representing the table data.
-    * @return bool True if the table is empty, false otherwise.
-    */
+ * @brief Checks if the given table data is empty.
+ *
+ * @param tableData A 2D vector representing the table data.
+ * @return bool True if the table is empty, false otherwise.
+ */
 bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>> &tableData) {
     // Return true if the row vector and column 0 vector are empty, otherwise, return false
     if (tableData.empty()) {
@@ -194,10 +206,10 @@ bool DatabaseController::tableIsEmpty(const std::vector<std::vector<std::string>
 }
 
 /**
-     * @brief Initializes the database with necessary tables and data.
-     *
-     * The implementation details are not provided in the code snippet.
-     */
+ * @brief Initializes the database with necessary tables and data.
+ *
+ * The implementation details are not provided in the code snippet.
+ */
 void DatabaseController::initializeDatabase() {
     std::string sql = "SELECT name FROM sqlite_master\n"
                       "WHERE type='table'\n"
@@ -207,7 +219,7 @@ void DatabaseController::initializeDatabase() {
 
     sql = "SELECT name FROM sqlite_master\n"
           "WHERE type='table'\n"
-          "AND name = 'CLIPBOARDENTRY';";
+          "AND name = 'ClipboardEntry';";
 
     bool tableClipboardEntryExists = !tableIsEmpty(selectData(sql));
 

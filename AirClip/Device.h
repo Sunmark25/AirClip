@@ -27,7 +27,7 @@ public:
      */
     explicit Device(const std::string &wtConnectionId) {
         deviceInfo = new DeviceInfo("", wtConnectionId, "", "");
-        dbc = DatabaseController::getInstance("");
+        dbc = DatabaseController::getInstance();
     }
 
     std::string findDevice(const std::string &deviceName, const std::string &userID);

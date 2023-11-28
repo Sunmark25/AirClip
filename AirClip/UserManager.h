@@ -14,7 +14,7 @@ private:
 
 public:
     explicit UserManager() {
-        dbc = DatabaseController::getInstance("");
+        dbc = DatabaseController::getInstance();
     }
 
     std::string findUser(const std::string &username);

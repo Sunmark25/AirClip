@@ -17,7 +17,7 @@
 
 std::string ClipboardHelper::buffer;  // Initialize the static member variable (fixes build linker error)
 
-DatabaseController* ClipboardHelper::dbc = DatabaseController::getInstance("");
+DatabaseController* ClipboardHelper::dbc = DatabaseController::getInstance();
 
 
 //ClipboardEntry* ClipboardHelper::getClipboardEntry(const std::string &userId, const int entryNum) {

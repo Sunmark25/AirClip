@@ -9,6 +9,8 @@
 
 class DatabaseController {
 private:
+    const char *FILENAME = "../../AirClip.sqlite";
+
     sqlite3 *db;   ///< Pointer to the SQLite database.
     char *zErrMsg; ///< Error message string used by SQLite.
 
@@ -24,14 +26,14 @@ private:
  * operator.
  */
 protected:
-/**
+    /**
      * @brief Constructor for DatabaseController.
      *
      * Opens a connection to a SQLite database file. If the connection fails, it terminates the program.
      *
-     * @param filename The name of the SQLite database file.
-     */    explicit DatabaseController(const char *filename) : db(nullptr), zErrMsg(nullptr) {
-        int rc = sqlite3_open(filename, &db);
+     */
+    explicit DatabaseController() : db(nullptr), zErrMsg(nullptr) {
+        int rc = sqlite3_open(FILENAME, &db);
         if (rc) {
             std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
             exit(0);
@@ -42,7 +44,7 @@ protected:
         initializeDatabase(); // Initializes the database if required (creates it and adds tables)
     }
 
-/**
+    /**
      * @brief Destructor for DatabaseController.
      *
      * Closes the connection to the SQLite database.
@@ -52,7 +54,7 @@ protected:
     }
 
 public:
-    static DatabaseController *getInstance(const char *filename);
+    static DatabaseController *getInstance();
 
     // Member functions
     void createTable();
@@ -65,7 +67,7 @@ public:
     std::vector<std::vector<std::string>> selectData(const std::string &sql);
 
 
-    void showTables();
+    std::vector<std::string> getTables();
 
     static bool tableIsEmpty(const std::vector<std::vector<std::string>> &tableData);
 
