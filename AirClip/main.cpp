@@ -33,17 +33,21 @@ int main(int argc, char **argv) {
     try {
         Wt::WServer server;
 
-        // Check command-line arguments
+        // If there is one then use the hardcoded arguments
         if (argc == 1) {
-            const char* hardcodedArgs[] = {"program", "--docroot", ".", "--http-listen", "0.0.0.0:8080"};
-            int argCount = sizeof(hardcodedArgs) / sizeof(char*);
-            server.setServerConfiguration(argCount, const_cast<char**>(hardcodedArgs), WTHTTP_CONFIGURATION);
-        } else {
+            // Get the executable name from the first argument (always set)
+            std::string executableName = argv[0];
+
+            // Used to store the hardcode the command-line arguments
+            const std::vector<std::string> hardcodedArgs = {"--docroot", ".", "--http-listen", "0.0.0.0:8080"};
+
+            server.setServerConfiguration(executableName, hardcodedArgs, WTHTTP_CONFIGURATION);
+        } else { // Otherwise, use the command-line arguments
             server.setServerConfiguration(argc, argv, WTHTTP_CONFIGURATION);
         }
 
         server.addEntryPoint(Wt::EntryPointType::Application,
-                             [](const Wt::WEnvironment& env) {
+                             [](const Wt::WEnvironment &env) {
                                  static int deviceCounter = 0;
 
                                  Device device = Device();
@@ -60,9 +64,9 @@ int main(int argc, char **argv) {
 
             // Restart logic, if necessary, should be handled here
         }
-    } catch (Wt::WServer::Exception& e) {
+    } catch (Wt::WServer::Exception &e) {
         std::cerr << e.what() << std::endl;
-    } catch (std::exception& e) {
+    } catch (std::exception &e) {
         std::cerr << "exception: " << e.what() << std::endl;
     }
 
