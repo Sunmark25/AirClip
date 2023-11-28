@@ -1,0 +1,145 @@
+\doxysection{User\+Manager Class Reference}
+\hypertarget{class_user_manager}{}\label{class_user_manager}\index{UserManager@{UserManager}}
+
+
+Manages user-\/related operations in the application.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_user_manager_a090e3e93982a04cb4ba8d63c83d325b8}{find\+User}} (const std\+::string \&username)
+\begin{DoxyCompactList}\small\item\em Finds a user by username and returns their user\+ID. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_user_manager_a39fed3636a055fcb40bdfcc3e9f34375}{authenticate\+User}} (const std\+::string \&username, const std\+::string \&password)
+\begin{DoxyCompactList}\small\item\em Authenticates a user based on their username and password. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_user_manager_a34dfaa43f15e027dd6aced7b4fc97de4}{register\+User}} (const std\+::string \&username, const std\+::string \&password)
+\begin{DoxyCompactList}\small\item\em Registers a new user with a username and password. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_device}{Device}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_user_manager_aa1b36059aae48c3a55c813307ddfc503}{finish\+User\+Log\+In}} (const std\+::string \&user\+ID, const std\+::string \&wt\+Connection\+Id, const std\+::string \&username)
+\begin{DoxyCompactList}\small\item\em Finalizes user login and connects a device to the user. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_user_manager_adaa5051d16b5c4d41072cea8573e1a03}{get\+Password}} (const std\+::string \&user\+ID)
+\begin{DoxyCompactList}\small\item\em Retrieves the password for a user with the specified user\+ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages user-\/related operations in the application. 
+
+The \doxylink{class_user_manager}{User\+Manager} class provides functionalities for finding, authenticating, registering, and logging in users within the application. It interacts with a database through the \doxylink{class_database_controller}{Database\+Controller}. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_user_manager_a39fed3636a055fcb40bdfcc3e9f34375}\label{class_user_manager_a39fed3636a055fcb40bdfcc3e9f34375} 
+\index{UserManager@{UserManager}!authenticateUser@{authenticateUser}}
+\index{authenticateUser@{authenticateUser}!UserManager@{UserManager}}
+\doxysubsubsection{\texorpdfstring{authenticateUser()}{authenticateUser()}}
+{\footnotesize\ttfamily bool User\+Manager\+::authenticate\+User (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{username,  }\item[{const std\+::string \&}]{password }\end{DoxyParamCaption})}
+
+
+
+Authenticates a user based on their username and password. 
+
+This method checks if the provided username and password match an existing user in the database. It returns true if a match is found, indicating successful authentication.
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & The username of the user. \\
+\hline
+{\em password} & The password of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the user is authenticated, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_user_manager_a090e3e93982a04cb4ba8d63c83d325b8}\label{class_user_manager_a090e3e93982a04cb4ba8d63c83d325b8} 
+\index{UserManager@{UserManager}!findUser@{findUser}}
+\index{findUser@{findUser}!UserManager@{UserManager}}
+\doxysubsubsection{\texorpdfstring{findUser()}{findUser()}}
+{\footnotesize\ttfamily std\+::string User\+Manager\+::find\+User (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{username }\end{DoxyParamCaption})}
+
+
+
+Finds a user by username and returns their user\+ID. 
+
+This method queries the database to find the user\+ID associated with the given username. If the username exists in the database, it returns the user\+ID; otherwise, it returns an empty string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & The username of the user to be found. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string The user\+ID if found, otherwise an empty string. 
+\end{DoxyReturn}
+\Hypertarget{class_user_manager_aa1b36059aae48c3a55c813307ddfc503}\label{class_user_manager_aa1b36059aae48c3a55c813307ddfc503} 
+\index{UserManager@{UserManager}!finishUserLogIn@{finishUserLogIn}}
+\index{finishUserLogIn@{finishUserLogIn}!UserManager@{UserManager}}
+\doxysubsubsection{\texorpdfstring{finishUserLogIn()}{finishUserLogIn()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_device}{Device}} \texorpdfstring{$\ast$}{*} User\+Manager\+::finish\+User\+Log\+In (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{user\+ID,  }\item[{const std\+::string \&}]{wt\+Connection\+Id,  }\item[{const std\+::string \&}]{username }\end{DoxyParamCaption})}
+
+
+
+Finalizes user login and connects a device to the user. 
+
+This method retrieves the password for the user with the given user\+ID, creates a new \doxylink{class_user}{User} instance, and connects a device to this user using the provided wt\+Connection\+Id.
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+ID} & The user\+ID of the user. \\
+\hline
+{\em wt\+Connection\+Id} & The connection ID for the device. \\
+\hline
+{\em username} & The username of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Device\texorpdfstring{$\ast$}{*} A pointer to the connected device, or nullptr on failure. 
+\end{DoxyReturn}
+\Hypertarget{class_user_manager_adaa5051d16b5c4d41072cea8573e1a03}\label{class_user_manager_adaa5051d16b5c4d41072cea8573e1a03} 
+\index{UserManager@{UserManager}!getPassword@{getPassword}}
+\index{getPassword@{getPassword}!UserManager@{UserManager}}
+\doxysubsubsection{\texorpdfstring{getPassword()}{getPassword()}}
+{\footnotesize\ttfamily std\+::string User\+Manager\+::get\+Password (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{user\+ID }\end{DoxyParamCaption})}
+
+
+
+Retrieves the password for a user with the specified user\+ID. 
+
+This method queries the database for the password associated with the given user\+ID. It returns the password if found; otherwise, it returns an empty string.
+
+\begin{DoxyNote}{Note}
+The returned password is encrypted.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em user\+ID} & The unique identifier of the user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string The encrypted password if found, otherwise an empty string. 
+\end{DoxyReturn}
+\Hypertarget{class_user_manager_a34dfaa43f15e027dd6aced7b4fc97de4}\label{class_user_manager_a34dfaa43f15e027dd6aced7b4fc97de4} 
+\index{UserManager@{UserManager}!registerUser@{registerUser}}
+\index{registerUser@{registerUser}!UserManager@{UserManager}}
+\doxysubsubsection{\texorpdfstring{registerUser()}{registerUser()}}
+{\footnotesize\ttfamily std\+::string User\+Manager\+::register\+User (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{username,  }\item[{const std\+::string \&}]{password }\end{DoxyParamCaption})}
+
+
+
+Registers a new user with a username and password. 
+
+This method inserts a new user record into the database with the provided username and password. It returns the user\+ID of the newly created user or an empty string if the operation fails.
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & The username for the new user. \\
+\hline
+{\em password} & The password for the new user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string The user\+ID of the newly registered user, or an empty string on failure. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+User\+Manager.\+h\item 
+User\+Manager.\+cpp\end{DoxyCompactItemize}

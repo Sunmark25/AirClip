@@ -1,0 +1,36 @@
+\doxysection{Device.\+h}
+\hypertarget{_device_8h_source}{}\label{_device_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DEVICE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DEVICE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}DeviceInfo.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}DatabaseController.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Forward\ declaration\ of\ the\ DeviceInfo\ and\ ClipboardEntry\ classes}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_device_info}{DeviceInfo}};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_clipboard_entry}{ClipboardEntry}};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_device}{Device}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ *dbc;\ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_device_info}{DeviceInfo}}\ *deviceInfo;\ }
+\DoxyCodeLine{00018\ \ \ \ \ std::vector<int>\ clipboardEntryIds;\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_device_aa863fa597dab652edec561d3aa05a3de}{Device}}(\textcolor{keyword}{const}\ std::string\ \&wtConnectionId)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ deviceInfo\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_device_info}{DeviceInfo}}(\textcolor{stringliteral}{"{}"{}},\ wtConnectionId,\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ dbc\ =\ \mbox{\hyperlink{class_database_controller_aa42e4ad473dffd783a3f40f5111e2d67}{DatabaseController::getInstance}}(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ std::string\ \mbox{\hyperlink{class_device_a4c91323c4c6a1f45a13b214dcc2b2956}{findDevice}}(\textcolor{keyword}{const}\ std::string\ \&deviceName,\ \textcolor{keyword}{const}\ std::string\ \&userID);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ std::string\ \mbox{\hyperlink{class_device_ac429a7a0469ad092c8550a1ab894f947}{registerDevice}}(\textcolor{keyword}{const}\ std::string\ \&deviceName,\ \textcolor{keyword}{const}\ std::string\ \&userID);}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DEVICE\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,82 @@
+\doxysection{Clipboard\+Helper.\+h}
+\hypertarget{_clipboard_helper_8h_source}{}\label{_clipboard_helper_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CLIPBOARDHELPER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CLIPBOARDHELPER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}ClipboardEntry.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}DatabaseController.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}User.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_clipboard_helper}{ClipboardHelper}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Static\ Member\ Variables}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ buffer;\ \textcolor{comment}{//\ Static\ buffer\ to\ hold\ the\ latest\ SQL\ statement}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ escape(\textcolor{keyword}{const}\ std::string\ \&input);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ *dbc;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ static\ DatabaseController\ *dbc;\ //\ Store\ a\ reference\ to\ the\ database\ controller\ singleton}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_clipboard_entry}{ClipboardEntry}}\ *searchClipboardEntry(\textcolor{keyword}{const}\ std::string\ \&content,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ entryNum);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_user}{User}}\ *getUser(\textcolor{keyword}{const}\ std::string\ \&userID);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ insertUser(\textcolor{keyword}{const}\ std::string\ \&username,\ \textcolor{keyword}{const}\ std::string\ \&password);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ Type\ stringToType(std::string\ typeString)\ ;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ SQL\ Generation\ Methods}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{class_clipboard_helper_aaadf98abef5aad0e4db6d039bc87cf9b}{generateCurrentTime}}();}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateUserInsertSQL(\textcolor{keyword}{const}\ std::string\ \&username,\ \textcolor{keyword}{const}\ std::string\ \&password);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateUserDeleteSQL(\textcolor{keyword}{const}\ std::string\ \&username);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateUserSelectSQL(\textcolor{keyword}{const}\ std::string\ \&userID);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateUserUpdateSQL(\textcolor{keyword}{const}\ std::string\ \&userID,\ \textcolor{keyword}{const}\ std::string\ \&username\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{const}\ std::string\ \&password\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateClipboardEntrySearchSQL(\textcolor{keyword}{const}\ std::string\ \&searchContent);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateClipboardEntryInsertSQL(\ \textcolor{keyword}{const}\ std::string\ timeAdded,\ \textcolor{keyword}{const}\ std::string\ deviceID,\ \textcolor{keyword}{const}\ std::string\ content,\ \textcolor{keyword}{const}\ std::string\ contentPath\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{const}\ std::string\ userTag\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateClipboardEntryDeleteSQL(\textcolor{keyword}{const}\ std::string\ \&clipboardEntryID);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateClipboardEntrySelectSQL(\textcolor{keyword}{const}\ std::string\ \&clipboardEntryID);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateClipboardEntryUpdateSQL(\textcolor{keyword}{const}\ std::string\ \&clipboardEntryID,\ \textcolor{keyword}{const}\ std::string\ \&timeAdded,\ \textcolor{keyword}{const}\ std::string\ \&deviceID\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{const}\ std::string\ \&userTag\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{const}\ std::string\ \&content\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{const}\ std::string\ \&contentPath\ =\ \textcolor{stringliteral}{"{}"{}});\textcolor{comment}{//\ Enum\ Conversion\ Method}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ Enum\ Conversion\ Method}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateDeviceInsertSQL(\textcolor{keyword}{const}\ std::string\ \&deviceName,\ \textcolor{keyword}{const}\ std::string\ \&userID);}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateDeviceSelectSQL(\textcolor{keyword}{const}\ std::string\ \&deviceID);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string}
+\DoxyCodeLine{00051\ \ \ \ \ generateDeviceUpdateSQL(\textcolor{keyword}{const}\ std::string\ \&deviceID,\ \textcolor{keyword}{const}\ std::string\ \&deviceName\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{const}\ std::string\ \&userID\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ generateDeviceDeleteSQL(\textcolor{keyword}{const}\ std::string\ \&deviceID);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_clipboard_entry}{ClipboardEntry}}\ *\mbox{\hyperlink{class_clipboard_helper_aab96b305e05979242a431a44c15bde95}{getLatestClipboardEntry}}();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{class_clipboard_helper_a6c13fe32ab59a5a5d34e5304c1124448}{findClipboardEntry}}(\textcolor{keyword}{const}\ std::string\ \&deviceID,\ \textcolor{keyword}{const}\ std::string\ \&content);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{class_clipboard_helper_af3bfde9257747cb84283634d649aec1a}{insertClipboardEntry}}(std::string\ timeAdded,\ std::string\ deviceID,\ std::string\ content,\ std::string\ contentPath\ =\ \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ userTag\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<ClipboardEntry\ *>\ searchClipboardEntry(\textcolor{keyword}{const}\ std::string\ \&content);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_clipboard_entry}{ClipboardEntry}}\ *\mbox{\hyperlink{class_clipboard_helper_aab96b305e05979242a431a44c15bde95}{getLatestClipboardEntry}}(std::string\ deviceID);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_clipboard_entry}{ClipboardEntry}}\ *getClipboardEntry(\textcolor{keyword}{const}\ std::string\ \&userId);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<ClipboardEntry*>\ \mbox{\hyperlink{class_clipboard_helper_ae16627201c63077374226424cf5ea169}{getClipboardEntries}}(\textcolor{keyword}{const}\ std::string\ \&userId);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CLIPBOARDHELPER\_H}}
+\DoxyCodeLine{00077\ }
+
+\end{DoxyCode}

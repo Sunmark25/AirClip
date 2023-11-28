@@ -32,14 +32,6 @@ struct Entry {
     std::string uniqueId; // Unique identifier for each entry
 };
 
-/**
- * @class UI
- * @brief Manages the user interface for a web application using the Wt C++ Web Toolkit.
- *
- * This class is responsible for creating and managing various user interface components
- * such as buttons, text boxes, and other widgets. It inherits from Wt::WContainerWidget,
- * utilizing the facilities provided by the Wt library to build an interactive web application UI.
- */
 class UI : public Wt::WContainerWidget {
 public:
     /**

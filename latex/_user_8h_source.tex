@@ -1,0 +1,41 @@
+\doxysection{User.\+h}
+\hypertarget{_user_8h_source}{}\label{_user_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ USER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ USER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Device.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Forward\ declaration\ of\ the\ Device\ class}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_device}{Device}};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_user}{User}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ std::string\ userID;}
+\DoxyCodeLine{00015\ \ \ \ \ std::string\ username;}
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ password;}
+\DoxyCodeLine{00017\ \ \ \ \ std::vector<Device*>\ activeDevices;}
+\DoxyCodeLine{00018\ \ \ \ \ std::vector<std::thread>\ activeDeviceThreads;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_user_ab2740da85cfad79042af8cbd2592d59a}{User}}(\textcolor{keyword}{const}\ std::string\ userID,\ \textcolor{keyword}{const}\ std::string\ username,\ \textcolor{keyword}{const}\ std::string\ password)\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ this-\/>userID\ =\ userID;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ this-\/>username\ =\ username;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ this-\/>password\ =\ password;}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ std::string\ \mbox{\hyperlink{class_user_ab550077686904581ed2036e6250702a7}{getUserID}}();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ std::string\ \mbox{\hyperlink{class_user_a744a8827707ba3cf8ea03c0e5c2a2adb}{getUsername}}();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00049\ \ \ \ \ std::string\ \mbox{\hyperlink{class_user_aad2f2d9649b5b0aaf451423abf93c63b}{getPassword}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_device}{Device}}*\ \mbox{\hyperlink{class_user_aadffd64faff00bf61cf4bbe91615a85c}{connectDevice}}(\textcolor{keyword}{const}\ std::string\ \&wtConnectionId);}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ USER\_H}}
+
+\end{DoxyCode}

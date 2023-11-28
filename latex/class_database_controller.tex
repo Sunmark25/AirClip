@@ -1,0 +1,207 @@
+\doxysection{Database\+Controller Class Reference}
+\hypertarget{class_database_controller}{}\label{class_database_controller}\index{DatabaseController@{DatabaseController}}
+
+
+Manages database operations for the application using SQLite.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_database_controller_a173e9116ab7a654f746c420346e056eb}{create\+Table}} ()
+\begin{DoxyCompactList}\small\item\em Creates a table in the database. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_database_controller_a45533b0fdeca172174984ed5666837da}{sql\+Operation}} (const std\+::string \&sql)
+\begin{DoxyCompactList}\small\item\em Executes a SQL operation. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ std\+::string $>$ $>$ \mbox{\hyperlink{class_database_controller_a4cf1d2cbb18c7ba61b3dddbe56d89938}{select\+Data}} (const std\+::string \&sql)
+\begin{DoxyCompactList}\small\item\em Executes a SELECT SQL operation and retrieves data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_database_controller_af565c537cefd140a1d59b298b2cb56f1}{show\+Tables}} ()
+\begin{DoxyCompactList}\small\item\em Displays the tables present in the database. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_database_controller_a8021cd8642923b317e2f0fcc2006b4e2}{initialize\+Database}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the database with necessary tables and data. \end{DoxyCompactList}\item 
+\Hypertarget{class_database_controller_a8131cc7d895234c6f371640063c75419}\label{class_database_controller_a8131cc7d895234c6f371640063c75419} 
+{\bfseries Database\+Controller} (const \mbox{\hyperlink{class_database_controller}{Database\+Controller}} \&)=delete
+\item 
+\Hypertarget{class_database_controller_af159676154ecf5aa9dec2379f85df322}\label{class_database_controller_af159676154ecf5aa9dec2379f85df322} 
+\mbox{\hyperlink{class_database_controller}{Database\+Controller}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_database_controller}{Database\+Controller}} \&)=delete
+\item 
+\Hypertarget{class_database_controller_a928d42a1baf81f3d1030dce3ad99df37}\label{class_database_controller_a928d42a1baf81f3d1030dce3ad99df37} 
+{\bfseries Database\+Controller} (\mbox{\hyperlink{class_database_controller}{Database\+Controller}} \&\&)=delete
+\item 
+\Hypertarget{class_database_controller_ae38b97b5b0177fe7ac97d15e0ebb20cd}\label{class_database_controller_ae38b97b5b0177fe7ac97d15e0ebb20cd} 
+\mbox{\hyperlink{class_database_controller}{Database\+Controller}} \& {\bfseries operator=} (\mbox{\hyperlink{class_database_controller}{Database\+Controller}} \&\&)=delete
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_database_controller}{Database\+Controller}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_database_controller_aa42e4ad473dffd783a3f40f5111e2d67}{get\+Instance}} (const char \texorpdfstring{$\ast$}{*}filename)
+\begin{DoxyCompactList}\small\item\em Provides access to the singleton instance of the \doxylink{class_database_controller}{Database\+Controller}. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_database_controller_a5a790cbc2d1da483b09f9d231aaa3ffb}{table\+Is\+Empty}} (const std\+::vector$<$ std\+::vector$<$ std\+::string $>$ $>$ \&table\+Data)
+\begin{DoxyCompactList}\small\item\em Checks if the given table data is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_database_controller_a064436db5b34529cea64b8c5e1a60713}{Database\+Controller}} (const char \texorpdfstring{$\ast$}{*}filename)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_database_controller}{Database\+Controller}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_database_controller_a7815dd17cfa10ea03ff4a700fcde7c13}{\texorpdfstring{$\sim$}{\string~}\+Database\+Controller}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_database_controller}{Database\+Controller}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages database operations for the application using SQLite. 
+
+This class is a singleton that provides an interface to interact with a SQLite database. It includes functionalities to create and initialize the database, execute SQL operations, and retrieve data. It ensures that only one instance of the database controller exists within the application at any time, providing a global point of access to the database.
+
+The class includes mechanisms to prevent copying or moving of the \doxylink{class_database_controller}{Database\+Controller} instance, ensuring that accidental duplication of the database connection is avoided.
+
+\begin{DoxyNote}{Note}
+The \doxylink{class_database_controller}{Database\+Controller} should be accessed via get\+Instance method to ensure the singleton pattern is maintained. 
+\end{DoxyNote}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_database_controller_a064436db5b34529cea64b8c5e1a60713}\label{class_database_controller_a064436db5b34529cea64b8c5e1a60713} 
+\index{DatabaseController@{DatabaseController}!DatabaseController@{DatabaseController}}
+\index{DatabaseController@{DatabaseController}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{DatabaseController()}{DatabaseController()}}
+{\footnotesize\ttfamily Database\+Controller\+::\+Database\+Controller (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [protected]}}
+
+
+
+Constructor for \doxylink{class_database_controller}{Database\+Controller}. 
+
+The \doxylink{class_database_controller}{Database\+Controller}\textquotesingle{}s constructor/destructor should always be protected to prevent direct construction/destruction calls with the {\ttfamily new}/{\ttfamily delete} operator. 
+
+Opens a connection to a SQLite database file. If the connection fails, it terminates the program.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the SQLite database file. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_database_controller_a7815dd17cfa10ea03ff4a700fcde7c13}\label{class_database_controller_a7815dd17cfa10ea03ff4a700fcde7c13} 
+\index{DatabaseController@{DatabaseController}!````~DatabaseController@{\texorpdfstring{$\sim$}{\string~}DatabaseController}}
+\index{````~DatabaseController@{\texorpdfstring{$\sim$}{\string~}DatabaseController}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}DatabaseController()}{\string~DatabaseController()}}
+{\footnotesize\ttfamily Database\+Controller\+::\texorpdfstring{$\sim$}{\string~}\+Database\+Controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Destructor for \doxylink{class_database_controller}{Database\+Controller}. 
+
+Closes the connection to the SQLite database. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_database_controller_a173e9116ab7a654f746c420346e056eb}\label{class_database_controller_a173e9116ab7a654f746c420346e056eb} 
+\index{DatabaseController@{DatabaseController}!createTable@{createTable}}
+\index{createTable@{createTable}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{createTable()}{createTable()}}
+{\footnotesize\ttfamily void Database\+Controller\+::create\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates a table in the database. 
+
+The implementation details are not provided in the code snippet. \Hypertarget{class_database_controller_aa42e4ad473dffd783a3f40f5111e2d67}\label{class_database_controller_aa42e4ad473dffd783a3f40f5111e2d67} 
+\index{DatabaseController@{DatabaseController}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_database_controller}{Database\+Controller}} \texorpdfstring{$\ast$}{*} Database\+Controller\+::get\+Instance (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Provides access to the singleton instance of the \doxylink{class_database_controller}{Database\+Controller}. 
+
+If the singleton instance does not exist, it is created. Otherwise, the existing instance is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the SQLite database file. Provide an empty string if the instance already exists. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Database\+Controller\texorpdfstring{$\ast$}{*} The singleton instance of the \doxylink{class_database_controller}{Database\+Controller}. 
+\end{DoxyReturn}
+\Hypertarget{class_database_controller_a8021cd8642923b317e2f0fcc2006b4e2}\label{class_database_controller_a8021cd8642923b317e2f0fcc2006b4e2} 
+\index{DatabaseController@{DatabaseController}!initializeDatabase@{initializeDatabase}}
+\index{initializeDatabase@{initializeDatabase}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{initializeDatabase()}{initializeDatabase()}}
+{\footnotesize\ttfamily void Database\+Controller\+::initialize\+Database (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the database with necessary tables and data. 
+
+The implementation details are not provided in the code snippet. \Hypertarget{class_database_controller_a4cf1d2cbb18c7ba61b3dddbe56d89938}\label{class_database_controller_a4cf1d2cbb18c7ba61b3dddbe56d89938} 
+\index{DatabaseController@{DatabaseController}!selectData@{selectData}}
+\index{selectData@{selectData}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{selectData()}{selectData()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ std\+::string $>$ $>$ Database\+Controller\+::select\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sql }\end{DoxyParamCaption})}
+
+
+
+Executes a SELECT SQL operation and retrieves data. 
+
+Uses prepared statements for efficiency and security. This method is suitable for SQL queries that retrieve data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sql} & The SQL SELECT command to be executed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::vector$<$std\+::string$>$$>$ A 2D vector containing the query results. 
+\end{DoxyReturn}
+\Hypertarget{class_database_controller_af565c537cefd140a1d59b298b2cb56f1}\label{class_database_controller_af565c537cefd140a1d59b298b2cb56f1} 
+\index{DatabaseController@{DatabaseController}!showTables@{showTables}}
+\index{showTables@{showTables}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{showTables()}{showTables()}}
+{\footnotesize\ttfamily void Database\+Controller\+::show\+Tables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the tables present in the database. 
+
+The implementation details are not provided in the code snippet. \Hypertarget{class_database_controller_a45533b0fdeca172174984ed5666837da}\label{class_database_controller_a45533b0fdeca172174984ed5666837da} 
+\index{DatabaseController@{DatabaseController}!sqlOperation@{sqlOperation}}
+\index{sqlOperation@{sqlOperation}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{sqlOperation()}{sqlOperation()}}
+{\footnotesize\ttfamily bool Database\+Controller\+::sql\+Operation (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sql }\end{DoxyParamCaption})}
+
+
+
+Executes a SQL operation. 
+
+This method is used to execute SQL commands that do not return data, such as INSERT, UPDATE, and DELETE.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sql} & The SQL command to be executed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the operation was successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_database_controller_a5a790cbc2d1da483b09f9d231aaa3ffb}\label{class_database_controller_a5a790cbc2d1da483b09f9d231aaa3ffb} 
+\index{DatabaseController@{DatabaseController}!tableIsEmpty@{tableIsEmpty}}
+\index{tableIsEmpty@{tableIsEmpty}!DatabaseController@{DatabaseController}}
+\doxysubsubsection{\texorpdfstring{tableIsEmpty()}{tableIsEmpty()}}
+{\footnotesize\ttfamily bool Database\+Controller\+::table\+Is\+Empty (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ std\+::string $>$ $>$ \&}]{table\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks if the given table data is empty. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em table\+Data} & A 2D vector representing the table data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the table is empty, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Database\+Controller.\+h\item 
+Database\+Controller.\+cpp\end{DoxyCompactItemize}

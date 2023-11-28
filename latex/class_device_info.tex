@@ -1,0 +1,104 @@
+\doxysection{Device\+Info Class Reference}
+\hypertarget{class_device_info}{}\label{class_device_info}\index{DeviceInfo@{DeviceInfo}}
+
+
+This class encapsulates various properties of a device, such as its ID, connection ID, name, and network address.  
+
+
+
+
+{\ttfamily \#include $<$Device\+Info.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_device_info_aeceb53346e737e7a53d23e604c7eb7d5}{Device\+Info}} (const std\+::string \&device\+Id, const std\+::string \&wt\+Connection\+Id, const std\+::string \&device\+Name, const std\+::string \&network\+Address)
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{class_device_info}{Device\+Info} object. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_a08f7007460e87878f4a7253250916a4d}\label{class_device_info_a08f7007460e87878f4a7253250916a4d} 
+std\+::string {\bfseries get\+Device\+Id} () const
+\begin{DoxyCompactList}\small\item\em Returns the device\textquotesingle{}s unique identifier. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_af79bd496bd8333f88678aabc73099f02}\label{class_device_info_af79bd496bd8333f88678aabc73099f02} 
+std\+::string {\bfseries get\+Wt\+Connection\+Id} () const
+\begin{DoxyCompactList}\small\item\em Returns the device\textquotesingle{}s connection identifier. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_ab9a045a65b5dbb3dde3bcb7890674960}\label{class_device_info_ab9a045a65b5dbb3dde3bcb7890674960} 
+std\+::string {\bfseries get\+Device\+Name} () const
+\begin{DoxyCompactList}\small\item\em Returns the device\textquotesingle{}s human-\/readable name. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_a37fc61f1262408718736822c5034ebe2}\label{class_device_info_a37fc61f1262408718736822c5034ebe2} 
+std\+::string {\bfseries get\+Network\+Address} () const
+\begin{DoxyCompactList}\small\item\em Returns the network address of the device. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_a906b33070f4496513a2acff965f86882}\label{class_device_info_a906b33070f4496513a2acff965f86882} 
+void {\bfseries set\+Device\+Id} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the device\textquotesingle{}s unique identifier. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_a4cc55145fcabe89028db8e49871088ce}\label{class_device_info_a4cc55145fcabe89028db8e49871088ce} 
+void {\bfseries set\+Wt\+Connection\+Id} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the device\textquotesingle{}s connection identifier. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_a01fcb4c8c59df4c454f7e33ac8f33919}\label{class_device_info_a01fcb4c8c59df4c454f7e33ac8f33919} 
+void {\bfseries set\+Device\+Name} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the device\textquotesingle{}s human-\/readable name. \end{DoxyCompactList}\item 
+\Hypertarget{class_device_info_ac06a5fea5310b509ce94edf676ddc17b}\label{class_device_info_ac06a5fea5310b509ce94edf676ddc17b} 
+void {\bfseries set\+Network\+Address} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the network address of the device. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_device_info_a9eb4452d867aefa7e3e7278c23ef9e23}{update\+Device\+Info}} (const \mbox{\hyperlink{class_device_info}{Device\+Info}} \&new\+Info)
+\begin{DoxyCompactList}\small\item\em Updates the device information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class encapsulates various properties of a device, such as its ID, connection ID, name, and network address. 
+
+Represents information about a device.
+
+This class encapsulates various details about a device, such as its unique device ID, connection ID, name, and network address. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_device_info_aeceb53346e737e7a53d23e604c7eb7d5}\label{class_device_info_aeceb53346e737e7a53d23e604c7eb7d5} 
+\index{DeviceInfo@{DeviceInfo}!DeviceInfo@{DeviceInfo}}
+\index{DeviceInfo@{DeviceInfo}!DeviceInfo@{DeviceInfo}}
+\doxysubsubsection{\texorpdfstring{DeviceInfo()}{DeviceInfo()}}
+{\footnotesize\ttfamily Device\+Info\+::\+Device\+Info (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{device\+Id,  }\item[{const std\+::string \&}]{wt\+Connection\+Id,  }\item[{const std\+::string \&}]{device\+Name,  }\item[{const std\+::string \&}]{network\+Address }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a new \doxylink{class_device_info}{Device\+Info} object. 
+
+Initializes a new instance of the \doxylink{class_device_info}{Device\+Info} class with specified device information.
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Id} & The unique identifier for the device. \\
+\hline
+{\em wt\+Connection\+Id} & The identifier for the device\textquotesingle{}s connection. \\
+\hline
+{\em device\+Name} & The human-\/readable name of the device. \\
+\hline
+{\em network\+Address} & The network address of the device. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_device_info_a9eb4452d867aefa7e3e7278c23ef9e23}\label{class_device_info_a9eb4452d867aefa7e3e7278c23ef9e23} 
+\index{DeviceInfo@{DeviceInfo}!updateDeviceInfo@{updateDeviceInfo}}
+\index{updateDeviceInfo@{updateDeviceInfo}!DeviceInfo@{DeviceInfo}}
+\doxysubsubsection{\texorpdfstring{updateDeviceInfo()}{updateDeviceInfo()}}
+{\footnotesize\ttfamily bool Device\+Info\+::update\+Device\+Info (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_device_info}{Device\+Info}} \&}]{new\+Info }\end{DoxyParamCaption})}
+
+
+
+Updates the device information. 
+
+Updates the current device information with the details provided in the new\+Info object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Info} & The new device information to be updated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the update is successful, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Device\+Info.\+h\item 
+Device\+Info.\+cpp\end{DoxyCompactItemize}

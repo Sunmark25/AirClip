@@ -1,0 +1,80 @@
+\doxysection{User Class Reference}
+\hypertarget{class_user}{}\label{class_user}\index{User@{User}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_user_ab2740da85cfad79042af8cbd2592d59a}{User}} (const std\+::string user\+ID, const std\+::string username, const std\+::string password)
+\item 
+std\+::string \mbox{\hyperlink{class_user_ab550077686904581ed2036e6250702a7}{get\+User\+ID}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_user_a744a8827707ba3cf8ea03c0e5c2a2adb}{get\+Username}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_user_aad2f2d9649b5b0aaf451423abf93c63b}{get\+Password}} ()
+\item 
+\mbox{\hyperlink{class_device}{Device}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_user_aadffd64faff00bf61cf4bbe91615a85c}{connect\+Device}} (const std\+::string \&wt\+Connection\+Id)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_user_ab2740da85cfad79042af8cbd2592d59a}\label{class_user_ab2740da85cfad79042af8cbd2592d59a} 
+\index{User@{User}!User@{User}}
+\index{User@{User}!User@{User}}
+\doxysubsubsection{\texorpdfstring{User()}{User()}}
+{\footnotesize\ttfamily User\+::\+User (\begin{DoxyParamCaption}\item[{const std\+::string}]{user\+ID,  }\item[{const std\+::string}]{username,  }\item[{const std\+::string}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor for \doxylink{class_user}{User}
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+ID} & The user\textquotesingle{}s ID in the database \\
+\hline
+{\em username} & The username for the user \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_user_aadffd64faff00bf61cf4bbe91615a85c}\label{class_user_aadffd64faff00bf61cf4bbe91615a85c} 
+\index{User@{User}!connectDevice@{connectDevice}}
+\index{connectDevice@{connectDevice}!User@{User}}
+\doxysubsubsection{\texorpdfstring{connectDevice()}{connectDevice()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_device}{Device}} \texorpdfstring{$\ast$}{*} User\+::connect\+Device (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{wt\+Connection\+Id }\end{DoxyParamCaption})}
+
+This method is used to connect a device for the user. It is responsible for creating a new device and thread and storing both in the lists 
+\begin{DoxyParams}{Parameters}
+{\em wt\+Connection\+Id} & The wt connection ID (for sure\textquotesingle{}s device web page) that corresponds to the user\textquotesingle{}s device \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_user_aad2f2d9649b5b0aaf451423abf93c63b}\label{class_user_aad2f2d9649b5b0aaf451423abf93c63b} 
+\index{User@{User}!getPassword@{getPassword}}
+\index{getPassword@{getPassword}!User@{User}}
+\doxysubsubsection{\texorpdfstring{getPassword()}{getPassword()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+Password (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This getter method is used to get the user\textquotesingle{}s password \begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s password 
+\end{DoxyReturn}
+\Hypertarget{class_user_ab550077686904581ed2036e6250702a7}\label{class_user_ab550077686904581ed2036e6250702a7} 
+\index{User@{User}!getUserID@{getUserID}}
+\index{getUserID@{getUserID}!User@{User}}
+\doxysubsubsection{\texorpdfstring{getUserID()}{getUserID()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+User\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This getter method is used to get the user\textquotesingle{}s ID \begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s ID 
+\end{DoxyReturn}
+\Hypertarget{class_user_a744a8827707ba3cf8ea03c0e5c2a2adb}\label{class_user_a744a8827707ba3cf8ea03c0e5c2a2adb} 
+\index{User@{User}!getUsername@{getUsername}}
+\index{getUsername@{getUsername}!User@{User}}
+\doxysubsubsection{\texorpdfstring{getUsername()}{getUsername()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+Username (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This getter method is used to get the user\textquotesingle{}s username \begin{DoxyReturn}{Returns}
+The user\textquotesingle{}s username 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+User.\+h\item 
+User.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,42 @@
+\doxysection{Network\+Connection.\+h}
+\hypertarget{_network_connection_8h_source}{}\label{_network_connection_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ NETWORKCONNECTION\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ NETWORKCONNECTION\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\#include\ "{}Device.h"{}\ //\ Include\ the\ appropriate\ header\ for\ the\ Device\ class}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_network_connection}{NetworkConnection}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_network_connection}{NetworkConnection}}(\textcolor{keyword}{const}\ std::string\ \&ipAddress,\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_network_connection_a6209281db235da9868a0cba3eb2e6250}{\string~NetworkConnection}}();}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_network_connection_a50abbfa1f5635e76863d31a3a458e2e4}{startServer}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_network_connection_a7111d32d6bef3a928a4b8269eea85361}{acceptConnection}}();}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_network_connection_abfd4b156ae3a825ca2b2ca1904e4989b}{readData}}(\textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keywordtype}{size\_t}\ bufferSize);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_network_connection_a268fa368c55856385911bb4b2f7b6c95}{sendData}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ data);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_network_connection_a451609f31408ff039319358f3cfab7a4}{closeConnection}}();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ std::vector<Device>\ scanNetwork();}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ runningServer;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ server\_fd,\ new\_socket;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ address;}
+\DoxyCodeLine{00032\ \ \ \ \ socklen\_t\ addrlen;}
+\DoxyCodeLine{00033\ \ \ \ \ std::string\ ipAddress;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ port;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ NETWORKCONNECTION\_H}}
+
+\end{DoxyCode}

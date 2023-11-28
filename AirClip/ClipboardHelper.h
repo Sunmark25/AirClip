@@ -13,11 +13,11 @@
 class ClipboardHelper {
 private:
     // Static Member Variables
-    static std::string buffer; // Static buffer to hold the latest SQL statement
+    static std::string buffer; ///< Static buffer to hold the latest SQL statement.
 
     static const std::string escape(const std::string &input);
 
-    static DatabaseController *dbc;
+    static DatabaseController *dbc; ///< Static pointer to DatabaseController singleton instance.
 
 
 //    static DatabaseController *dbc; // Store a reference to the database controller singleton

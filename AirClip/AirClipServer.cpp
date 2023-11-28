@@ -12,8 +12,6 @@
 
 #include "AirClipServer.h"
 
-
-
 /**
      * @brief Starts the AirClip server.
      *

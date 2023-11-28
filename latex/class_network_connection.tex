@@ -1,0 +1,150 @@
+\doxysection{Network\+Connection Class Reference}
+\hypertarget{class_network_connection}{}\label{class_network_connection}\index{NetworkConnection@{NetworkConnection}}
+
+
+Manages network connections for a server-\/client architecture.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_network_connection_ab266b21b0a72d5236eb1d9f1cdfcf0c1}{Network\+Connection}} (const std\+::string \&ip\+Address, int port)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_network_connection}{Network\+Connection}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_network_connection_a6209281db235da9868a0cba3eb2e6250}{\texorpdfstring{$\sim$}{\string~}\+Network\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_network_connection}{Network\+Connection}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_network_connection_a50abbfa1f5635e76863d31a3a458e2e4}{start\+Server}} ()
+\begin{DoxyCompactList}\small\item\em Starts the server. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_network_connection_a7111d32d6bef3a928a4b8269eea85361}{accept\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Accepts a new client connection. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_network_connection_abfd4b156ae3a825ca2b2ca1904e4989b}{read\+Data}} (char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t buffer\+Size)
+\begin{DoxyCompactList}\small\item\em Reads data from the connected client. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_network_connection_a268fa368c55856385911bb4b2f7b6c95}{send\+Data}} (const char \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Sends data to the connected client. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_network_connection_a451609f31408ff039319358f3cfab7a4}{close\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Closes the connection with the client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_network_connection_a60058f279d7feea84f9bbb4417f7b124}\label{class_network_connection_a60058f279d7feea84f9bbb4417f7b124} 
+bool {\bfseries running\+Server}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages network connections for a server-\/client architecture. 
+
+This class handles network-\/related functionalities such as starting a server, accepting client connections, and performing data read and write operations over the network. It uses socket programming to establish and manage TCP connections. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_network_connection_ab266b21b0a72d5236eb1d9f1cdfcf0c1}\label{class_network_connection_ab266b21b0a72d5236eb1d9f1cdfcf0c1} 
+\index{NetworkConnection@{NetworkConnection}!NetworkConnection@{NetworkConnection}}
+\index{NetworkConnection@{NetworkConnection}!NetworkConnection@{NetworkConnection}}
+\doxysubsubsection{\texorpdfstring{NetworkConnection()}{NetworkConnection()}}
+{\footnotesize\ttfamily Network\+Connection\+::\+Network\+Connection (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ip\+Address,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_network_connection}{Network\+Connection}. 
+
+Initializes a new \doxylink{class_network_connection}{Network\+Connection} instance. Sets up a socket for the server using the given IP address and port. If socket creation fails, the program will terminate.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ip\+Address} & The IP address of the server. \\
+\hline
+{\em port} & The port number on which the server will listen for connections. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_connection_a6209281db235da9868a0cba3eb2e6250}\label{class_network_connection_a6209281db235da9868a0cba3eb2e6250} 
+\index{NetworkConnection@{NetworkConnection}!````~NetworkConnection@{\texorpdfstring{$\sim$}{\string~}NetworkConnection}}
+\index{````~NetworkConnection@{\texorpdfstring{$\sim$}{\string~}NetworkConnection}!NetworkConnection@{NetworkConnection}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}NetworkConnection()}{\string~NetworkConnection()}}
+{\footnotesize\ttfamily Network\+Connection\+::\texorpdfstring{$\sim$}{\string~}\+Network\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for \doxylink{class_network_connection}{Network\+Connection}. 
+
+Closes the server\textquotesingle{}s file descriptor to properly release the network resources. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_network_connection_a7111d32d6bef3a928a4b8269eea85361}\label{class_network_connection_a7111d32d6bef3a928a4b8269eea85361} 
+\index{NetworkConnection@{NetworkConnection}!acceptConnection@{acceptConnection}}
+\index{acceptConnection@{acceptConnection}!NetworkConnection@{NetworkConnection}}
+\doxysubsubsection{\texorpdfstring{acceptConnection()}{acceptConnection()}}
+{\footnotesize\ttfamily bool Network\+Connection\+::accept\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Accepts a new client connection. 
+
+Accepts an incoming client connection request and establishes a connection. \begin{DoxyReturn}{Returns}
+bool True if the connection is successfully accepted, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_network_connection_a451609f31408ff039319358f3cfab7a4}\label{class_network_connection_a451609f31408ff039319358f3cfab7a4} 
+\index{NetworkConnection@{NetworkConnection}!closeConnection@{closeConnection}}
+\index{closeConnection@{closeConnection}!NetworkConnection@{NetworkConnection}}
+\doxysubsubsection{\texorpdfstring{closeConnection()}{closeConnection()}}
+{\footnotesize\ttfamily void Network\+Connection\+::close\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Closes the connection with the client. 
+
+Closes the client\textquotesingle{}s socket, effectively terminating the connection. \Hypertarget{class_network_connection_abfd4b156ae3a825ca2b2ca1904e4989b}\label{class_network_connection_abfd4b156ae3a825ca2b2ca1904e4989b} 
+\index{NetworkConnection@{NetworkConnection}!readData@{readData}}
+\index{readData@{readData}!NetworkConnection@{NetworkConnection}}
+\doxysubsubsection{\texorpdfstring{readData()}{readData()}}
+{\footnotesize\ttfamily bool Network\+Connection\+::read\+Data (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{buffer\+Size }\end{DoxyParamCaption})}
+
+
+
+Reads data from the connected client. 
+
+Reads data sent by the client into the provided buffer. 
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The buffer to store the read data. \\
+\hline
+{\em buffer\+Size} & The size of the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if data is successfully read, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_network_connection_a268fa368c55856385911bb4b2f7b6c95}\label{class_network_connection_a268fa368c55856385911bb4b2f7b6c95} 
+\index{NetworkConnection@{NetworkConnection}!sendData@{sendData}}
+\index{sendData@{sendData}!NetworkConnection@{NetworkConnection}}
+\doxysubsubsection{\texorpdfstring{sendData()}{sendData()}}
+{\footnotesize\ttfamily bool Network\+Connection\+::send\+Data (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Sends data to the connected client. 
+
+Sends the specified data to the client. 
+\begin{DoxyParams}{Parameters}
+{\em data} & The data to be sent. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the data is successfully sent, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_network_connection_a50abbfa1f5635e76863d31a3a458e2e4}\label{class_network_connection_a50abbfa1f5635e76863d31a3a458e2e4} 
+\index{NetworkConnection@{NetworkConnection}!startServer@{startServer}}
+\index{startServer@{startServer}!NetworkConnection@{NetworkConnection}}
+\doxysubsubsection{\texorpdfstring{startServer()}{startServer()}}
+{\footnotesize\ttfamily bool Network\+Connection\+::start\+Server (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Starts the server. 
+
+Sets socket options, binds the server to the given address and port, and starts listening for incoming connections. \begin{DoxyReturn}{Returns}
+bool True if the server starts successfully, false if any step fails. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Network\+Connection.\+h\item 
+Network\+Connection.\+cpp\end{DoxyCompactItemize}

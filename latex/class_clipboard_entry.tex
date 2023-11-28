@@ -1,0 +1,94 @@
+\doxysection{Clipboard\+Entry Class Reference}
+\hypertarget{class_clipboard_entry}{}\label{class_clipboard_entry}\index{ClipboardEntry@{ClipboardEntry}}
+
+
+Represents an entry in the clipboard, with associated metadata.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_clipboard_entry_af90a31fa514e47a2c2fc98d3b298251c}{Clipboard\+Entry}} (const std\+::string \&clipboard\+Entry\+ID, const std\+::string \&time\+Added, const std\+::string \&device\+ID, const std\+::string \&user\+Tag, const std\+::string \&content, const std\+::string \&content\+Path)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_clipboard_entry}{Clipboard\+Entry}. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a2ff59240bdb2a8526c0fac5f95e2ff40}\label{class_clipboard_entry_a2ff59240bdb2a8526c0fac5f95e2ff40} 
+std\+::string {\bfseries get\+Clipboard\+Entry\+ID} () const
+\begin{DoxyCompactList}\small\item\em Returns the ID of the clipboard entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a4f51b954cd81fe6d029677b0dfae7117}\label{class_clipboard_entry_a4f51b954cd81fe6d029677b0dfae7117} 
+std\+::string {\bfseries get\+Device\+ID} () const
+\begin{DoxyCompactList}\small\item\em Returns the ID of the device associated with the entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a7963a6e623aa36daee4f7840718d5b10}\label{class_clipboard_entry_a7963a6e623aa36daee4f7840718d5b10} 
+std\+::string {\bfseries get\+Content} () const
+\begin{DoxyCompactList}\small\item\em Returns the content of the clipboard entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a9db7b13ba42c7125f35b5ee17e12c1a2}\label{class_clipboard_entry_a9db7b13ba42c7125f35b5ee17e12c1a2} 
+std\+::string {\bfseries get\+Content\+Path} () const
+\begin{DoxyCompactList}\small\item\em Returns the file path associated with the entry, if applicable. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a329198fd96fcae23d91f25b0676a3a9c}\label{class_clipboard_entry_a329198fd96fcae23d91f25b0676a3a9c} 
+std\+::string {\bfseries get\+Time\+Added} () const
+\begin{DoxyCompactList}\small\item\em Returns the timestamp when the entry was added. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a2943d7391fe5a796db507cfc56bf5daa}\label{class_clipboard_entry_a2943d7391fe5a796db507cfc56bf5daa} 
+std\+::string {\bfseries get\+User\+Tag} () const
+\begin{DoxyCompactList}\small\item\em Returns the user tag or label associated with the entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a1b60e236bda1adeda0b3f6be23b53ad8}\label{class_clipboard_entry_a1b60e236bda1adeda0b3f6be23b53ad8} 
+void {\bfseries set\+Clipboard\+Entry\+ID} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the ID of the clipboard entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a6db9dd4e9583bd6c2cbddcb43028737f}\label{class_clipboard_entry_a6db9dd4e9583bd6c2cbddcb43028737f} 
+void {\bfseries set\+Device\+ID} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the ID of the device associated with the entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a922fa5e5b6b086ce64a904b3e6cbb20d}\label{class_clipboard_entry_a922fa5e5b6b086ce64a904b3e6cbb20d} 
+void {\bfseries set\+Content} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the content of the clipboard entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a99a14b3638be43c3f980f812317cb7f5}\label{class_clipboard_entry_a99a14b3638be43c3f980f812317cb7f5} 
+void {\bfseries set\+Content\+Path} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the file path associated with the entry. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_afe0a481da0faadeab240391c1e40f553}\label{class_clipboard_entry_afe0a481da0faadeab240391c1e40f553} 
+void {\bfseries set\+Time\+Added} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the timestamp when the entry was added. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_entry_a177c1c190227d3c891ad602c620759c4}\label{class_clipboard_entry_a177c1c190227d3c891ad602c620759c4} 
+void {\bfseries set\+User\+Tag} (const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Sets the user tag or label associated with the entry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an entry in the clipboard, with associated metadata. 
+
+This class encapsulates the data for a clipboard entry. It includes attributes such as the entry\textquotesingle{}s unique identifier, device identifier, content, path of the content, time when the entry was added, and an optional user tag. It provides getter and setter methods for each of these attributes.
+
+\begin{DoxyNote}{Note}
+The constructor allows setting all attributes at the time of object creation, with the option to provide empty strings for non-\/existent attributes. 
+\end{DoxyNote}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_clipboard_entry_af90a31fa514e47a2c2fc98d3b298251c}\label{class_clipboard_entry_af90a31fa514e47a2c2fc98d3b298251c} 
+\index{ClipboardEntry@{ClipboardEntry}!ClipboardEntry@{ClipboardEntry}}
+\index{ClipboardEntry@{ClipboardEntry}!ClipboardEntry@{ClipboardEntry}}
+\doxysubsubsection{\texorpdfstring{ClipboardEntry()}{ClipboardEntry()}}
+{\footnotesize\ttfamily Clipboard\+Entry\+::\+Clipboard\+Entry (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{clipboard\+Entry\+ID,  }\item[{const std\+::string \&}]{time\+Added,  }\item[{const std\+::string \&}]{device\+ID,  }\item[{const std\+::string \&}]{user\+Tag,  }\item[{const std\+::string \&}]{content,  }\item[{const std\+::string \&}]{content\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \doxylink{class_clipboard_entry}{Clipboard\+Entry}. 
+
+Initializes a new instance of the \doxylink{class_clipboard_entry}{Clipboard\+Entry} class with specified values for each attribute.
+
+
+\begin{DoxyParams}{Parameters}
+{\em clipboard\+Entry\+ID} & The unique identifier for the clipboard entry. \\
+\hline
+{\em time\+Added} & The timestamp indicating when the entry was added. \\
+\hline
+{\em device\+ID} & The identifier of the device associated with the entry. \\
+\hline
+{\em user\+Tag} & An optional tag or label set by the user for the entry. \\
+\hline
+{\em content} & The textual content of the clipboard entry. \\
+\hline
+{\em content\+Path} & The file path associated with the clipboard entry, if applicable. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Clipboard\+Entry.\+h\item 
+Clipboard\+Entry.\+cpp\end{DoxyCompactItemize}

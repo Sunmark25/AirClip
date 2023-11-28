@@ -1,0 +1,72 @@
+\doxysection{Database\+Controller.\+h}
+\hypertarget{_database_controller_8h_source}{}\label{_database_controller_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DATABASECONTROLLER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DATABASECONTROLLER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <sqlite3.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_database_controller}{DatabaseController}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ sqlite3\ *db;\ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{char}\ *zErrMsg;\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ *dbInstance\_;\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{static}\ std::mutex\ mutex\_;\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ Static\ callback\ function\ that\ matches\ the\ signature\ expected\ by\ sqlite3\_exec}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ callback(\textcolor{keywordtype}{void}\ *NotUsed,\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv,\ \textcolor{keywordtype}{char}\ **azColName);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{protected}:}
+    \textcolor{keyword}{explicit} \mbox{\hyperlink{class_database_controller}{DatabaseController}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename) : db(\textcolor{keyword}{nullptr}), zErrMsg(\textcolor{keyword}{nullptr}) \{\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rc\ =\ sqlite3\_open(filename,\ \&db);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rc)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Can't\ open\ database:\ "{}}\ <<\ sqlite3\_errmsg(db)\ <<\ std::endl;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Opened\ database\ successfully"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_database_controller_a8021cd8642923b317e2f0fcc2006b4e2}{initializeDatabase}}();\ \textcolor{comment}{//\ Initializes\ the\ database\ if\ required\ (creates\ it\ and\ adds\ tables)}}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_database_controller_a7815dd17cfa10ea03ff4a700fcde7c13}{\string~DatabaseController}}()\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ sqlite3\_close(db);\ \textcolor{comment}{//\ TODO:\ This\ might\ need\ to\ be\ called\ else\ where\ (or\ add\ a\ method\ added\ to\ close\ it)}}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ *\mbox{\hyperlink{class_database_controller_aa42e4ad473dffd783a3f40f5111e2d67}{getInstance}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ Member\ functions}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_database_controller_a173e9116ab7a654f746c420346e056eb}{createTable}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_database_controller_a45533b0fdeca172174984ed5666837da}{sqlOperation}}(\textcolor{keyword}{const}\ std::string\ \&sql);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ Using\ prepared\ statements\ for\ efficiency,\ easier\ replacements\ and\ security\ (prevents\ SQL\ injection):}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ https://stackoverflow.com/questions/61794729/how-\/does-\/prepared-\/statements-\/in-\/sqlite-\/c-\/work'}}
+\DoxyCodeLine{00065\ \ \ \ \ std::vector<std::vector<std::string>>\ \mbox{\hyperlink{class_database_controller_a4cf1d2cbb18c7ba61b3dddbe56d89938}{selectData}}(\textcolor{keyword}{const}\ std::string\ \&sql);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_database_controller_af565c537cefd140a1d59b298b2cb56f1}{showTables}}();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_database_controller_a5a790cbc2d1da483b09f9d231aaa3ffb}{tableIsEmpty}}(\textcolor{keyword}{const}\ std::vector<std::vector<std::string>>\ \&tableData);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_database_controller_a8021cd8642923b317e2f0fcc2006b4e2}{initializeDatabase}}();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ Prevent\ copying\ or\ moving\ the\ database\ object.}}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{class_database_controller}{DatabaseController}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ \&operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_database_controller}{DatabaseController}}(\mbox{\hyperlink{class_database_controller}{DatabaseController}}\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_database_controller}{DatabaseController}}\ \&operator=(\mbox{\hyperlink{class_database_controller}{DatabaseController}}\ \&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DATABASECONTROLLER\_H}}
+
+\end{DoxyCode}

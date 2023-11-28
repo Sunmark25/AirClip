@@ -1,0 +1,45 @@
+\doxysection{main.\+cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{main.cpp@{main.cpp}}
+
+
+Main entry point for the Air\+Clip application.  
+
+
+{\ttfamily \#include $<$Wt/\+WApplication.\+h$>$}\newline
+{\ttfamily \#include "{}UI.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ Wt\+::\+WApplication $>$ \mbox{\hyperlink{main_8cpp_a0f32b0e87175e5fb8f529fd6c20b8b27}{Air\+Clip\+Application}} (const Wt\+::\+WEnvironment \&env)
+\begin{DoxyCompactList}\small\item\em Creates and configures the Air\+Clip application. \end{DoxyCompactList}\item 
+\Hypertarget{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627} 
+int {\bfseries main} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main entry point for the Air\+Clip application. 
+
+This file contains the main function and the application factory function for the Air\+Clip application. It uses the Wt library to create a web application. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a0f32b0e87175e5fb8f529fd6c20b8b27}\label{main_8cpp_a0f32b0e87175e5fb8f529fd6c20b8b27} 
+\index{main.cpp@{main.cpp}!AirClipApplication@{AirClipApplication}}
+\index{AirClipApplication@{AirClipApplication}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{AirClipApplication()}{AirClipApplication()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ Wt\+::\+WApplication $>$ Air\+Clip\+Application (\begin{DoxyParamCaption}\item[{const Wt\+::\+WEnvironment \&}]{env }\end{DoxyParamCaption})}
+
+
+
+Creates and configures the Air\+Clip application. 
+
+This factory function creates a new instance of Wt\+::\+WApplication configured for the Air\+Clip application. It sets the title of the application and adds the main \doxylink{class_u_i}{UI} to the root container of the application.
+
+
+\begin{DoxyParams}{Parameters}
+{\em env} & The environment configuration provided by Wt. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::unique\+\_\+ptr$<$\+Wt\+::\+WApplication$>$ A unique pointer to the created Wt\+::\+WApplication instance. 
+\end{DoxyReturn}

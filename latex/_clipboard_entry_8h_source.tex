@@ -1,0 +1,63 @@
+\doxysection{Clipboard\+Entry.\+h}
+\hypertarget{_clipboard_entry_8h_source}{}\label{_clipboard_entry_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CLIPBOARDENTRY\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CLIPBOARDENTRY\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{enum\ class}\ Type\{}
+\DoxyCodeLine{00009\ \ \ \ \ Text,}
+\DoxyCodeLine{00010\ \ \ \ \ Image,}
+\DoxyCodeLine{00011\ \ \ \ \ File}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_clipboard_entry}{ClipboardEntry}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ clipboardEntryID;\ }
+\DoxyCodeLine{00018\ \ \ \ \ std::string\ timeAdded;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ std::string\ deviceID;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ userTag;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ std::string\ content;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ std::string\ contentPath;\ \ \ \ \ \ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ put\ "{}"{}\ if\ this\ attribute\ does\ not\ exist\ for\ this\ ClipboardEntry}}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_clipboard_entry_af90a31fa514e47a2c2fc98d3b298251c}{ClipboardEntry}}(}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&clipboardEntryID,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&timeAdded,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&deviceID,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&userTag,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&content,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&contentPath)\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ this-\/>clipboardEntryID\ =\ clipboardEntryID;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ this-\/>timeAdded\ =\ timeAdded;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ this-\/>deviceID\ =\ deviceID;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ this-\/>userTag\ =\ userTag;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ this-\/>content\ =\ content;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ this-\/>contentPath\ =\ contentPath;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ Getters}}
+\DoxyCodeLine{00054\ \ \ \ \ std::string\ \mbox{\hyperlink{class_clipboard_entry_a2ff59240bdb2a8526c0fac5f95e2ff40}{getClipboardEntryID}}()\ \textcolor{keyword}{const};\ }
+\DoxyCodeLine{00055\ \ \ \ \ std::string\ \mbox{\hyperlink{class_clipboard_entry_a4f51b954cd81fe6d029677b0dfae7117}{getDeviceID}}()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ std::string\ \mbox{\hyperlink{class_clipboard_entry_a7963a6e623aa36daee4f7840718d5b10}{getContent}}()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ std::string\ \mbox{\hyperlink{class_clipboard_entry_a9db7b13ba42c7125f35b5ee17e12c1a2}{getContentPath}}()\ \textcolor{keyword}{const};\ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ std::string\ \mbox{\hyperlink{class_clipboard_entry_a329198fd96fcae23d91f25b0676a3a9c}{getTimeAdded}}()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ std::string\ \mbox{\hyperlink{class_clipboard_entry_a2943d7391fe5a796db507cfc56bf5daa}{getUserTag}}()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Setters}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_clipboard_entry_a1b60e236bda1adeda0b3f6be23b53ad8}{setClipboardEntryID}}(\textcolor{keyword}{const}\ std::string\&\ value);\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_clipboard_entry_a6db9dd4e9583bd6c2cbddcb43028737f}{setDeviceID}}(\textcolor{keyword}{const}\ std::string\&\ value);\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_clipboard_entry_a922fa5e5b6b086ce64a904b3e6cbb20d}{setContent}}(\textcolor{keyword}{const}\ std::string\&\ value);\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_clipboard_entry_a99a14b3638be43c3f980f812317cb7f5}{setContentPath}}(\textcolor{keyword}{const}\ std::string\&\ value);\ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_clipboard_entry_afe0a481da0faadeab240391c1e40f553}{setTimeAdded}}(\textcolor{keyword}{const}\ std::string\&\ value);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_clipboard_entry_a177c1c190227d3c891ad602c620759c4}{setUserTag}}(\textcolor{keyword}{const}\ std::string\&\ value);\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \};;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CLIPBOARDENTRY\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,250 @@
+\doxysection{Clipboard\+Helper Class Reference}
+\hypertarget{class_clipboard_helper}{}\label{class_clipboard_helper}\index{ClipboardHelper@{ClipboardHelper}}
+
+
+A utility class for managing clipboard entries, users, and devices in a database.  
+
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_clipboard_helper_aac6989a3d65d4982bebea42ababb343b}\label{class_clipboard_helper_aac6989a3d65d4982bebea42ababb343b} 
+static \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} {\bfseries search\+Clipboard\+Entry} (const std\+::string \&content, const int entry\+Num)
+\item 
+\Hypertarget{class_clipboard_helper_a2f1d2e50977cb04fc32ba19a9ca6844a}\label{class_clipboard_helper_a2f1d2e50977cb04fc32ba19a9ca6844a} 
+static \mbox{\hyperlink{class_user}{User}} \texorpdfstring{$\ast$}{*} {\bfseries get\+User} (const std\+::string \&user\+ID)
+\item 
+\Hypertarget{class_clipboard_helper_a7c6aa27c9a80f4c20339f19b8dea1a72}\label{class_clipboard_helper_a7c6aa27c9a80f4c20339f19b8dea1a72} 
+static const bool {\bfseries insert\+User} (const std\+::string \&username, const std\+::string \&password)
+\item 
+\Hypertarget{class_clipboard_helper_afd2040d32f9beaccd9280b688ad5a262}\label{class_clipboard_helper_afd2040d32f9beaccd9280b688ad5a262} 
+static Type {\bfseries string\+To\+Type} (std\+::string type\+String)
+\item 
+static const std\+::string \mbox{\hyperlink{class_clipboard_helper_aaadf98abef5aad0e4db6d039bc87cf9b}{generate\+Current\+Time}} ()
+\begin{DoxyCompactList}\small\item\em Generates the current time in ISO8601 format. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_helper_aa1e5da201e5d2f18b91103ac99415bcb}\label{class_clipboard_helper_aa1e5da201e5d2f18b91103ac99415bcb} 
+static const std\+::string {\bfseries generate\+User\+Insert\+SQL} (const std\+::string \&username, const std\+::string \&password)
+\item 
+\Hypertarget{class_clipboard_helper_ac1f7112f2f22f24c755fe44c608ea9ce}\label{class_clipboard_helper_ac1f7112f2f22f24c755fe44c608ea9ce} 
+static const std\+::string {\bfseries generate\+User\+Delete\+SQL} (const std\+::string \&username)
+\item 
+\Hypertarget{class_clipboard_helper_af06682ce38f00abcf4b3922aa9cf68f1}\label{class_clipboard_helper_af06682ce38f00abcf4b3922aa9cf68f1} 
+static const std\+::string {\bfseries generate\+User\+Select\+SQL} (const std\+::string \&user\+ID)
+\item 
+\Hypertarget{class_clipboard_helper_aded56eb8e083258f412174140fba4320}\label{class_clipboard_helper_aded56eb8e083258f412174140fba4320} 
+static const std\+::string {\bfseries generate\+User\+Update\+SQL} (const std\+::string \&user\+ID, const std\+::string \&username="{}"{}, const std\+::string \&password="{}"{})
+\item 
+\Hypertarget{class_clipboard_helper_a14e3a53af7fe10040f4cc5a734bdc62c}\label{class_clipboard_helper_a14e3a53af7fe10040f4cc5a734bdc62c} 
+static const std\+::string {\bfseries generate\+Clipboard\+Entry\+Search\+SQL} (const std\+::string \&search\+Content)
+\item 
+\Hypertarget{class_clipboard_helper_a9faaccc759bb13d52be09ac90b312b84}\label{class_clipboard_helper_a9faaccc759bb13d52be09ac90b312b84} 
+static const std\+::string {\bfseries generate\+Clipboard\+Entry\+Insert\+SQL} (const std\+::string time\+Added, const std\+::string device\+ID, const std\+::string content, const std\+::string content\+Path="{}"{}, const std\+::string user\+Tag="{}"{})
+\item 
+\Hypertarget{class_clipboard_helper_a667ef1d7cc1a9f7a756f5db08db353ed}\label{class_clipboard_helper_a667ef1d7cc1a9f7a756f5db08db353ed} 
+static const std\+::string {\bfseries generate\+Clipboard\+Entry\+Delete\+SQL} (const std\+::string \&clipboard\+Entry\+ID)
+\item 
+\Hypertarget{class_clipboard_helper_aa24ce9f2e702dd3d5a8e74847b64c3e1}\label{class_clipboard_helper_aa24ce9f2e702dd3d5a8e74847b64c3e1} 
+static const std\+::string {\bfseries generate\+Clipboard\+Entry\+Select\+SQL} (const std\+::string \&clipboard\+Entry\+ID)
+\item 
+\Hypertarget{class_clipboard_helper_a51a15cf9bf8b859152cb88d1301ca983}\label{class_clipboard_helper_a51a15cf9bf8b859152cb88d1301ca983} 
+static const std\+::string {\bfseries generate\+Clipboard\+Entry\+Update\+SQL} (const std\+::string \&clipboard\+Entry\+ID, const std\+::string \&time\+Added, const std\+::string \&device\+ID="{}"{}, const std\+::string \&user\+Tag="{}"{}, const std\+::string \&content="{}"{}, const std\+::string \&content\+Path="{}"{})
+\item 
+\Hypertarget{class_clipboard_helper_aa40db3d3a7ee9a41d0eda92758e282c8}\label{class_clipboard_helper_aa40db3d3a7ee9a41d0eda92758e282c8} 
+static const std\+::string {\bfseries generate\+Device\+Insert\+SQL} (const std\+::string \&device\+Name, const std\+::string \&user\+ID)
+\item 
+\Hypertarget{class_clipboard_helper_a105f089c0c76090691bb291971af5f5b}\label{class_clipboard_helper_a105f089c0c76090691bb291971af5f5b} 
+static const std\+::string {\bfseries generate\+Device\+Select\+SQL} (const std\+::string \&device\+ID)
+\item 
+\Hypertarget{class_clipboard_helper_af36d66dc26c90a31ac005fab474d5724}\label{class_clipboard_helper_af36d66dc26c90a31ac005fab474d5724} 
+static const std\+::string {\bfseries generate\+Device\+Update\+SQL} (const std\+::string \&device\+ID, const std\+::string \&device\+Name="{}"{}, const std\+::string \&user\+ID="{}"{})
+\item 
+\Hypertarget{class_clipboard_helper_a077a37803622b0782de5cd5484e74646}\label{class_clipboard_helper_a077a37803622b0782de5cd5484e74646} 
+static const std\+::string {\bfseries generate\+Device\+Delete\+SQL} (const std\+::string \&device\+ID)
+\item 
+static \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_clipboard_helper_aab96b305e05979242a431a44c15bde95}{get\+Latest\+Clipboard\+Entry}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the most recent clipboard entry from the database. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{class_clipboard_helper_a6c13fe32ab59a5a5d34e5304c1124448}{find\+Clipboard\+Entry}} (const std\+::string \&device\+ID, const std\+::string \&content)
+\begin{DoxyCompactList}\small\item\em Finds the ID of a clipboard entry based on device ID and content. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{class_clipboard_helper_af3bfde9257747cb84283634d649aec1a}{insert\+Clipboard\+Entry}} (std\+::string time\+Added, std\+::string device\+ID, std\+::string content, std\+::string content\+Path="{}"{}, std\+::string user\+Tag="{}"{})
+\begin{DoxyCompactList}\small\item\em Inserts a new clipboard entry into the database. \end{DoxyCompactList}\item 
+static std\+::vector$<$ \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_clipboard_helper_a8288d7093ab84f994dd31e4e1d651206}{search\+Clipboard\+Entry}} (const std\+::string \&content)
+\begin{DoxyCompactList}\small\item\em Searches and retrieves clipboard entries that match the specified content. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_clipboard_helper_ab3a03bf203061d2041fb3e77b94e7879}{get\+Latest\+Clipboard\+Entry}} (std\+::string device\+ID)
+\begin{DoxyCompactList}\small\item\em Retrieves the most recent clipboard entry for a given device ID. \end{DoxyCompactList}\item 
+\Hypertarget{class_clipboard_helper_a750b2999b3a34e4e8e4955d5a6fde8c8}\label{class_clipboard_helper_a750b2999b3a34e4e8e4955d5a6fde8c8} 
+static \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Clipboard\+Entry} (const std\+::string \&user\+Id)
+\item 
+static std\+::vector$<$ \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_clipboard_helper_ae16627201c63077374226424cf5ea169}{get\+Clipboard\+Entries}} (const std\+::string \&user\+Id)
+\begin{DoxyCompactList}\small\item\em Retrieves a list of clipboard entries associated with a specific user ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A utility class for managing clipboard entries, users, and devices in a database. 
+
+This class provides static methods for various operations related to clipboard entries, including searching, inserting, and retrieving entries, as well as managing user data. It also includes methods to generate SQL queries for these operations and to convert string representations to specific enum types. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_clipboard_helper_a6c13fe32ab59a5a5d34e5304c1124448}\label{class_clipboard_helper_a6c13fe32ab59a5a5d34e5304c1124448} 
+\index{ClipboardHelper@{ClipboardHelper}!findClipboardEntry@{findClipboardEntry}}
+\index{findClipboardEntry@{findClipboardEntry}!ClipboardHelper@{ClipboardHelper}}
+\doxysubsubsection{\texorpdfstring{findClipboardEntry()}{findClipboardEntry()}}
+{\footnotesize\ttfamily std\+::string Clipboard\+Helper\+::find\+Clipboard\+Entry (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{device\+ID,  }\item[{const std\+::string \&}]{content }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Finds the ID of a clipboard entry based on device ID and content. 
+
+This method constructs and executes an SQL query to find the clipboard entry ID corresponding to the specified device ID and content. If a matching entry is found, the entry ID is logged and returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+ID} & The ID of the device associated with the clipboard entry. \\
+\hline
+{\em content} & The content of the clipboard entry. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string The ID of the found clipboard entry; returns an empty string if no match is found.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Logs a message to the console indicating whether a matching entry was found or not. 
+\end{DoxyNote}
+\Hypertarget{class_clipboard_helper_aaadf98abef5aad0e4db6d039bc87cf9b}\label{class_clipboard_helper_aaadf98abef5aad0e4db6d039bc87cf9b} 
+\index{ClipboardHelper@{ClipboardHelper}!generateCurrentTime@{generateCurrentTime}}
+\index{generateCurrentTime@{generateCurrentTime}!ClipboardHelper@{ClipboardHelper}}
+\doxysubsubsection{\texorpdfstring{generateCurrentTime()}{generateCurrentTime()}}
+{\footnotesize\ttfamily const std\+::string Clipboard\+Helper\+::generate\+Current\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Generates the current time in ISO8601 format. 
+
+This method generates a timestamp of the current time, formatted according to the ISO8601 standard. The format used is \textquotesingle{}YYYY-\/\+MM-\/\+DD\+\_\+\+HH\+:MM\+:SS\textquotesingle{}.
+
+\begin{DoxyReturn}{Returns}
+std\+::string A string representing the current time in ISO8601 format. 
+\end{DoxyReturn}
+\Hypertarget{class_clipboard_helper_ae16627201c63077374226424cf5ea169}\label{class_clipboard_helper_ae16627201c63077374226424cf5ea169} 
+\index{ClipboardHelper@{ClipboardHelper}!getClipboardEntries@{getClipboardEntries}}
+\index{getClipboardEntries@{getClipboardEntries}!ClipboardHelper@{ClipboardHelper}}
+\doxysubsubsection{\texorpdfstring{getClipboardEntries()}{getClipboardEntries()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} $>$ Clipboard\+Helper\+::get\+Clipboard\+Entries (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{user\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Retrieves a list of clipboard entries associated with a specific user ID. 
+
+This method queries the database for all clipboard entries linked to the provided user ID. It joins the \doxylink{class_clipboard_entry}{Clipboard\+Entry}, \doxylink{class_device}{Device}, and \doxylink{class_user}{User} tables to filter entries based on the user\textquotesingle{}s device. If entries are found, they are instantiated as \doxylink{class_clipboard_entry}{Clipboard\+Entry} objects and added to a vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & The user ID for which clipboard entries are to be retrieved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Clipboard\+Entry\texorpdfstring{$\ast$}{*}$>$ A vector of pointers to \doxylink{class_clipboard_entry}{Clipboard\+Entry} objects. If no matching entries are found, the vector will be empty.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The method logs a message to the console if no matching entries are found for the provided user ID. 
+\end{DoxyNote}
+\Hypertarget{class_clipboard_helper_aab96b305e05979242a431a44c15bde95}\label{class_clipboard_helper_aab96b305e05979242a431a44c15bde95} 
+\index{ClipboardHelper@{ClipboardHelper}!getLatestClipboardEntry@{getLatestClipboardEntry}}
+\index{getLatestClipboardEntry@{getLatestClipboardEntry}!ClipboardHelper@{ClipboardHelper}}
+\doxysubsubsection{\texorpdfstring{getLatestClipboardEntry()}{getLatestClipboardEntry()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} Clipboard\+Helper\+::get\+Latest\+Clipboard\+Entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Retrieves the most recent clipboard entry from the database. 
+
+This method fetches the latest clipboard entry from the database without filtering by device ID. The clipboard entries are ordered by the time they were added, and the most recent one is returned.
+
+\begin{DoxyReturn}{Returns}
+Clipboard\+Entry\texorpdfstring{$\ast$}{*} Pointer to the most recent \doxylink{class_clipboard_entry}{Clipboard\+Entry} object; returns nullptr if no entry is found.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Logs a message to the console if no clipboard entry is found. 
+\end{DoxyNote}
+\Hypertarget{class_clipboard_helper_ab3a03bf203061d2041fb3e77b94e7879}\label{class_clipboard_helper_ab3a03bf203061d2041fb3e77b94e7879} 
+\index{ClipboardHelper@{ClipboardHelper}!getLatestClipboardEntry@{getLatestClipboardEntry}}
+\index{getLatestClipboardEntry@{getLatestClipboardEntry}!ClipboardHelper@{ClipboardHelper}}
+\doxysubsubsection{\texorpdfstring{getLatestClipboardEntry()}{getLatestClipboardEntry()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} Clipboard\+Helper\+::get\+Latest\+Clipboard\+Entry (\begin{DoxyParamCaption}\item[{std\+::string}]{device\+ID }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Retrieves the most recent clipboard entry for a given device ID. 
+
+This method fetches the latest clipboard entry from the database for the specified device ID. The clipboard entries are ordered by the time they were added, and the most recent one is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+ID} & The ID of the device for which the latest clipboard entry is to be retrieved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Clipboard\+Entry\texorpdfstring{$\ast$}{*} Pointer to the most recent \doxylink{class_clipboard_entry}{Clipboard\+Entry} object; returns nullptr if no entry is found.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Logs a message to the console if no matching entry is found for the specified device ID. 
+\end{DoxyNote}
+\Hypertarget{class_clipboard_helper_af3bfde9257747cb84283634d649aec1a}\label{class_clipboard_helper_af3bfde9257747cb84283634d649aec1a} 
+\index{ClipboardHelper@{ClipboardHelper}!insertClipboardEntry@{insertClipboardEntry}}
+\index{insertClipboardEntry@{insertClipboardEntry}!ClipboardHelper@{ClipboardHelper}}
+\doxysubsubsection{\texorpdfstring{insertClipboardEntry()}{insertClipboardEntry()}}
+{\footnotesize\ttfamily std\+::string Clipboard\+Helper\+::insert\+Clipboard\+Entry (\begin{DoxyParamCaption}\item[{std\+::string}]{time\+Added,  }\item[{std\+::string}]{device\+ID,  }\item[{std\+::string}]{content,  }\item[{std\+::string}]{content\+Path = {\ttfamily "{}"{}},  }\item[{std\+::string}]{user\+Tag = {\ttfamily "{}"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Inserts a new clipboard entry into the database. 
+
+This method constructs and executes an SQL query to insert a new clipboard entry into the database. The insertion is based on the provided time added, device ID, content, content path, and user tag. After the insertion, it attempts to retrieve the newly added clipboard entry by calling {\ttfamily find\+Clipboard\+Entry} using the device ID and content as search parameters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em time\+Added} & The timestamp when the clipboard entry was added. \\
+\hline
+{\em device\+ID} & The ID of the device associated with the clipboard entry. \\
+\hline
+{\em content} & The textual content of the clipboard entry. \\
+\hline
+{\em content\+Path} & The file path associated with the clipboard entry, if applicable. \\
+\hline
+{\em user\+Tag} & A tag or label associated with the clipboard entry. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string The ID of the newly added clipboard entry if insertion is successful; an empty string otherwise.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The method logs a success message to the console upon successful insertion. If the insertion fails, it logs a message indicating the failure to add a new entry in the database. 
+\end{DoxyNote}
+\Hypertarget{class_clipboard_helper_a8288d7093ab84f994dd31e4e1d651206}\label{class_clipboard_helper_a8288d7093ab84f994dd31e4e1d651206} 
+\index{ClipboardHelper@{ClipboardHelper}!searchClipboardEntry@{searchClipboardEntry}}
+\index{searchClipboardEntry@{searchClipboardEntry}!ClipboardHelper@{ClipboardHelper}}
+\doxysubsubsection{\texorpdfstring{searchClipboardEntry()}{searchClipboardEntry()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_clipboard_entry}{Clipboard\+Entry}} \texorpdfstring{$\ast$}{*} $>$ Clipboard\+Helper\+::search\+Clipboard\+Entry (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{content }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Searches and retrieves clipboard entries that match the specified content. 
+
+This method performs a database search for clipboard entries containing the given content. It generates an SQL query using the {\ttfamily generate\+Clipboard\+Entry\+Search\+SQL} method and executes it to find matching entries. Each found entry is instantiated as a \doxylink{class_clipboard_entry}{Clipboard\+Entry} object and added to a vector. The search is performed using the LIKE operator in SQL, allowing for partial matches with the specified content.
+
+
+\begin{DoxyParams}{Parameters}
+{\em content} & The string content to search for in clipboard entries. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Clipboard\+Entry\texorpdfstring{$\ast$}{*}$>$ A vector of pointers to \doxylink{class_clipboard_entry}{Clipboard\+Entry} objects. If no entries match the search content, the vector will be empty.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The method logs a message to the console if no entries matching the specified content are found. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Clipboard\+Helper.\+h\item 
+Clipboard\+Helper.\+cpp\end{DoxyCompactItemize}

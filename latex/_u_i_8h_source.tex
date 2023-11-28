@@ -1,0 +1,71 @@
+\doxysection{UI.\+h}
+\hypertarget{_u_i_8h_source}{}\label{_u_i_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ UI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ UI\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Wt/WApplication.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Wt/WContainerWidget.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <Wt/WPushButton.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <Wt/WLineEdit.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Wt/WTableView.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <Wt/WStandardItemModel.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <Wt/WStandardItem.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <Wt/WText.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Wt/WLayout.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <Wt/WAnchor.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <Wt/WHBoxLayout.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <Wt/WVBoxLayout.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <Wt/WLength.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <Wt/WFlags.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <Wt/WDialog.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <Wt/WLabel.h>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_entry}{Entry}}\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ content;}
+\DoxyCodeLine{00032\ \ \ \ \ std::string\ uniqueId;\ \textcolor{comment}{//\ Unique\ identifier\ for\ each\ entry}}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_u_i}{UI}}\ :\ \textcolor{keyword}{public}\ Wt::WContainerWidget\ \{}
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_u_i_a675985a56b5e87ebdc8e5884b9f2ee09}{UI}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_u_i_a5225eea42f3b8a1ef5259f923f86c55a}{\string~UI}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_i_adae1ba85689be6ad2ec70f21d72a0608}{setupUI}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ Private\ Helper\ Methods}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ onQuitClicked();\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ onbackToTopClicked();\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ createEntry(\textcolor{keyword}{const}\ std::string\ \&entryText,\ WContainerWidget\ *container);\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ toggleExpand(Wt::WText\ *textWidget,\ Wt::WContainerWidget\ *entryContainer,\ Wt::WPushButton\ *expandButton);\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ showClearConfirmationDialog();\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ \ \ \ void\ clearEntriesContainer();}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ Widgets\ and\ Model\ Pointers}}
+\DoxyCodeLine{00076\ \ \ \ \ Wt::WLineEdit*\ textBox\_;\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ Wt::WPushButton*\ searchButton\_;\ }
+\DoxyCodeLine{00079\ \ \ \ \ Wt::WPushButton*\ clearButton\_;\ }
+\DoxyCodeLine{00080\ \ \ \ \ Wt::WPushButton*\ quitButton\_;\ }
+\DoxyCodeLine{00081\ \ \ \ \ Wt::WPushButton*\ backToTopButton\_;\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ \ \ \ Wt::WPushButton*\ signOutButton\_;\ \ \ \ \ \ \ \ //\ sign\ out\ button}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ \ Wt::WPushButton*\ moveToTopButton\_;}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ Wt::WText*\ airclipLabel\_;\ }
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UI\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,39 @@
+\doxysection{Air\+Clip\+Server.\+h}
+\hypertarget{_air_clip_server_8h_source}{}\label{_air_clip_server_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Tingrui\ Zhang\ on\ 2023-\/10-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ AIRCLIP\_AIRCLIPSERVER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ AIRCLIP\_AIRCLIPSERVER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}DatabaseController.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}UserManager.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}NetworkConnection.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_air_clip_server}{AirClipServer}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *DB\_PATH\ =\ \textcolor{stringliteral}{"{}../../AirClip.sqlite"{}};\ \textcolor{comment}{//\ TODO:\ Move?}}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_user_manager}{UserManager}}\ *userManager;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ stopServer();}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ newConnection(\textcolor{keyword}{const}\ std::string\ \&wtConnectionId);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_air_clip_server}{AirClipServer}}()\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Start\ the\ database\ controller\ and\ pass\ in\ the\ db\ filepath}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_database_controller_aa42e4ad473dffd783a3f40f5111e2d67}{DatabaseController::getInstance}}(DB\_PATH);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ new\ UserManager\ and\ store\ it\ in\ the\ point}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ userManager\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_user_manager}{UserManager}}();}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_air_clip_server_af63fbc5d99d3a66f5224bfa56e5fff49}{startServer}}();}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//AIRCLIP\_AIRCLIPSERVER\_H}}
+
+\end{DoxyCode}
