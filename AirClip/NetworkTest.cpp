@@ -7,6 +7,7 @@ int main() {
         return "Hello world";
     });
 
+    // TODO: Use to send data to the client
     // simple json response using a map
     // To see it in action enter {ip}:18080/api/send_json
     // it shoud show amessage before zmessage despite adding zmessage first.
@@ -37,10 +38,13 @@ int main() {
                 return crow::response{os.str()};
             });
 
+    // TODO: Use to receive data from the client
     // TODO: Improve, add authentication so this can't be spoofed
     // Use: `curl -d '{"username":"<username>","content":"<string-content>"}' 0.0.0.0:18080/api/clipboard/send`
     CROW_ROUTE(app, "/api/clipboard/send")
             .methods("POST"_method)([](const crow::request& req) {
+                std::cout << "Raw body: " << req.body << std::endl;
+
                 auto jsonData = crow::json::load(req.body);
 
                 if (!jsonData)
@@ -57,5 +61,5 @@ int main() {
     // https://crowcpp.org/master/guides/websockets/
 
     //set the port, set the app to run on multiple threads, and run the app
-    app.port(18080).multithreaded().run();
+    app.port(49162).multithreaded().run(); // .bindaddr("10.0.0.34")
 }

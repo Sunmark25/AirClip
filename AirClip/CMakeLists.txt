@@ -29,7 +29,7 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
         GIT_TAG master
 )
-FetchContent_MakeAvailable(crow)
+FetchContent_MakeAvailable(Crow)
 
 # Source files
 set(SOURCES
