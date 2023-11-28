@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <Wt/WApplication.h>
 #include "DeviceInfo.h"
 #include "DatabaseController.h"
+#include "UI.h"
 
 // Forward declaration of the DeviceInfo and ClipboardEntry classes
 class DeviceInfo;
@@ -33,6 +35,10 @@ public:
     std::string findDevice(const std::string &deviceName, const std::string &userID);
 
     std::string registerDevice(const std::string &deviceName, const std::string &userID);
+
+    Wt::WApplication* updateUI(const Wt::WEnvironment& env);
+
+    std::unique_ptr<Wt::WApplication> associateWithSession(const Wt::WEnvironment &env);
 };
 
 #endif // DEVICE_H

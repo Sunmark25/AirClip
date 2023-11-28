@@ -10,7 +10,8 @@
 
 #include "UI.h"
 
-UI::UI() {
+UI::UI(const std::string& deviceID)
+        : deviceID_(deviceID){
     setupUI();
 }
 

@@ -7,7 +7,9 @@
  */
 
 #include <Wt/WApplication.h>
+#include <Wt/WServer.h>
 #include "UI.h"
+#include "Device.h"
 
 /**
  * @brief Creates and configures the AirClip application.
@@ -18,27 +20,52 @@
  * @param env The environment configuration provided by Wt.
  * @return std::unique_ptr<Wt::WApplication> A unique pointer to the created Wt::WApplication instance.
  */
-std::unique_ptr<Wt::WApplication> AirClipApplication(const Wt::WEnvironment& env) {
-    auto app = std::make_unique<Wt::WApplication>(env);
-
-    app->setTitle("AirClip");  // Set the title
-    // Add your UI to the root container of the application.
-    app->root()->addWidget(std::make_unique<UI>());
-    return app;
-}
+//std::unique_ptr<Wt::WApplication> AirClipApplication(const Wt::WEnvironment& env) {
+//    auto app = std::make_unique<Wt::WApplication>(env);
+//    app->setTitle("AirClip");  // Set the title
+//    // Add your UI to the root container of the application.
+//    app->root()->addWidget(std::make_unique<UI>());
+//    return app;
+//}
 
 int main(int argc, char **argv) {
-    // Get the executable name from the first argument (always set)
-    std::string executableName = argv[0];
+    try {
+        Wt::WServer server;
 
-    // If there is only one argument then provide the default arguments to run Wt
-    if (argc == 1) {
-        // Hardcode the command-line arguments
-        std::vector<std::string> args = {"--docroot", ".", "--http-listen", "0.0.0.0:8080"};
+        // Check command-line arguments
+        if (argc == 1) {
+            char* args[] = {"--docroot", ".", "--http-listen", "0.0.0.0:8080"};
+            int argCount = sizeof(args) / sizeof(char*);
+            server.setServerConfiguration(argCount, args, WTHTTP_CONFIGURATION);
+        } else {
+            server.setServerConfiguration(argc, argv, WTHTTP_CONFIGURATION);
+        }
 
-        // Run the Wt application
-        return Wt::WRun(executableName, args, &AirClipApplication);
-    } else { // Otherwise, run Wt with the provided args
-        return Wt::WRun(argc, argv, &AirClipApplication);
+        server.addEntryPoint(Wt::EntryPointType::Application,
+                             [](const Wt::WEnvironment& env) {
+                                 std::string deviceID = "device123";  // Example device ID
+                                 std::string userID = "user456";      // Example user ID
+
+                                 Device device(deviceID);
+                                 return device.associateWithSession(env);
+                             }
+        );
+
+        // Start server
+        if (server.start()) {
+            Wt::WServer::waitForShutdown();
+
+            std::cerr << "Shutdown" << std::endl;
+            server.stop();
+
+            // Restart logic, if necessary, should be handled here
+        }
+    } catch (Wt::WServer::Exception& e) {
+        std::cerr << e.what() << std::endl;
+    } catch (std::exception& e) {
+        std::cerr << "exception: " << e.what() << std::endl;
     }
+
+    return 0;
 }
+

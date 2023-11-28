@@ -39,7 +39,8 @@ public:
      *
      * Initializes a new instance of the UI class, setting up the basic components of the user interface.
      */
-    UI();
+    UI(const std::string& deviceID);
+
 
     /**
      * @brief Virtual destructor for proper cleanup.
@@ -57,6 +58,8 @@ public:
 
 private:
     // Private Helper Methods
+    std::string deviceID_;
+    std::string userID_;
     void onQuitClicked(); ///< Handles the Quit button click event.
     void onbackToTopClicked(); ///< Handles the Back to Top button click event.
     void createEntry(const std::string &entryText, WContainerWidget *container); ///< Creates a new entry in the UI.
