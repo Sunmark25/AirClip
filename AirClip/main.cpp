@@ -28,5 +28,17 @@ std::unique_ptr<Wt::WApplication> AirClipApplication(const Wt::WEnvironment& env
 }
 
 int main(int argc, char **argv) {
-    return Wt::WRun(argc, argv, &AirClipApplication);
+    // Get the executable name from the first argument (always set)
+    std::string executableName = argv[0];
+
+    // If there is only one argument then provide the default arguments to run Wt
+    if (argc == 1) {
+        // Hardcode the command-line arguments
+        std::vector<std::string> args = {"--docroot", ".", "--http-listen", "0.0.0.0:8080"};
+
+        // Run the Wt application
+        return Wt::WRun(executableName, args, &AirClipApplication);
+    } else { // Otherwise, run Wt with the provided args
+        return Wt::WRun(argc, argv, &AirClipApplication);
+    }
 }
