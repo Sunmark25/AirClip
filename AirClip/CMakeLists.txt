@@ -26,6 +26,14 @@ find_package(Boost REQUIRED COMPONENTS system thread)
 set(SOURCES
         UI.cpp
         UI.h
+        UserManager.h
+        UserManager.cpp
+        User.h
+        User.cpp
+        Device.h
+        Device.cpp
+        DeviceInfo.h
+        DeviceInfo.cpp
         DatabaseController.cpp
         DatabaseController.h
         ClipboardHelper.cpp
