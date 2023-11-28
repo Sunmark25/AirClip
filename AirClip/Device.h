@@ -27,16 +27,14 @@ public:
      *
      * @param wtConnectionId The Wt connection ID associated with the device's web page.
      */
-    explicit Device(const std::string &wtConnectionId) {
-        deviceInfo = new DeviceInfo("", wtConnectionId, "", "");
+    explicit Device() {
+        deviceInfo = new DeviceInfo("", "", "");
         dbc = DatabaseController::getInstance();
     }
 
     std::string findDevice(const std::string &deviceName, const std::string &userID);
 
     std::string registerDevice(const std::string &deviceName, const std::string &userID);
-
-    Wt::WApplication* updateUI(const Wt::WEnvironment& env);
 
     std::unique_ptr<Wt::WApplication> associateWithSession(const Wt::WEnvironment &env);
 };

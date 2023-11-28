@@ -10,6 +10,7 @@
 #include <Wt/WServer.h>
 #include "UI.h"
 #include "Device.h"
+#include "UserManager.h"
 
 /**
  * @brief Creates and configures the AirClip application.
@@ -34,7 +35,8 @@ int main(int argc, char **argv) {
 
         // Check command-line arguments
         if (argc == 1) {
-            char* args[] = {"--docroot", ".", "--http-listen", "0.0.0.0:8080"};
+            char* args[] = {const_cast<char*>("--docroot"), const_cast<char*>("."),
+                            const_cast<char*>("--http-listen"), const_cast<char*>("0.0.0.0:8080")};
             int argCount = sizeof(args) / sizeof(char*);
             server.setServerConfiguration(argCount, args, WTHTTP_CONFIGURATION);
         } else {
@@ -43,10 +45,9 @@ int main(int argc, char **argv) {
 
         server.addEntryPoint(Wt::EntryPointType::Application,
                              [](const Wt::WEnvironment& env) {
-                                 std::string deviceID = "device123";  // Example device ID
-                                 std::string userID = "user456";      // Example user ID
+                                 static int deviceCounter = 0;
 
-                                 Device device(deviceID);
+                                 Device device = Device();
                                  return device.associateWithSession(env);
                              }
         );

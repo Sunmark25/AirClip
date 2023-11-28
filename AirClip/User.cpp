@@ -17,9 +17,9 @@ std::string User::getPassword() {
   * creating a new device and thread and storing both in the lists
   * @param wtConnectionId The wt connection ID (for sure's device web page) that corresponds to the user's device
   */
-Device* User::connectDevice(const std::string &wtConnectionId) {
+Device* User::connectDevice() {
     // Create a newDevice and pass the wt connection ID
-    auto newDevice = new Device(wtConnectionId);
+    auto newDevice = new Device();
     // Add the new device to the active devices
     activeDevices.emplace_back(newDevice);
 

@@ -151,5 +151,5 @@ Device* UserManager::finishUserLogIn(const std::string &userID, const std::strin
     auto newUser = new User(userID, username, password);
 
     // Connect the device to the user
-    return newUser->connectDevice(wtConnectionId);
+    return newUser->connectDevice();
 }

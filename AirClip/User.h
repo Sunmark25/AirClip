@@ -53,7 +53,8 @@ public:
      * creating a new device and thread and storing both in the lists
      * @param wtConnectionId The wt connection ID (for sure's device web page) that corresponds to the user's device
      */
-    Device* connectDevice(const std::string &wtConnectionId);
+
+    Device *connectDevice();
 };
 
 #endif // USER_H
