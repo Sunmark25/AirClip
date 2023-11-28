@@ -4,6 +4,8 @@
 #include <string>
 #include <sqlite3.h>
 #include <iostream>
+#include <thread>
+#include <mutex>
 
 class DatabaseController {
 private:

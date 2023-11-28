@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.21)
 
 # Set the name of the project (the exec file)
 SET(MY_PROJECT_NAME AirClip)
-
 project(${MY_PROJECT_NAME})
 
 # Set the C++ version
@@ -22,8 +21,9 @@ find_package(SQLite3 REQUIRED)
 find_package(Wt REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system thread)
 
-# Fetch Crow
 include(FetchContent)
+
+# Fetch Crow
 FetchContent_Declare(
         Crow
         GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
@@ -52,7 +52,7 @@ configure_file("styles.css" "styles.css")
 add_executable(${MY_PROJECT_NAME} ${SOURCES})
 
 # Link against the libraries
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${MY_PROJECT_NAME}
         Wt::Wt
         Wt::HTTP
 
