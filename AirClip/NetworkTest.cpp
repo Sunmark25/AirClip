@@ -60,6 +60,18 @@ int main() {
     // https://stackoverflow.com/a/12442805
     // https://crowcpp.org/master/guides/websockets/
 
+    std::string clipboardContent = "Test data 123";
+
+    // TODO: Use to send data to the client
+    // TODO: Improve, add authentication so this can't be spoofed
+    CROW_ROUTE(app, "/api/clipboard/send")
+            .methods("GET"_method)([&clipboardContent] {
+                crow::json::wvalue x({"content", clipboardContent});
+                return x;
+            });
+
+
+
     //set the port, set the app to run on multiple threads, and run the app
     app.port(49162).multithreaded().run(); // .bindaddr("10.0.0.34")
 }
