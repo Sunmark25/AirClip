@@ -35,10 +35,9 @@ int main(int argc, char **argv) {
 
         // Check command-line arguments
         if (argc == 1) {
-            char* args[] = {const_cast<char*>("--docroot"), const_cast<char*>("."),
-                            const_cast<char*>("--http-listen"), const_cast<char*>("0.0.0.0:8080")};
-            int argCount = sizeof(args) / sizeof(char*);
-            server.setServerConfiguration(argCount, args, WTHTTP_CONFIGURATION);
+            const char* hardcodedArgs[] = {"program", "--docroot", ".", "--http-listen", "0.0.0.0:8080"};
+            int argCount = sizeof(hardcodedArgs) / sizeof(char*);
+            server.setServerConfiguration(argCount, const_cast<char**>(hardcodedArgs), WTHTTP_CONFIGURATION);
         } else {
             server.setServerConfiguration(argc, argv, WTHTTP_CONFIGURATION);
         }
