@@ -19,33 +19,6 @@ std::string ClipboardHelper::buffer;  // Initialize the static member variable (
 
 DatabaseController* ClipboardHelper::dbc = DatabaseController::getInstance();
 
-
-//ClipboardEntry* ClipboardHelper::getClipboardEntry(const std::string &userId, const int entryNum) {
-//    std::string query = "SELECT ClipboardEntry.* FROM ClipboardEntry JOIN DEVICE "
-//                        "ON ClipboardEntry.deviceID = Device.deviceID JOIN User"
-//                        "ON Device.userID = User.userID"
-//                        "WHERE User.userID = '" + userId + "';";
-//
-//
-//    // Look for the clipboard entries matching the userID
-//    std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
-//
-//    // If clipboard entries were found (the table wasn't empty) then return the one the user requested
-//    if (!DatabaseController::tableIsEmpty(tableData)) {
-//        // Get the row based on the entryNum (0, 1, 2, 3)
-//        std::vector<std::string> row = tableData[entryNum];
-//
-//        // Create a new clipboardEntry
-//        auto entry = new ClipboardEntry(row[0], row[1], row[2], row[3], row[4], row[5]);
-//
-//        return entry;
-//    } else { // Otherwise, return an empty string
-//        std::cout << "No match for userID" << std::endl;
-//
-//        return nullptr;
-//    }
-//}
-
 /**
  * @brief Retrieves a list of clipboard entries associated with a specific user ID.
  *
@@ -82,27 +55,6 @@ std::vector<ClipboardEntry*> ClipboardHelper::getClipboardEntries(const std::str
 
     return entries;
 }
-
-
-//ClipboardEntry* ClipboardHelper::searchClipboardEntry(const std::string &content, const int entryNum){
-//    std::string query = generateClipboardEntrySearchSQL(content);
-//
-//    std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
-//
-//    if (!DatabaseController::tableIsEmpty(tableData)) {
-//        // Get the row based on the entryNum (0, 1, 2, 3)
-//        std::vector<std::string> row = tableData[entryNum];
-//
-//        // Create a new clipboardEntry
-//        auto entry = new ClipboardEntry(row[0], row[1], row[2], row[3], row[4], row[5]);
-//
-//        return entry;
-//    } else { // Otherwise, return an empty string
-//        std::cout << "No match for this content" << std::endl;
-//
-//        return nullptr;
-//    }
-//}
 
 /**
  * @brief Searches and retrieves clipboard entries that match the specified content.

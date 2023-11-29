@@ -37,9 +37,9 @@ void UI::setupUI() {
     clearButton_->addStyleClass("button");
 
     // Sign Out button
-    auto signOutButton = std::make_unique<Wt::WPushButton>("Sign Out");
-    signOutButton->addStyleClass("button");
-    topHBox->addWidget(std::move(signOutButton), 0, Wt::AlignmentFlag::Right);
+//    auto signOutButton = std::make_unique<Wt::WPushButton>("Sign Out");
+//    signOutButton->addStyleClass("button");
+//    topHBox->addWidget(std::move(signOutButton), 0, Wt::AlignmentFlag::Right);
 
     // Quit button
     auto quitButton = std::make_unique<Wt::WPushButton>( "Quit");
@@ -79,7 +79,7 @@ void UI::setupUI() {
     entriesContainer->setMaximumSize(Wt::WLength::Auto, Wt::WLength(1000, Wt::LengthUnit::Pixel)); // Dynamic height with max limit
     entriesContainer->addStyleClass("entries-container");
 
-    // Setup text box action
+    // Setup text box enter key action
     textBox_->enterPressed().connect([=, this] {
         entriesContainer->clear();
 

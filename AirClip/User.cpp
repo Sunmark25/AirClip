@@ -24,9 +24,4 @@ Device* User::connectDevice() {
     activeDevices.emplace_back(newDevice);
 
     return newDevice;
-
-    // Call createThead in Device to create a new thread for the device
-    // std::thread newDeviceThread = Device::createThread();
-    // Add the thread to the active device threads
-    // activeDeviceThreads.push_back(std::move(newDeviceThread));
 }

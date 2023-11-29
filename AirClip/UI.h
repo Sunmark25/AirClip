@@ -75,8 +75,6 @@ private:
     Wt::WPushButton* clearButton_; ///< Button for clearing the UI.
     Wt::WPushButton* quitButton_; ///< Button for quitting the application.
     Wt::WPushButton* backToTopButton_; ///< Button for returning to the top of the UI.
-//    Wt::WPushButton* signOutButton_;        // sign out button
-//   Wt::WPushButton* moveToTopButton_;
 
     Wt::WText* airclipLabel_; ///< Label displaying "Airclip".
 };

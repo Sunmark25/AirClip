@@ -73,8 +73,6 @@ int main(int argc, char **argv) {
         std::cout << test1[i]->getContent() << std::endl;
     }
 
-
-
     try {
         Wt::WServer server;
 
