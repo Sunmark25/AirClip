@@ -90,6 +90,7 @@ void NetworkConnection::startServer() {
                 return crow::response{"Registered!"}; // TODO: Change to something better? UserID? WtConnectionID?
             });
 
-    // Set the port, set app to run on multiple threads, and run the app
-    app.port(*PORT).multithreaded().run();
+    // Set the port, set app to run on multiple threads, and run the app asynchronously
+    // Store a reference so it doesn't become blocking
+    appRef = app.port(*PORT).multithreaded().run_async();
 }

@@ -74,6 +74,10 @@ int main(int argc, char **argv) {
         std::cout << test1[i]->getContent() << std::endl;
     }
 
+    // TODO: Integrate properly (put in a thread?)
+    auto *net = new NetworkConnection();
+    net->startServer();
+
     try {
         Wt::WServer server;
 
@@ -113,10 +117,6 @@ int main(int argc, char **argv) {
     } catch (std::exception &e) {
         std::cerr << "exception: " << e.what() << std::endl;
     }
-
-    // TODO: Integrate properly (put in a thread?)
-//    auto *net = new NetworkConnection();
-//    net->startServer();
 
     return 0;
 }
