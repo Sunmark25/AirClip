@@ -9,19 +9,19 @@ it offers a user-friendly interface and robust features for both individual and 
 For any inquiries, feedback, or contributions, please feel free to contact the project's authors listed in the "Authors" section below.
 
 ## Table of Contents
-- [About AirClip](#markdown-header-about-airclip)
-- [Key Features](#markdown-header-key-features)
-- [Getting Started](#markdown-header-getting-started)
-   - [Required Libraries and Third-Party Tools](#markdown-header-required-libraries-and-third-party-tools)
-   - [Building from Source Code](#markdown-header-building-from-source-code)
-- [Running the Application](#markdown-header-running-the-application)
-- [Usage Guide](#markdown-header-usage-guide)
-   - [Getting Started with AirClip](#markdown-header-getting-started-with-airclip)
-   - [Managing Clipboard History](#markdown-header-managing-clipboard-history)
-- [Troubleshooting](#markdown-header-troubleshooting)
-   - [Common Issues and Solutions](#markdown-header-common-issues-and-solution)
-   - [Frequently Asked Questions (FAQs)](#markdown-header-frequently-asked-questions-(faqs))
-- [Authors](#markdown-header-authors)
+- [About AirClip](#about-airclip)
+- [Key Features](#key-features)
+- [Getting Started](#getting-started)
+   - [Required Libraries and Third-Party Tools](#required-libraries-and-third-party-tools)
+   - [Building from Source Code](#building-from-source-code)
+- [Running the Application](#running-the-application)
+- [Usage Guide](#usage-guide)
+   - [Getting Started with AirClip](#getting-started-with-airclip)
+   - [Managing Clipboard History](#managing-clipboard-history)
+- [Troubleshooting](#troubleshooting)
+   - [Common Issues and Solutions](#common-issues-and-solution)
+   - [Frequently Asked Questions (FAQs)](#frequently-asked-questions-(faqs))
+- [Authors](#authors)
 
 ## Key Features
 - **Clipboard History Management**: Easily access and manage your previously copied text or images.
