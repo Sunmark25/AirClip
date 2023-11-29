@@ -228,9 +228,10 @@ void UI::showClearConfirmationDialog() {
                                            "}";
 
 
-    std::string deleteAllClipboardEntry = "DELETE * FROM ClipboardEntry JOIN Device ON ClipboardEntry.deviceID = Device.deviceID WHERE Device.userID = '" + userID + "';";
+    //std::string deleteAllClipboardEntry = "DELETE * FROM ClipboardEntry JOIN Device ON ClipboardEntry.deviceID = Device.deviceID WHERE Device.userID = '" + userID + "';";
+    std::string deleteAllClipboardEntry = "DELETE FROM ClipboardEntry WHERE deviceID IN ( SELECT deviceID FROM Device WHERE userID = '" +  userID + "');";
     DatabaseController *dbc = DatabaseController::getInstance();
-    std::cout << dbc->sqlOperation(deleteAllClipboardEntry) << std::endl;
+    dbc->sqlOperation(deleteAllClipboardEntry);
     Wt::WApplication::instance()->doJavaScript(jsCode);
     setupUI();
 }
