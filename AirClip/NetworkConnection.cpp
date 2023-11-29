@@ -44,8 +44,14 @@ void NetworkConnection::startServer() {
     // TODO: Improve, add authentication so this can't be spoofed
     CROW_ROUTE(app, "/api/clipboard/receive")
             .methods("GET"_method)([&clipboardContent] {
-                crow::json::wvalue x({"content", clipboardContent});
-                return x;
+                // Create a crow::json::wvalue object
+                crow::json::wvalue responseJson;
+
+                // Add a key-value pair to the JSON object
+                responseJson["content"] = clipboardContent;
+
+                // Return the JSON object as the response
+                return responseJson;
             });
 
     // Used login a user into the server
