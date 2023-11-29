@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.21)
 
 # Set the name of the project (the exec file)
 SET(MY_PROJECT_NAME AirClip)
-
 project(${MY_PROJECT_NAME})
 
 # Set the C++ version
@@ -21,6 +20,16 @@ find_package(SQLite3 REQUIRED)
 # Find the Wt library
 find_package(Wt REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system thread)
+
+include(FetchContent)
+
+# Fetch Crow
+FetchContent_Declare(
+        Crow
+        GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(Crow)
 
 # Source files
 set(SOURCES
@@ -41,6 +50,8 @@ set(SOURCES
         ClipboardEntry.cpp
         ClipboardEntry.h
         main.cpp
+        NetworkConnection.cpp
+        NetworkConnection.h
 )
 
 #Include the css file
@@ -50,12 +61,14 @@ configure_file("styles.css" "styles.css")
 add_executable(${MY_PROJECT_NAME} ${SOURCES})
 
 # Link against the libraries
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${MY_PROJECT_NAME}
         Wt::Wt
         Wt::HTTP
 
         SQLite::SQLite3
         ${Boost_LIBRARIES}
+
+        Crow::Crow
 )
 
 # Set the RPATH to include the library directory
