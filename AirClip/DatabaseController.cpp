@@ -233,3 +233,4 @@ void DatabaseController::initializeDatabase() {
         createTable();
     }
 }
+

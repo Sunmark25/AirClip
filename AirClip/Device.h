@@ -28,7 +28,7 @@ public:
      * @param wtConnectionId The Wt connection ID associated with the device's web page.
      */
     explicit Device() {
-        deviceInfo = new DeviceInfo("", "", "");
+        deviceInfo = new DeviceInfo("", "", "", "");
         dbc = DatabaseController::getInstance();
     }
 

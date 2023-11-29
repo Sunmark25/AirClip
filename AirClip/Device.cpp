@@ -71,6 +71,7 @@ std::string Device::registerDevice(const std::string &deviceName, const std::str
     if (success) {
         std::cout << "Success" << std::endl;
         deviceInfo->setDeviceName(deviceName);
+        deviceInfo->setUserID(userID);
 
         return findDevice(deviceName, userID);
     } else { // Otherwise, return an empty string
@@ -79,12 +80,13 @@ std::string Device::registerDevice(const std::string &deviceName, const std::str
     }
 }
 
+
 std::unique_ptr<Wt::WApplication> Device::associateWithSession(const Wt::WEnvironment& env) {
     auto app = std::make_unique<Wt::WApplication>(env);
-    app->setTitle("AirClip - " + deviceInfo->getDeviceName());
+    app->setTitle("AirClip");
 
     // Pass deviceID and userID to the UI instance
-    app->root()->addWidget(std::make_unique<UI>(deviceInfo->getDeviceId()));
+    app->root()->addWidget(std::make_unique<UI>(deviceInfo->getDeviceId(), deviceInfo->getUserID()));
 
     return app;
 }

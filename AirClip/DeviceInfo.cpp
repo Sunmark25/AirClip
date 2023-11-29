@@ -19,6 +19,10 @@ std::string DeviceInfo::getNetworkAddress() const {
     return networkAddress;
 }
 
+std::string DeviceInfo::getUserID() const {
+    return userID;
+}
+
 void DeviceInfo::setDeviceId(const std::string &value) {
     deviceId = value;
 }
@@ -30,6 +34,10 @@ void DeviceInfo::setDeviceName(const std::string &value) {
 
 void DeviceInfo::setNetworkAddress(const std::string &value) {
     networkAddress = value;
+}
+
+void DeviceInfo::setUserID(const std::string &value) {
+    userID = value;
 }
 
 /**

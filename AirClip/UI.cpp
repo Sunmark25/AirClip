@@ -10,8 +10,9 @@
 
 #include "UI.h"
 
-UI::UI(const std::string& deviceID)
-        : deviceID_(deviceID){
+UI::UI(const std::string& deviceID, const std::string& userID){
+    this->deviceID = deviceID;
+    this->userID = userID;
     setupUI();
 }
 
@@ -83,6 +84,13 @@ void UI::setupUI() {
         createEntry(textBox_->text().toUTF8(), entriesContainer);
         textBox_->setText("");
     });
+
+    std::vector clipboardEntries = ClipboardHelper::getClipboardEntries(userID);
+    for (int i = 0; i < clipboardEntries.size(); ++i) {
+        createEntry(clipboardEntries[i]->getContent(), entriesContainer);
+        std::cout << "Content is " << clipboardEntries[i]->getContent() << std::endl;
+    }
+
 
     // Setup Search button action
     searchButton_->clicked().connect([=, this] {
@@ -165,9 +173,9 @@ void UI::createEntry(const std::string& entryText, Wt::WContainerWidget* entries
         bottomHbox->addWidget(std::move(copyButton), 0, Wt::AlignmentFlag::Right);
 
         //pin button
-        auto pinButton = std::make_unique<Wt::WPushButton>("📌");
-        pinButton->addStyleClass("pin-button");
-        bottomHbox->addWidget(std::move(pinButton), 0, Wt::AlignmentFlag::Right);
+//        auto pinButton = std::make_unique<Wt::WPushButton>("📌");
+//        pinButton->addStyleClass("pin-button");
+//        bottomHbox->addWidget(std::move(pinButton), 0, Wt::AlignmentFlag::Right);
 
         // add the buttons to entry box
         vbox->addLayout(std::move(bottomHbox));

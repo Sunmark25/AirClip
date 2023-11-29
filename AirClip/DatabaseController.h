@@ -81,6 +81,7 @@ public:
     DatabaseController(DatabaseController &&) = delete;
 
     DatabaseController &operator=(DatabaseController &&) = delete;
+
 };
 
 #endif // DATABASECONTROLLER_H

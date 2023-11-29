@@ -24,12 +24,6 @@ private:
 
 
 public:
-    static ClipboardEntry *searchClipboardEntry(const std::string &content, const int entryNum);
-    static User *getUser(const std::string &userID);
-
-    static const bool insertUser(const std::string &username, const std::string &password);
-
-    static Type stringToType(std::string typeString) ;
 
     // SQL Generation Methods
     static const std::string generateCurrentTime();

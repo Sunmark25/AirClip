@@ -26,6 +26,7 @@
 
 #include <chrono>
 #include <sstream>
+#include "ClipboardHelper.h"
 
 struct Entry {
     std::string content;
@@ -39,7 +40,7 @@ public:
      *
      * Initializes a new instance of the UI class, setting up the basic components of the user interface.
      */
-    UI(const std::string& deviceID);
+    UI(const std::string& deviceID, const std::string& userID);
 
 
     /**
@@ -58,8 +59,8 @@ public:
 
 private:
     // Private Helper Methods
-    std::string deviceID_;
-    std::string userID_;
+    std::string deviceID;
+    std::string userID;
     void onQuitClicked(); ///< Handles the Quit button click event.
     void onbackToTopClicked(); ///< Handles the Back to Top button click event.
     void createEntry(const std::string &entryText, WContainerWidget *container); ///< Creates a new entry in the UI.
