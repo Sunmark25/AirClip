@@ -81,20 +81,29 @@ void UI::setupUI() {
 
     // Setup text box action
     textBox_->enterPressed().connect([=, this] {
-        createEntry(textBox_->text().toUTF8(), entriesContainer);
+        entriesContainer->clear();
+
+        std::vector serachClipboard = ClipboardHelper::searchClipboardEntry(textBox_->text().toUTF8());
+        for (int i = 0; i < serachClipboard.size(); ++i) {
+            createEntry(serachClipboard[i]->getContent(), entriesContainer);
+        }
         textBox_->setText("");
     });
 
     std::vector clipboardEntries = ClipboardHelper::getClipboardEntries(userID);
     for (int i = 0; i < clipboardEntries.size(); ++i) {
         createEntry(clipboardEntries[i]->getContent(), entriesContainer);
-        std::cout << "Content is " << clipboardEntries[i]->getContent() << std::endl;
     }
 
 
     // Setup Search button action
     searchButton_->clicked().connect([=, this] {
-        createEntry(textBox_->text().toUTF8(), entriesContainer);
+        entriesContainer->clear();
+
+        std::vector serachClipboard = ClipboardHelper::searchClipboardEntry(textBox_->text().toUTF8());
+        for (int i = 0; i < serachClipboard.size(); ++i) {
+            createEntry(serachClipboard[i]->getContent(), entriesContainer);
+        }
         textBox_->setText("");
     });
 
@@ -217,8 +226,13 @@ void UI::showClearConfirmationDialog() {
                                            "} else {"
                                            "    console.log('Clear cancelled');"
                                            "}";
-//todo: implement to actual clear the database
+
+
+    std::string deleteAllClipboardEntry = "DELETE * FROM ClipboardEntry JOIN Device ON ClipboardEntry.deviceID = Device.deviceID WHERE Device.userID = '" + userID + "';";
+    DatabaseController *dbc = DatabaseController::getInstance();
+    std::cout << dbc->sqlOperation(deleteAllClipboardEntry) << std::endl;
     Wt::WApplication::instance()->doJavaScript(jsCode);
+    setupUI();
 }
 
 /**

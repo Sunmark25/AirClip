@@ -96,7 +96,6 @@ int main(int argc, char **argv) {
                              [&device](const Wt::WEnvironment &env) {
                                  static int deviceCounter = 0;
 
-
                                  return device->associateWithSession(env);
                              }
         );
