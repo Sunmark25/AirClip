@@ -1,7 +1,7 @@
 #include "crow.h"
 
 int main() {
-    crow::SimpleApp app; //define your crow application
+    crow::SimpleApp app; // Define the crow application
 
     CROW_ROUTE(app, "/api/")([](){
         return "Hello world";
@@ -64,13 +64,11 @@ int main() {
 
     // TODO: Use to send data to the client
     // TODO: Improve, add authentication so this can't be spoofed
-    CROW_ROUTE(app, "/api/clipboard/send")
+    CROW_ROUTE(app, "/api/clipboard/receive")
             .methods("GET"_method)([&clipboardContent] {
                 crow::json::wvalue x({"content", clipboardContent});
                 return x;
             });
-
-
 
     //set the port, set the app to run on multiple threads, and run the app
     app.port(49162).multithreaded().run(); // .bindaddr("10.0.0.34")

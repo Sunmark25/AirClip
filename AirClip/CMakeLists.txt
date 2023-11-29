@@ -41,8 +41,9 @@ set(SOURCES
         ClipboardHelper.h
         ClipboardEntry.cpp
         ClipboardEntry.h
-#        main.cpp
-        NetworkTest.cpp
+        main.cpp
+        NetworkConnection.cpp
+        NetworkConnection.h
 )
 
 #Include the css file
