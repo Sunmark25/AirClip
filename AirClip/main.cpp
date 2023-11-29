@@ -74,9 +74,16 @@ int main(int argc, char **argv) {
         std::cout << test1[i]->getContent() << std::endl;
     }
 
-    // TODO: Integrate properly (put in a thread?)
-    auto *net = new NetworkConnection();
-    net->startServer();
+    std::future<void> net;
+
+    std::thread networkThread([&net] {
+        std::cout << "Thread started..." << std::endl;
+        NetworkConnection::startServer();
+        std::cout << "Thread finished..." << std::endl;
+    });
+
+    // TODO: Add a way to gracefully end the server (new method required) and end the thread
+    // networkThread.join(); // Wait for the thread to finish
 
     try {
         Wt::WServer server;

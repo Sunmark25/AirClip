@@ -9,6 +9,8 @@
 
 #include "NetworkConnection.h"
 
+const unsigned short NetworkConnection::PORT = 48000;
+
 void NetworkConnection::startServer() {
     crow::SimpleApp app; // Define the crow application
 
@@ -91,6 +93,5 @@ void NetworkConnection::startServer() {
             });
 
     // Set the port, set app to run on multiple threads, and run the app asynchronously
-    // Store a reference so it doesn't become blocking
-    appRef = app.port(*PORT).multithreaded().run_async();
+    app.port(PORT).multithreaded().run();
 }

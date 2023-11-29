@@ -9,11 +9,9 @@
 
 class NetworkConnection {
 private:
-    const unsigned short *PORT = reinterpret_cast<const unsigned short *>(48000);
-
-    std::future<void> appRef;
+    static const unsigned short PORT;
 public:
-    void startServer();
+    static void startServer();
 };
 
 
