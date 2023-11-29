@@ -91,5 +91,5 @@ void NetworkConnection::startServer() {
             });
 
     // Set the port, set app to run on multiple threads, and run the app
-    app.port(49162).multithreaded().run(); // .bindaddr("10.0.0.34")
+    app.port(*PORT).multithreaded().run();
 }

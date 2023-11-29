@@ -11,6 +11,7 @@
 #include "UI.h"
 #include "Device.h"
 #include "UserManager.h"
+#include "NetworkConnection.h"
 
 /**
  * @brief Creates and configures the AirClip application.
@@ -112,6 +113,10 @@ int main(int argc, char **argv) {
     } catch (std::exception &e) {
         std::cerr << "exception: " << e.what() << std::endl;
     }
+
+    // TODO: Integrate properly (put in a thread?)
+//    auto *net = new NetworkConnection();
+//    net->startServer();
 
     return 0;
 }

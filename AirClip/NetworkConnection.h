@@ -9,7 +9,7 @@
 
 class NetworkConnection {
 private:
-
+    const unsigned short *PORT = reinterpret_cast<const unsigned short *>(48000);
 public:
     void startServer();
 };
