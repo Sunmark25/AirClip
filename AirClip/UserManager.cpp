@@ -60,7 +60,7 @@ std::string UserManager::getPassword(const std::string &userID) {
 
     // If the password was found (the table wasn't empty) then return it
     if (!DatabaseController::tableIsEmpty(tableData)) {
-        std::string password = tableData[0][2];
+        std::string password = tableData[0][0];
 
         std::cout << "Retrieved the encrypted Password for user ID " << userID << "': " << password << std::endl;
 
