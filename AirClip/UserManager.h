@@ -9,7 +9,7 @@
 
 class UserManager {
 private:
-    std::vector<User> activeUsers;
+    std::vector<User*> activeUsers;
     DatabaseController *dbc; // Store a reference to the database controller singleton
 
 public:

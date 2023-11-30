@@ -150,6 +150,8 @@ Device* UserManager::finishUserLogIn(const std::string &userID, const std::strin
     // Create a new user with the given userID, username and full name
     auto newUser = new User(userID, username, password);
 
+    activeUsers.emplace_back(newUser);
+
     // Connect the device to the user
     return newUser->connectDevice();
 }
