@@ -40,11 +40,11 @@ std::string Device::findDevice(const std::string &deviceName, const std::string 
     if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string deviceID = tableData[0][0];
 
-        std::cout << "Device ID: " << deviceID << std::endl;
+        std::cout << "Retrieved the device ID for user ID " << userID << ": " << deviceID << std::endl;
 
         return deviceID;
     } else { // Otherwise, return an empty string
-        std::cout << "No match for device name and user id" << std::endl;
+        std::cout << "No match for device name " << deviceName << " and user id " << userID << std::endl;
 
         return "";
     }
@@ -69,13 +69,13 @@ std::string Device::registerDevice(const std::string &deviceName, const std::str
     bool success = dbc->sqlOperation(query);
 
     if (success) {
-        std::cout << "Success" << std::endl;
+        std::cout << "Successfully registered the device " << deviceName << " to user ID " << userID << std::endl;
         deviceInfo->setDeviceName(deviceName);
         deviceInfo->setUserID(userID);
 
         return findDevice(deviceName, userID);
     } else { // Otherwise, return an empty string
-        std::cout << "Unable to add a new device in the database" << std::endl;
+        std::cout << "Unable to add a the device " << deviceName << " into the database" << std::endl;
         return "";
     }
 }

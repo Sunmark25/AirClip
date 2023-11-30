@@ -12,6 +12,8 @@
 const unsigned short NetworkConnection::PORT = 48000;
 
 void NetworkConnection::startServer() {
+    std::cout << "Starting HTTP API" << std::endl;
+
     crow::SimpleApp app; // Define the crow application
 
     CROW_ROUTE(app, "/api/")([]() {
@@ -92,6 +94,6 @@ void NetworkConnection::startServer() {
                 return crow::response{"Registered!"}; // TODO: Change to something better? UserID? WtConnectionID?
             });
 
-    // Set the port, set app to run on multiple threads, and run the app asynchronously
+    // Set the port, set app to run on multiple threads, and run the app synchronously
     app.port(PORT).multithreaded().run();
 }

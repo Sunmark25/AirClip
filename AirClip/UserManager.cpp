@@ -30,11 +30,11 @@ std::string UserManager::findUser(const std::string &username) {
     if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string userID = tableData[0][0];
 
-        std::cout << "User ID: " << userID << std::endl;
+        std::cout << "Retrieved " << username << "'s user ID: " << userID << std::endl;
 
         return userID;
     } else { // Otherwise, return an empty string
-        std::cout << "No match for username" << std::endl;
+        std::cout << "No user match for the username: " << username << std::endl;
 
         return "";
     }
@@ -62,11 +62,11 @@ std::string UserManager::getPassword(const std::string &userID) {
     if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string password = tableData[0][2];
 
-        std::cout << "Encrypted Password: " << password << std::endl;
+        std::cout << "Retrieved the encrypted Password for user ID " << userID << "': " << password << std::endl;
 
         return password;
     } else { // Otherwise, return an empty string
-        std::cout << "No match for userID" << std::endl;
+        std::cout << "No password match for userID" << std::endl;
 
         return "";
     }
@@ -92,11 +92,11 @@ bool UserManager::authenticateUser(const std::string &username, const std::strin
 
     // If the there was a user found (the table wasn't empty) then return true
     if (!DatabaseController::tableIsEmpty(tableData)) {
-        std::cout << "Matching login credentials for " << username << "found" << std::endl;
+        std::cout << "Matching login credentials for " << username << " were found" << std::endl;
 
         return true;
     } else { // Otherwise, display a failure message and return false
-        std::cout << "No matching login credentials" << std::endl;
+        std::cout << "No matching login credentials found for " << username << std::endl;
 
         return false;
     }
@@ -122,10 +122,10 @@ std::string UserManager::registerUser(const std::string &username, const std::st
 
     // If the SQL query completed then return the user's ID
     if (success) {
-        std::cout << "Success" << std::endl;
+        std::cout << "Successfully registered the user " << username << std::endl;
         return findUser(username);
     } else { // Otherwise, return an empty string
-        std::cout << "Unable to add a new user in the database" << std::endl;
+        std::cout << "Unable to add the user " << username << " into the database" << std::endl;
         return "";
     }
 }

@@ -74,9 +74,7 @@ int main(int argc, char **argv) {
         std::cout << test1[i]->getContent() << std::endl;
     }
 
-    std::future<void> net;
-
-    std::thread networkThread([&net] {
+    std::thread networkThread([] {
         std::cout << "Thread started..." << std::endl;
         NetworkConnection::startServer();
         std::cout << "Thread finished..." << std::endl;

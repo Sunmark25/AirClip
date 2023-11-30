@@ -50,7 +50,7 @@ std::vector<ClipboardEntry*> ClipboardHelper::getClipboardEntries(const std::str
             entries.push_back(entry);
         }
     } else {
-        std::cout << "No match for userID" << std::endl;
+        std::cout << "No matching clipboard entries were found for user ID " << userId << std::endl;
     }
 
     return entries;
@@ -84,7 +84,7 @@ std::vector<ClipboardEntry*> ClipboardHelper::searchClipboardEntry(const std::st
             entries.push_back(entry);
         }
     } else {
-        std::cout << "No match for this content" << std::endl;
+        std::cout << "No matches for this content: " << content << std::endl;
     }
 
     return entries;
@@ -119,10 +119,10 @@ std::string ClipboardHelper::insertClipboardEntry(std::string timeAdded,
     bool success = dbc->sqlOperation(query);
 
     if (success) {
-        std::cout << "Success" << std::endl;
+        std::cout << "Successfully inserted clipboard entry for device ID " << deviceID << std::endl;
         return findClipboardEntry(deviceID, content);
     } else { // Otherwise, return an empty string
-        std::cout << "Unable to add a new device in the database" << std::endl;
+        std::cout << "Unable to add a the clipboard entry into the database for device ID " << deviceID << std::endl;
         return "";
     }
 }
@@ -147,11 +147,11 @@ std::string ClipboardHelper::findClipboardEntry(const std::string &deviceID, con
     if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string clipboardEntryID = tableData[0][0];
 
-        std::cout << "Clipboard Entry ID: " << clipboardEntryID << std::endl;
+        std::cout << "Retrieved clipboard entry ID for the matching content " << content << " and device ID " << deviceID << ": " << clipboardEntryID << std::endl;
 
         return deviceID;
     } else { // Otherwise, return an empty string
-        std::cout << "No match for device id and content" << std::endl;
+        std::cout << "No match for device id " << deviceID << " and content " << content << std::endl;
 
         return "";
     }
@@ -184,7 +184,7 @@ ClipboardEntry* ClipboardHelper::getLatestClipboardEntry(std::string deviceID) {
 
         return entry;
     } else {
-        std::cout << "No match for this content" << std::endl;
+        std::cout << "No recent clipboard entries for device ID " << deviceID << std::endl;
         return nullptr;
     }
 }
@@ -213,7 +213,7 @@ ClipboardEntry* ClipboardHelper::getLatestClipboardEntry (){
 
         return entry;
     } else { // Otherwise, return an empty string
-        std::cout << "No match for this content" << std::endl;
+        std::cout << "No clipboard entries found" << std::endl;
 
         return nullptr;
     }

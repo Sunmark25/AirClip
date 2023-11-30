@@ -111,7 +111,6 @@ bool DatabaseController::sqlOperation(const std::string &sql) {
         sqlite3_free(zErrMsg);
         return false;
     } else {
-        std::cout << "Operation successfully" << std::endl;
         return true;
     }
 }
