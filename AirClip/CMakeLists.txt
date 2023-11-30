@@ -6,6 +6,7 @@ project(${MY_PROJECT_NAME})
 
 # Set the C++ version
 set(CMAKE_CXX_STANDARD 20)
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g") # Unix debugging
 
 # Set the path to for the local software installation
 set(LOCAL_SOFTWARE_DIR /usr/local)
