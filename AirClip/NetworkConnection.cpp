@@ -13,7 +13,7 @@
 #include "UserManager.h"
 #include "ClipboardHelper.h"
 
-const unsigned short NetworkConnection::PORT = 48000;
+const unsigned short NetworkConnection::PORT = 4800;
 
 void NetworkConnection::startServer() {
     std::cout << "Starting HTTP API" << std::endl;
@@ -27,7 +27,7 @@ void NetworkConnection::startServer() {
 
     // Used to receive clipboard data from the client
     // TODO: Improve, add authentication so this can't be spoofed
-    // Use: `curl -d '{"username":"<username>","content":"<string-content>"}' 0.0.0.0:18080/api/clipboard/send`
+    // Use: `curl -d '{"content":"<string-content>","deviceID":"<int-device-id>","lastUpdatedTime":"<string-date>","username":"<username>"}' -H "Content-Type: application/json" 0.0.0.0:4800/api/clipboard/send`
     CROW_ROUTE(app, "/api/clipboard/send")
             .methods("POST"_method)([](const crow::request &req) {
                 std::cout << "Raw body: " << req.body << std::endl;
@@ -65,7 +65,8 @@ void NetworkConnection::startServer() {
     // Used to send clipboard data to the client
     // TODO: Improve, add authentication so this can't be spoofed
     // Full route path e.g. /api/clipboard/receive?username=sjobs1
-    CROW_ROUTE(app, "/api/clipboard/receive") // URL query string: ?username=<user's username>
+    // Test using the cli: `curl "0.0.0.0:4800/api/clipboard/receive?username=<username>"`
+    CROW_ROUTE(app, "/api/clipboard/receive") // URL query string: ?username=<username>
             .methods("GET"_method)
                     ([&userManager](const crow::request &req, crow::response &res) {
                         // Access query string parameters
@@ -90,7 +91,7 @@ void NetworkConnection::startServer() {
                                     res.write(jsonData.dump());
                                 } else {
                                     ClipboardEntry clipboardContents = *ClipboardHelper::getLatestClipboardEntry(userID);
-                                    jsonData["contents"] = clipboardContents.getContent();
+                                    jsonData["content"] = clipboardContents.getContent();
 
                                     res.write(jsonData.dump());
                                 }
