@@ -59,6 +59,11 @@ void NetworkConnection::startServer() {
                         auto username = req.url_params.get("username");
                         //auto deviceID = req.url_params.get("deviceID");
 
+                        crow::json::wvalue jsonData;
+
+                        // Set the content type response returned by the API
+                        res.add_header("Content-Type", "application/json");
+
                         // Check if parameter(s) are present
                         if (username) {
                             try {
@@ -67,19 +72,26 @@ void NetworkConnection::startServer() {
 
                                 if (userID.empty()) {
                                     res.code = 404; // Not Found
-                                    res.write("No user match for the username");
+                                    jsonData["message"] = "No user match for the username";
+
+                                    res.write(jsonData.dump());
                                 } else {
                                     ClipboardEntry clipboardContents = *ClipboardHelper::getLatestClipboardEntry(userID);
+                                    jsonData["contents"] = clipboardContents.getContent();
 
-                                    res.write(clipboardContents.getContent());
+                                    res.write(jsonData.dump());
                                 }
                             } catch (const std::exception &e) {
                                 res.code = 400; // Bad Request
-                                res.write("Invalid username parameter");
+                                jsonData["message"] = "Invalid username parameter";
+
+                                res.write(jsonData.dump());
                             }
                         } else {
                             res.code = 400; // Bad Request
-                            res.write("Missing username parameter");
+                            jsonData["message"] = "Missing username parameter";
+
+                            res.write(jsonData.dump());
                         }
 
                         res.end();
