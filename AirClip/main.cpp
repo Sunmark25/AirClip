@@ -75,13 +75,8 @@ int main(int argc, char **argv) {
     }
 
     std::thread networkThread([] {
-        std::cout << "Thread started..." << std::endl;
         NetworkConnection::startServer();
-        std::cout << "Thread finished..." << std::endl;
     });
-
-    // TODO: Add a way to gracefully end the server (new method required) and end the thread
-    // networkThread.join(); // Wait for the thread to finish
 
     try {
         Wt::WServer server;
@@ -114,6 +109,9 @@ int main(int argc, char **argv) {
 
             std::cerr << "Shutdown" << std::endl;
             server.stop();
+
+            // TODO: Add a way to gracefully end the server (new method required) and end the thread
+            // networkThread.join(); // Wait for the thread to finish
 
             // Restart logic, if necessary, should be handled here
         }

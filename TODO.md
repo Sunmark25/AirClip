@@ -6,3 +6,12 @@
 
 
 - Improve API routes (use auth and ~~http params like username?=test)~~
+
+
+- Update the UI on new change
+- Don't remove search string on enter?
+- Fix crash after clearing history (I think it happens when client requests it)
+- Handle errors better
+
+
+- Make history have a dropdown arrow

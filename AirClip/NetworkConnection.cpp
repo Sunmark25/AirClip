@@ -19,6 +19,7 @@ void NetworkConnection::startServer() {
     std::cout << "Starting HTTP API" << std::endl;
 
     crow::SimpleApp app; // Define the crow application
+
     UserManager userManager = UserManager();
 
     CROW_ROUTE(app, "/api/")([]() {
@@ -27,33 +28,48 @@ void NetworkConnection::startServer() {
 
     // Used to receive clipboard data from the client
     // TODO: Improve, add authentication so this can't be spoofed
-    // Use: `curl -d '{"content":"<string-content>","deviceID":"<int-device-id>","lastUpdatedTime":"<string-date>","username":"<username>"}' -H "Content-Type: application/json" 0.0.0.0:4800/api/clipboard/send`
+    // Use: `curl -d '{"content":"<string-content>","deviceID":"<device-id>","lastUpdatedTime":"<string-date>","username":"<username>"}' -H "Content-Type: application/json" 0.0.0.0:4800/api/clipboard/send`
     CROW_ROUTE(app, "/api/clipboard/send")
             .methods("POST"_method)([](const crow::request &req) {
                 std::cout << "Raw body: " << req.body << std::endl;
 
-                auto jsonData = crow::json::load(req.body);
+                auto reqJsonData = crow::json::load(req.body);
 
-                if (!jsonData) {
-                    crow::response res(400); // Set HTTP status code to 400 (Bad Request)
-                    res.body = "Invalid JSON"; // Set response body to the error message
-                    res.set_header("Content-Type", "text/plain");
+                crow::json::wvalue resJsonData;
+
+                crow::response res;
+
+                // Set the content type response returned by the API
+                res.add_header("Content-Type", "application/json");
+
+                if (!reqJsonData) {
+                    res.code = 400; // Set HTTP status code to 400 (Bad Request)
+
+                    resJsonData["message"] = "Invalid JSON"; // Set response body to the error message
+                    res.body = resJsonData.dump();
+
                     return res;
                 }
 
-                std::string clipboardEntryID = ClipboardHelper::insertClipboardEntry(jsonData["lastUpdatedTime"].s(), jsonData["deviceID"].s(), jsonData["content"].s(), "", "");
+                // TODO: Add error checking for JSON params
+
+                std::string clipboardEntryID = ClipboardHelper::insertClipboardEntry(reqJsonData["lastUpdatedTime"].s(), reqJsonData["deviceID"].s(), reqJsonData["content"].s(), "", "");
 
                 // Check if clipboard entry insertion failed
                 if (clipboardEntryID.empty()) {
-                    crow::response res(500); // Set HTTP status code to 500 (Internal Server Error)
-                    res.body = "Failed to insert clipboard entry"; // Set response body to the error message
-                    res.set_header("Content-Type", "text/plain");
+                    res.code = 500; // Set HTTP status code to 500 (Internal Server Error)
+
+                    resJsonData["message"] = "Failed to insert clipboard entry"; // Set response body to the error message
+                    res.body = resJsonData.dump();
+
                     return res;
                 }
 
-                crow::response res(200);
-                res.body = "Successfully insert clipboard entry";
-                res.set_header("Content-Type", "text/plain");
+                res.code = 200;
+
+                resJsonData["message"] = "Successfully inserted a clipboard entry";
+                res.body = resJsonData.dump();
+
                 return res;
             });
 
@@ -116,28 +132,39 @@ void NetworkConnection::startServer() {
             .methods("POST"_method)([&userManager](const crow::request &req) {
                 std::cout << "Raw body: " << req.body << std::endl;
 
-                auto jsonData = crow::json::load(req.body);
+                auto reqJsonData = crow::json::load(req.body);
 
-                if (!jsonData) {
-                    crow::response res(400); // Set HTTP status code to 400 (Bad Request)
-                    res.body = "Invalid JSON"; // Set response body to the error message
-                    res.set_header("Content-Type", "text/plain");
+                crow::json::wvalue resJsonData;
+
+                crow::response res;
+
+                // Set the content type response returned by the API
+                res.add_header("Content-Type", "application/json");
+
+                if (!reqJsonData) {
+                    res.code = 400; // Set HTTP status code to 400 (Bad Request)
+
+                    resJsonData["message"] = "Invalid JSON"; // Set response body to the error message
+                    res.body = resJsonData.dump();
+
                     return res;
                 }
 
+                if (userManager.authenticateUser(reqJsonData["username"].s(), reqJsonData["password"].s())) {
+                    DeviceInfo *deviceInfo = userManager.finishUserLogIn(userManager.findUser(reqJsonData["username"].s()), "",
+                                                                         reqJsonData["username"].s())->getDeviceInfo();
+                    res.code = 200;
 
-                if (userManager.authenticateUser(jsonData["username"].s(), jsonData["password"].s())) {
-                    DeviceInfo *deviceInfo = userManager.finishUserLogIn(userManager.findUser(jsonData["username"].s()), "",
-                                                jsonData["username"].s())->getDeviceInfo();
+                    resJsonData["deviceID"] = deviceInfo->getDeviceId();
+                    res.body = resJsonData.dump();
 
-                    crow::response res(200);
-                    res.body = deviceInfo->getDeviceId();
-                    res.set_header("Content-Type", "text/plain");
                     return res;
                 } else {
-                    crow::response res(401);
-                    res.body = "Authentication failed";
-                    res.set_header("Content-Type", "text/plain");
+                    res.code = 401;
+
+                    resJsonData["message"] = "Authentication failed";
+                    res.body = resJsonData.dump();
+
                     return res;
                 }
             });
@@ -147,25 +174,38 @@ void NetworkConnection::startServer() {
             .methods("POST"_method)([&userManager](const crow::request &req) {
                 std::cout << "Raw body: " << req.body << std::endl;
 
-                auto jsonData = crow::json::load(req.body);
+                auto reqJsonData = crow::json::load(req.body);
 
-                if (!jsonData) {
-                    crow::response res(400);
-                    res.body = "Invalid JSON";
-                    res.set_header("Content-Type", "text/plain");
+                crow::json::wvalue resJsonData;
+
+                crow::response res;
+
+                // Set the content type response returned by the API
+                res.add_header("Content-Type", "application/json");
+
+                if (!reqJsonData) {
+                    res.code = 400; // Set HTTP status code to 400 (Bad Request)
+
+                    resJsonData["message"] = "Invalid JSON"; // Set response body to the error message
+                    res.body = resJsonData.dump();
+
                     return res;
                 }
 
-
-                std::string userID = userManager.registerUser(jsonData["username"].s(), jsonData["password"].s());
+                std::string userID = userManager.registerUser(reqJsonData["username"].s(), reqJsonData["password"].s());
                 if (userID.compare("") != 0) {
-                    crow::response res(201); // 201 Created
-                    res.body = "Registered! UserID: " + userID; // Optionally return the userID
+                    res.code = 201; // 201 Created
+
+                    resJsonData["userID"] = userID;
+                    res.body = resJsonData.dump();
+
                     return res;
                 } else {
-                    crow::response res(409); // 409 Conflict or 400 Bad Request
-                    res.body = "Registration failed: Username might be already taken"; // Customize this message as needed
-                    res.set_header("Content-Type", "text/plain");
+                    res.code = 409; // 409 Conflict or 400 Bad Request
+
+                    resJsonData["message"] = "Registration failed: Username might be already taken";
+                    res.body = resJsonData.dump();
+
                     return res;
                 }
             });
