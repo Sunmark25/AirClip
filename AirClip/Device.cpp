@@ -69,13 +69,13 @@ std::string Device::registerDevice(const std::string &deviceName, const std::str
     bool success = dbc->sqlOperation(query);
 
     if (success) {
-        std::cout << "Successfully registered the device " << deviceName << " to user ID " << userID << std::endl;
+        std::cout << "Successfully registered a device for user ID " << userID << " with the name: " << deviceName << std::endl;
         deviceInfo->setDeviceName(deviceName);
         deviceInfo->setUserID(userID);
 
         return findDevice(deviceName, userID);
     } else { // Otherwise, return an empty string
-        std::cout << "Unable to add a the device " << deviceName << " into the database" << std::endl;
+        std::cout << "Unable to add a the device " << deviceName << " into the database for userID " << userID << std::endl;
         return "";
     }
 }

@@ -30,11 +30,11 @@ std::string UserManager::findUser(const std::string &username) {
     if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string userID = tableData[0][0];
 
-        std::cout << "Retrieved " << username << "'s user ID: " << userID << std::endl;
+        std::cout << "Retrieved " << username << "'s userID: " << userID << std::endl;
 
         return userID;
     } else { // Otherwise, return an empty string
-        std::cout << "No user match for the username: " << username << std::endl;
+        std::cout << "No user exists with the username " << username << std::endl;
 
         return "";
     }
@@ -62,11 +62,11 @@ std::string UserManager::getPassword(const std::string &userID) {
     if (!DatabaseController::tableIsEmpty(tableData)) {
         std::string password = tableData[0][0];
 
-        std::cout << "Retrieved the encrypted Password for user ID " << userID << "': " << password << std::endl;
+        std::cout << "Matched userID " << userID << " to the encrypted password: " << password << std::endl;
 
         return password;
     } else { // Otherwise, return an empty string
-        std::cout << "No password match for userID" << std::endl;
+        std::cout << "No password match for userID " << userID << " as they don't exist" << std::endl;
 
         return "";
     }
