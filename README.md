@@ -57,8 +57,8 @@ To **build and run** AirClip, you will need the following libraries and tools:
 
         - On macOS it is built-in.
 
-3. **libasio-dev** (Required for Crowcpp):
-    - This library is essential for the server functionalities related to Crowcpp.
+3. **Asio** (Required for Crowcpp):
+    - This library is essential for the network/server functionalities of Crowcpp.
     - Installation:
 
         - Depending on your OS, you can typically use a package manager. For example, on Ubuntu/Debian you can use the
@@ -86,6 +86,7 @@ To **build and run** AirClip, you will need the following libraries and tools:
 - CMake (Version 3.26 or higher recommended)
 - Wt Library and its dependencies
 - SQLite3
+- Asio
 - Qt 6.6
 
 ## Running the Application
