@@ -55,6 +55,8 @@ To **build and run** AirClip, you will need the following libraries and tools:
           sudo apt-get install libsqlite3-dev
           ```
 
+        - On macOS it is built-in.
+
 3. **libasio-dev** (Required for Crowcpp):
     - This library is essential for the server functionalities related to Crowcpp.
     - Installation:
