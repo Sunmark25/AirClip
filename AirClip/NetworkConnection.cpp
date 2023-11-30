@@ -9,6 +9,7 @@
 
 #include "NetworkConnection.h"
 #include "Device.h"
+#include "DeviceInfo.h"
 #include "UserManager.h"
 #include "ClipboardHelper.h"
 
@@ -33,15 +34,27 @@ void NetworkConnection::startServer() {
 
                 auto jsonData = crow::json::load(req.body);
 
-                if (!jsonData)
-                    return crow::response(400);
+                if (!jsonData) {
+                    crow::response res(400); // Set HTTP status code to 400 (Bad Request)
+                    res.body = "Invalid JSON"; // Set response body to the error message
+                    res.set_header("Content-Type", "text/plain");
+                    return res;
+                }
 
-                // TODO: Put in Database
-                std::cout << "Username: " << jsonData["username"].s() << std::endl;
-                std::cout << "Content: " << jsonData["content"].s() << std::endl;
+                std::string clipboardEntryID = ClipboardHelper::insertClipboardEntry(jsonData["lastUpdatedTime"].s(), jsonData["deviceID"].s(), jsonData["content"].s(), "", "");
 
+                // Check if clipboard entry insertion failed
+                if (clipboardEntryID.empty()) {
+                    crow::response res(500); // Set HTTP status code to 500 (Internal Server Error)
+                    res.body = "Failed to insert clipboard entry"; // Set response body to the error message
+                    res.set_header("Content-Type", "text/plain");
+                    return res;
+                }
 
-                return crow::response{"Received!"};
+                crow::response res(200);
+                res.body = "Successfully insert clipboard entry";
+                res.set_header("Content-Type", "text/plain");
+                return res;
             });
 
     // TODO: Implement a websocket to listen for clipboard changes from the server
@@ -104,20 +117,28 @@ void NetworkConnection::startServer() {
 
                 auto jsonData = crow::json::load(req.body);
 
-                if (!jsonData)
-                    return crow::response(400);
-
-
-                // TODO: Login user
-                if (userManager.authenticateUser(jsonData["username"].s(), jsonData["password"].s())) {
-                    userManager.finishUserLogIn(userManager.findUser(jsonData["username"].s()), "",
-                                                jsonData["username"].s());
-                    return crow::response{"Logged in!"}; // TODO: Change to something better? UserID? WtConnectionID?
-                    //TODO: return Login Info Over Here
+                if (!jsonData) {
+                    crow::response res(400); // Set HTTP status code to 400 (Bad Request)
+                    res.body = "Invalid JSON"; // Set response body to the error message
+                    res.set_header("Content-Type", "text/plain");
+                    return res;
                 }
 
 
-                return crow::response{"Logged in!"}; // TODO: Change to something better? UserID? WtConnectionID?
+                if (userManager.authenticateUser(jsonData["username"].s(), jsonData["password"].s())) {
+                    DeviceInfo *deviceInfo = userManager.finishUserLogIn(userManager.findUser(jsonData["username"].s()), "",
+                                                jsonData["username"].s())->getDeviceInfo();
+
+                    crow::response res(200);
+                    res.body = deviceInfo->getDeviceId();
+                    res.set_header("Content-Type", "text/plain");
+                    return res;
+                } else {
+                    crow::response res(401);
+                    res.body = "Authentication failed";
+                    res.set_header("Content-Type", "text/plain");
+                    return res;
+                }
             });
 
     // Used register a user in the server
@@ -127,19 +148,25 @@ void NetworkConnection::startServer() {
 
                 auto jsonData = crow::json::load(req.body);
 
-                if (!jsonData)
-                    return crow::response(400);
+                if (!jsonData) {
+                    crow::response res(400);
+                    res.body = "Invalid JSON";
+                    res.set_header("Content-Type", "text/plain");
+                    return res;
+                }
 
 
                 std::string userID = userManager.registerUser(jsonData["username"].s(), jsonData["password"].s());
                 if (userID.compare("") != 0) {
-                    return crow::response{"Registered!"};
+                    crow::response res(201); // 201 Created
+                    res.body = "Registered! UserID: " + userID; // Optionally return the userID
+                    return res;
                 } else {
-                    // TODO: Implement Not Registered Logic Here
+                    crow::response res(409); // 409 Conflict or 400 Bad Request
+                    res.body = "Registration failed: Username might be already taken"; // Customize this message as needed
+                    res.set_header("Content-Type", "text/plain");
+                    return res;
                 }
-
-
-                return crow::response{"Registered!"}; // TODO: Change to something better? UserID? WtConnectionID?
             });
 
     // Set the port, set app to run on multiple threads, and run the app synchronously

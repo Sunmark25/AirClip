@@ -91,3 +91,7 @@ std::unique_ptr<Wt::WApplication> Device::associateWithSession(const Wt::WEnviro
     return app;
 }
 
+DeviceInfo* Device::getDeviceInfo(){
+    return deviceInfo;
+}
+
