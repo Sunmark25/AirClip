@@ -41,8 +41,6 @@ void NetworkConnection::startServer() {
                 std::cout << "Content: " << jsonData["content"].s() << std::endl;
 
 
-
-
                 return crow::response{"Received!"};
             });
 
@@ -50,26 +48,42 @@ void NetworkConnection::startServer() {
     // https://stackoverflow.com/a/12442805
     // https://crowcpp.org/master/guides/websockets/
 
-//    std::string clipboardContent = "Test data 123";
 
     // Used to send clipboard data to the client
     // TODO: Improve, add authentication so this can't be spoofed
-    CROW_ROUTE(app, "/api/clipboard/receive")
-            .methods("GET"_method)([&userManager] {
-                // Create a crow::json::wvalue object
-                crow::json::wvalue responseJson;
+    // Full route path e.g. /api/clipboard/receive?username=sjobs1
+    CROW_ROUTE(app, "/api/clipboard/receive") // URL query string: ?username=<user's username>
+            .methods("GET"_method)
+                    ([&userManager](const crow::request &req, crow::response &res) {
+                        // Access query string parameters
+                        auto username = req.url_params.get("username");
+                        //auto deviceID = req.url_params.get("deviceID");
 
+                        // Check if parameter(s) are present
+                        if (username) {
+                            try {
+                                // Get latest clipboard entry
+                                std::string userID = userManager.findUser(username);
 
-                // TODO: Put in Database
-                // Add a key-value pair to the JSON object
-//                responseJson["content"] = clipboardContent;
+                                if (userID.empty()) {
+                                    res.code = 404; // Not Found
+                                    res.write("No user match for the username");
+                                } else {
+                                    ClipboardEntry clipboardContents = *ClipboardHelper::getLatestClipboardEntry(userID);
 
-//                std::string userID = userManager.findUser(jsonData["username"].s());
-//                ClipboardHelper::getClipboardEntries(userID);
+                                    res.write(clipboardContents.getContent());
+                                }
+                            } catch (const std::exception &e) {
+                                res.code = 400; // Bad Request
+                                res.write("Invalid username parameter");
+                            }
+                        } else {
+                            res.code = 400; // Bad Request
+                            res.write("Missing username parameter");
+                        }
 
-                // Return the JSON object as the response
-                return responseJson;
-            });
+                        res.end();
+                    });
 
     // Used login a user into the server
     CROW_ROUTE(app, "/api/auth/login")
@@ -83,14 +97,15 @@ void NetworkConnection::startServer() {
 
 
                 // TODO: Login user
-                if (userManager.authenticateUser( jsonData["username"].s(),jsonData["password"].s())){
-                    userManager.finishUserLogIn(userManager.findUser(jsonData["username"].s()), "", jsonData["username"].s());
+                if (userManager.authenticateUser(jsonData["username"].s(), jsonData["password"].s())) {
+                    userManager.finishUserLogIn(userManager.findUser(jsonData["username"].s()), "",
+                                                jsonData["username"].s());
                     return crow::response{"Logged in!"}; // TODO: Change to something better? UserID? WtConnectionID?
                     //TODO: return Login Info Over Here
                 }
 
 
-                    return crow::response{"Logged in!"}; // TODO: Change to something better? UserID? WtConnectionID?
+                return crow::response{"Logged in!"}; // TODO: Change to something better? UserID? WtConnectionID?
             });
 
     // Used register a user in the server
@@ -105,7 +120,7 @@ void NetworkConnection::startServer() {
 
 
                 std::string userID = userManager.registerUser(jsonData["username"].s(), jsonData["password"].s());
-                if (userID.compare("") != 0){
+                if (userID.compare("") != 0) {
                     return crow::response{"Registered!"};
                 } else {
                     // TODO: Implement Not Registered Logic Here

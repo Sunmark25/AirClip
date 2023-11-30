@@ -66,8 +66,8 @@ int main(int argc, char **argv) {
     for (int i = 0; i < test.size(); ++i) {
         std::cout << test[i]->getContent() << std::endl;
     }
-    std::cout << std::endl << "Latest User Content: " << ClipboardHelper::getLatestClipboardEntry()->getContent();
-    std::cout << std::endl << "Latest Device Content: " << ClipboardHelper::getLatestClipboardEntry(benzIPadDeviceID)->getContent() << std::endl;
+    std::cout << std::endl << "Latest User Content: " << ClipboardHelper::getLatestClipboardEntry(benzUserID)->getContent();
+    std::cout << std::endl << "Latest Content: " << ClipboardHelper::getLatestClipboardEntry()->getContent() << std::endl;
 
     std::vector test1 = ClipboardHelper::getClipboardEntries(benzUserID);
     for (int i = 0; i < test.size(); ++i) {

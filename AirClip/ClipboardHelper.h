@@ -57,7 +57,7 @@ public:
 
     static std::vector<ClipboardEntry *> searchClipboardEntry(const std::string &content);
 
-    static ClipboardEntry *getLatestClipboardEntry(std::string deviceID);
+    static ClipboardEntry *getLatestClipboardEntry(const std::string &userID);
 
     static ClipboardEntry *getClipboardEntry(const std::string &userId);
 
