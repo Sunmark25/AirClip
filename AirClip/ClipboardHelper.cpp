@@ -159,19 +159,22 @@ std::string ClipboardHelper::findClipboardEntry(const std::string &deviceID, con
 
 
 /**
- * @brief Retrieves the most recent clipboard entry for a given device ID.
+ * @brief Retrieves the most recent clipboard entry for a given user ID.
  *
- * This method fetches the latest clipboard entry from the database for the specified device ID.
+ * This method fetches the latest clipboard entry from the database for the specified user ID.
  * The clipboard entries are ordered by the time they were added, and the most recent one is returned.
  *
- * @param deviceID The ID of the device for which the latest clipboard entry is to be retrieved.
+ * @param duserID The ID of the user for which the latest clipboard entry is to be retrieved.
  * @return ClipboardEntry* Pointer to the most recent ClipboardEntry object; returns nullptr if no entry is found.
  *
- * @note Logs a message to the console if no matching entry is found for the specified device ID.
+ * @note Logs a message to the console if no matching entry is found for the specified user ID.
  */
-ClipboardEntry* ClipboardHelper::getLatestClipboardEntry(std::string deviceID) {
+ClipboardEntry* ClipboardHelper::getLatestClipboardEntry(const std::string &userID) {
     // Correct the order of clauses in the SQL query
-    std::string query = "SELECT * FROM ClipboardEntry WHERE deviceID = '" + deviceID + "' ORDER BY timeAdded DESC LIMIT 1;";
+    std::string query = "SELECT ClipboardEntry.* FROM ClipboardEntry "
+                        "JOIN Device ON ClipboardEntry.deviceID = Device.deviceID "
+                        "WHERE Device.userID = '" + userID + "' "
+                        "ORDER BY ClipboardEntry.timeAdded DESC LIMIT 1;";
 
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
 
@@ -184,7 +187,7 @@ ClipboardEntry* ClipboardHelper::getLatestClipboardEntry(std::string deviceID) {
 
         return entry;
     } else {
-        std::cout << "No recent clipboard entries for device ID " << deviceID << std::endl;
+        std::cout << "No recent clipboard entries for device ID " << userID << std::endl;
         return nullptr;
     }
 }

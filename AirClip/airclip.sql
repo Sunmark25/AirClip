@@ -77,8 +77,20 @@ INSERT INTO User (username, password, fullName)
 VALUES ('tcook', 'I<3Apple!', 'Tim Cook');
 
 
-select *
-from User;
+select * from User;
+
+select * from Device;
+
+select * from ClipboardEntry;
+
+
+SELECT * FROM ClipboardEntry WHERE deviceID = 1 ORDER BY timeAdded DESC LIMIT 1;
+
+select * from Device inner join User on User.userID=Device.userID where User.userID=1;
+
+SELECT * FROM ClipboardEntry WHERE deviceID = (SELECT Device.deviceID FROM Device INNER JOIN User ON User.userID=Device.userID WHERE User.userID=1) ORDER BY timeAdded DESC LIMIT 1;
+SELECT * FROM ClipboardEntry WHERE deviceID = (SELECT Device.deviceID FROM Device INNER JOIN User ON User.userID=Device.userID WHERE User.username='Benz') ORDER BY timeAdded DESC LIMIT 1;
+
 
 -- Shows database data
 select *
