@@ -11,6 +11,7 @@
       - Store username and deviceID on client
 - ~~Improve API routes (use http params like username?=test)~~
 - Fix crash after clearing history (I think it happens when client requests it)
+- Ban User From refreshing the WT UI Page
 
 ## Should do
 

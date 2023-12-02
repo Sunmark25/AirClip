@@ -106,10 +106,17 @@ void NetworkConnection::startServer() {
 
                                     res.write(jsonData.dump());
                                 } else {
-                                    ClipboardEntry clipboardContents = *ClipboardHelper::getLatestClipboardEntry(userID);
-                                    jsonData["content"] = clipboardContents.getContent();
+                                    ClipboardEntry *clipboardContentsPtr = ClipboardHelper::getLatestClipboardEntry(userID);
 
-                                    res.write(jsonData.dump());
+                                    if (clipboardContentsPtr == nullptr){
+                                        res.code = 400; // Bad Request
+                                        jsonData["message"] = "No clipboard entries are found";
+                                        res.write(jsonData.dump());
+                                    } else {
+                                        jsonData["content"] = clipboardContentsPtr->getContent();
+
+                                        res.write(jsonData.dump());
+                                    }
                                 }
                             } catch (const std::exception &e) {
                                 res.code = 400; // Bad Request
