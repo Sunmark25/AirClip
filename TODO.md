@@ -12,6 +12,7 @@
 - ~~Improve API routes (use http params like username?=test)~~
 - ~~Fix crash after clearing history (I think it happens when client requests it)~~
 - Stop user from refreshing the Wt UI page
+- Fix big that clearing history will work if you click cancel
 
 ## Should do
 
