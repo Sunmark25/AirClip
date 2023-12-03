@@ -87,13 +87,6 @@ std::unique_ptr<Wt::WApplication> Device::associateWithSession(const Wt::WEnviro
 
     // Pass deviceID and userID to the UI instance
     auto root = app->root();
-//    root->addWidget(std::make_unique<UI>(deviceInfo->getDeviceId(), deviceInfo->getUserID(), root));
-
-//    auto layout = std::make_unique<Wt::WVBoxLayout>();
-//    layout->setContentsMargins(0, 0, 0, 0);
-//    layout->addWidget(std::make_unique<UI>(deviceInfo->getDeviceId(), deviceInfo->getUserID(), root));
-//
-//    root->setLayout(std::move(layout));
 
     auto ui = new UI(deviceInfo->getDeviceId(), deviceInfo->getUserID(), root);
     ui->setupUI();

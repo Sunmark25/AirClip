@@ -14,7 +14,6 @@ UI::UI(const std::string& deviceID, const std::string& userID, WContainerWidget 
     this->deviceID = deviceID;
     this->userID = userID;
     this->root_ = root;
-    setupUI();
 }
 
 /**
@@ -27,20 +26,9 @@ UI::UI(const std::string& deviceID, const std::string& userID, WContainerWidget 
 void UI::setupUI() {
     Wt::WApplication::instance()->useStyleSheet("styles.css");
 
-
-
+    // Main vertical container
     auto vbox = std::make_unique<Wt::WVBoxLayout>();
     vbox->setContentsMargins(20, 20, 20, 20);
-
-
-
-
-//    auto vbox = new Wt::WVBoxLayout();
-//    vbox->setContentsMargins(20, 20, 20, 20);
-//
-//    Wt::WHBoxLayout* gitLayout= new Wt::WHBoxLayout();
-//
-//    root->setLayout(gitLayout);
 
     // Stores the controls (buttons, title and search bar)
     auto controlsVBox = std::make_unique<Wt::WVBoxLayout>();
@@ -119,6 +107,16 @@ void UI::setupUI() {
             createEntry(serachClipboard[i]->getContent(), entriesContainer);
         }
         textBox_->setText("");
+    });
+
+    textBox_->textInput().connect([=, this] {
+        entriesContainer->clear();
+
+        std::vector serachClipboard = ClipboardHelper::searchClipboardEntry(textBox_->text().toUTF8());
+        for (int i = 0; i < serachClipboard.size(); ++i) {
+            createEntry(serachClipboard[i]->getContent(), entriesContainer);
+        }
+//        textBox_->setText("");
     });
 
     std::vector clipboardEntries = ClipboardHelper::getClipboardEntries(userID);
@@ -240,8 +238,6 @@ void UI::createEntry(const std::string& entryText, Wt::WContainerWidget* entries
         vbox->insertWidget(0, std::move(textWidget)); // Insert text at the beginning of the vbox
         entryContainer->setLayout(std::move(vbox));
         entriesContainer->addWidget(std::move(entryContainer));
-
-        textBox_->setText("");      // clear the text field
     }
 }
 
