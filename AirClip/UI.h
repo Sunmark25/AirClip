@@ -40,7 +40,7 @@ public:
      *
      * Initializes a new instance of the UI class, setting up the basic components of the user interface.
      */
-    UI(const std::string& deviceID, const std::string& userID);
+    UI(const std::string &deviceID, const std::string &userID, WContainerWidget *root);
 
 
     /**
@@ -61,23 +61,26 @@ private:
     // Private Helper Methods
     std::string deviceID;
     std::string userID;
+
     void onQuitClicked(); ///< Handles the Quit button click event.
     void onbackToTopClicked(); ///< Handles the Back to Top button click event.
     void createEntry(const std::string &entryText, WContainerWidget *container); ///< Creates a new entry in the UI.
-    void toggleExpand(Wt::WText *textWidget, Wt::WContainerWidget *entryContainer, Wt::WPushButton *expandButton); ///< Toggles the expansion state of an entry.
+    void toggleExpand(Wt::WText *textWidget, Wt::WContainerWidget *entryContainer,
+                      Wt::WPushButton *expandButton); ///< Toggles the expansion state of an entry.
     void showClearConfirmationDialog(); ///< Displays a confirmation dialog for clearing entries.
 //    void clearEntriesContainer();
 
     // Widgets and Model Pointers
-    Wt::WLineEdit* textBox_; ///< Text box for input.
+    Wt::WLineEdit *textBox_; ///< Text box for input.
 
-    Wt::WPushButton* searchButton_; ///< Button for initiating a search.
-    Wt::WPushButton* clearButton_; ///< Button for clearing the UI.
-    Wt::WPushButton* quitButton_; ///< Button for quitting the application.
-    Wt::WPushButton* backToTopButton_; ///< Button for returning to the top of the UI.
+    Wt::WPushButton *searchButton_; ///< Button for initiating a search.
+    Wt::WPushButton *clearButton_; ///< Button for clearing the UI.
+    Wt::WPushButton *quitButton_; ///< Button for quitting the application.
+    Wt::WPushButton *backToTopButton_; ///< Button for returning to the top of the UI.
 
-    Wt::WText* airclipLabel_; ///< Label displaying "Airclip".
+    Wt::WText *airclipLabel_; ///< Label displaying "Airclip".
+
+    WContainerWidget *root_; ///< Root element of application.
 };
-
 
 #endif // UI_H

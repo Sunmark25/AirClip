@@ -24,7 +24,6 @@
 
 /* Style the body for some basic padding */
 body {
-    padding: 20px;
     font-family: 'Arial', sans-serif;
 }
 
@@ -222,4 +221,9 @@ body {
     color: #333;
     margin-bottom: 15px;
     /* Add more styling as needed */
+}
+
+.controls-container {
+    min-height: 253px;
+    max-height: 253px;
 }

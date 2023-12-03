@@ -20,6 +20,8 @@ void NetworkConnection::startServer() {
 
     crow::SimpleApp app; // Define the crow application
 
+//    app.loglevel(crow::LogLevel::Debug);
+
     UserManager userManager = UserManager();
 
     CROW_ROUTE(app, "/api/")([]() {

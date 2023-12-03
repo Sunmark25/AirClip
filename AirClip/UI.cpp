@@ -10,9 +10,10 @@
 
 #include "UI.h"
 
-UI::UI(const std::string& deviceID, const std::string& userID){
+UI::UI(const std::string& deviceID, const std::string& userID, WContainerWidget *root){
     this->deviceID = deviceID;
     this->userID = userID;
+    this->root_ = root;
     setupUI();
 }
 
@@ -24,8 +25,25 @@ UI::UI(const std::string& deviceID, const std::string& userID){
     * also binds event handlers to the widgets for user interaction.
     */
 void UI::setupUI() {
-    auto vbox = setLayout(std::make_unique<Wt::WVBoxLayout>());
     Wt::WApplication::instance()->useStyleSheet("styles.css");
+
+
+
+    auto vbox = std::make_unique<Wt::WVBoxLayout>();
+    vbox->setContentsMargins(20, 20, 20, 20);
+
+
+
+
+//    auto vbox = new Wt::WVBoxLayout();
+//    vbox->setContentsMargins(20, 20, 20, 20);
+//
+//    Wt::WHBoxLayout* gitLayout= new Wt::WHBoxLayout();
+//
+//    root->setLayout(gitLayout);
+
+    // Stores the controls (buttons, title and search bar)
+    auto controlsVBox = std::make_unique<Wt::WVBoxLayout>();
 
     // Top horizontal box for Sign Out, Quit and clear history buttons
     auto topHBox = std::make_unique<Wt::WHBoxLayout>();
@@ -46,11 +64,11 @@ void UI::setupUI() {
     quitButton_ = topHBox->addWidget(std::move(quitButton),0,Wt::AlignmentFlag::Right);
     quitButton_->addStyleClass("button");
 
-    // Add topHBox to the main vbox
-    vbox->addLayout(std::move(topHBox));
+    // Add topHBox to the controls box
+    controlsVBox->addLayout(std::move(topHBox));
 
     // "AirClip" title
-    airclipLabel_ = vbox->addWidget(std::make_unique<Wt::WText>("AirClip"));
+    airclipLabel_ = controlsVBox->addWidget(std::make_unique<Wt::WText>("AirClip"));
     airclipLabel_->addStyleClass("title");
 
     // Horizontal box for search functionality
@@ -64,18 +82,31 @@ void UI::setupUI() {
     // Search button
     searchButton_= searchHBox->addWidget(std::make_unique<Wt::WPushButton>("🔍"));
     searchButton_->addStyleClass("button");
+    searchButton_->setWidth("56.5px");
 
-    // Add buttons container to the main vbox
-    vbox->addLayout(std::move(searchHBox));
+    // Add buttons container to the controls box
+    controlsVBox->addLayout(std::move(searchHBox));
 
     // Dropdown button for history
-    auto dropdownButton_ = vbox->addWidget(std::make_unique<Wt::WPushButton>("History"));
+    auto dropdownButton_ = controlsVBox->addWidget(std::make_unique<Wt::WPushButton>("History"));
     dropdownButton_->addStyleClass("dropdown-button");
     dropdownButton_->addStyleClass("dropdown-button-active");  // Style as active from the start
 
+    // Create a wrapper to allow styling of the container
+    auto controlsVBoxWrapper = std::make_unique<Wt::WContainerWidget>();
+    controlsVBoxWrapper->setLayout(std::move(controlsVBox));
+    controlsVBoxWrapper->setStyleClass("controls-container");
+
+    // Add controls box container to the main vbox
+    vbox->addWidget(std::move(controlsVBoxWrapper), 0);
+
+
     // Main container for entries with scrollbar
-    auto entriesContainer = vbox->addWidget(std::make_unique<Wt::WContainerWidget>());
+    auto entriesContainer = vbox->addWidget(std::make_unique<Wt::WContainerWidget>(), 1);
     entriesContainer->setOverflow(Wt::Overflow::Auto, Wt::Orientation::Vertical);
+    entriesContainer->setMargin(Wt::WLength(3), Wt::Side::Top);
+    entriesContainer->setMargin(Wt::WLength(10), Wt::Side::Right);
+    entriesContainer->setMargin(Wt::WLength(10), Wt::Side::Left);
     entriesContainer->setMaximumSize(Wt::WLength::Auto, Wt::WLength(1000, Wt::LengthUnit::Pixel)); // Dynamic height with max limit
     entriesContainer->addStyleClass("entries-container");
 
@@ -129,6 +160,8 @@ void UI::setupUI() {
     clearButton_->clicked().connect(this, &UI::showClearConfirmationDialog);
     quitButton_->clicked().connect(this, &UI::onQuitClicked);
     backToTopButton_->clicked().connect(this, &UI::onbackToTopClicked);
+
+    root_->setLayout(std::move(vbox));
 }
 
 /**

@@ -10,17 +10,24 @@
       - Implement methods in the client for login and register
       - Store username and deviceID on client
 - ~~Improve API routes (use http params like username?=test)~~
-- Fix crash after clearing history (I think it happens when client requests it)
+- ~~Fix crash after clearing history (I think it happens when client requests it)~~
 
 ## Should do
 
 - Improve API routes (use auth)
 - Update the UI on new change
 - Handle potential errors (with try catches)
+- Add any missing SQL injection protection
+
+
+- Use a daemon to run the server
+- Fix UI for multi user
+- Allow user to set ip and login credentials
 
 ## Future
 
 - Make history have a dropdown arrow
+- Make an icon
 
 ## Optional
 
