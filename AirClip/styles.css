@@ -178,12 +178,6 @@ body {
     font-weight: bold;
 }
 
-@media (max-width: 600px) {
-    .button, .expand-button {
-        width: 100%;
-        padding: 10px;
-    }
-}
 .text-collapsed {
     max-height: 100px;
     overflow: hidden;

@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS Device(
 );
 
 -- Time Format Must use ISO8601 string format
--- YYYY-MM-DD HH:MM:SS.SSS
--- E.g. 2016-01-01 10:20:05.123
+-- YYYY-MM-DD_HH:MM:SS
+-- E.g. 2016-12-01_18:20:05
 
 
 -- -------------- TABLES THAT WORK WITH QUERIES --------------

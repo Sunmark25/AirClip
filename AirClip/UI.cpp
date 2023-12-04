@@ -95,7 +95,7 @@ void UI::setupUI() {
     entriesContainer->setMargin(Wt::WLength(3), Wt::Side::Top);
     entriesContainer->setMargin(Wt::WLength(10), Wt::Side::Right);
     entriesContainer->setMargin(Wt::WLength(10), Wt::Side::Left);
-    entriesContainer->setMaximumSize(Wt::WLength::Auto, Wt::WLength(1000, Wt::LengthUnit::Pixel)); // Dynamic height with max limit
+//    entriesContainer->setMaximumSize(Wt::WLength::Auto, Wt::WLength(1000, Wt::LengthUnit::Pixel)); // Dynamic height with max limit
     entriesContainer->addStyleClass("entries-container");
 
     // Setup text box enter key action
