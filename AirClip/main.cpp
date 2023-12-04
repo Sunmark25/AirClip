@@ -31,48 +31,64 @@
 //}
 
 int main(int argc, char **argv) {
-    std::string deleteAllUser = "DROP TABLE User;";
-    std::string deleteAllDevice = "DROP TABLE Device;";
-    std::string deleteAllClipboardEntry = "DROP TABLE ClipboardEntry;";
-    DatabaseController *dbc = DatabaseController::getInstance();
-
-    dbc->sqlOperation(deleteAllUser);
-    dbc->sqlOperation(deleteAllDevice);
-    dbc->sqlOperation(deleteAllClipboardEntry);
-    dbc->createTable();
+//    std::string deleteAllUser = "DROP TABLE User;";
+//    std::string deleteAllDevice = "DROP TABLE Device;";
+//    std::string deleteAllClipboardEntry = "DROP TABLE ClipboardEntry;";
+//    DatabaseController *dbc = DatabaseController::getInstance();
+//
+//    dbc->sqlOperation(deleteAllUser);
+//    dbc->sqlOperation(deleteAllDevice);
+//    dbc->sqlOperation(deleteAllClipboardEntry);
+//    dbc->createTable();
 
 
     UserManager userManager = UserManager();
-    std::string benzUserID = userManager.registerUser("Benz", "helloWorld");
+    std::string benzUserID = userManager.findUser("Benz");
+
+    if (benzUserID.empty()) {
+        benzUserID = userManager.registerUser("Benz", "helloWorld");
+    }
 
     if (userManager.authenticateUser("Benz","helloWorld")){
         std::cout << "Hello World" << std::endl;
     }
 
     Device *device = userManager.finishUserLogIn(benzUserID, "56", "Benz");
-    std::string benzMacbookDeviceID = device->registerDevice("Benz Macbook Air", benzUserID);
+    std::string benzMacbookDeviceID = device->findDevice("Benz Macbook Air", benzUserID);
+    if (benzMacbookDeviceID.empty()) {
+        benzMacbookDeviceID = device->registerDevice("Benz Macbook Air", benzUserID);
+
+        std::string ceid1 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzMacbookDeviceID, "Hello World From Mac", "", "");
+        std::string ceid2 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzMacbookDeviceID, "This is a test message from Mac");
+    } else {
+        device->reconnectDevice("Benz Macbook Air", benzUserID);
+    }
+
     Device *device1 = userManager.finishUserLogIn(benzUserID, "58", "Benz");
-    std::string benzIPadDeviceID = device1->registerDevice("Benz ipad", benzUserID);
+    std::string benzIPadDeviceID = device1->findDevice("Benz ipad", benzUserID);
+    if (benzIPadDeviceID.empty()) {
+        benzIPadDeviceID = device1->registerDevice("Benz ipad", benzUserID);
 
-    std::string query = ClipboardHelper::generateClipboardEntryInsertSQL(ClipboardHelper::generateCurrentTime(), benzMacbookDeviceID, "Hello World From Mac", "", "");
-    dbc->sqlOperation(query);
-    std::string ceid1 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzMacbookDeviceID, "Hello World From Mac", "", "");
-    std::string ceid2 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzIPadDeviceID, "Hello World From iPad");
-    std::string ceid3 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzMacbookDeviceID, "This is a test message from Mac");
-    std::string ceid4 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzIPadDeviceID, "This is a test message from iPad");
-
-
-    std::vector test = ClipboardHelper::searchClipboardEntry("Hello");
-    for (int i = 0; i < test.size(); ++i) {
-        std::cout << test[i]->getContent() << std::endl;
+        std::string ceid3 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzIPadDeviceID,"Hello World From iPad");
+        std::string ceid4 = ClipboardHelper::insertClipboardEntry(ClipboardHelper::generateCurrentTime(), benzIPadDeviceID, "This is a test message from iPad");
+    } else {
+        device1->reconnectDevice("Benz ipad", benzUserID);
     }
-    std::cout << std::endl << "Latest User Content: " << ClipboardHelper::getLatestClipboardEntry(benzUserID)->getContent();
-    std::cout << std::endl << "Latest Content: " << ClipboardHelper::getLatestClipboardEntry()->getContent() << std::endl;
 
-    std::vector test1 = ClipboardHelper::getClipboardEntries(benzUserID);
-    for (int i = 0; i < test.size(); ++i) {
-        std::cout << test1[i]->getContent() << std::endl;
-    }
+//    std::string query = ClipboardHelper::generateClipboardEntryInsertSQL(ClipboardHelper::generateCurrentTime(), benzMacbookDeviceID, "Hello World From Mac", "", "");
+//    dbc->sqlOperation(query);
+
+//    std::vector test = ClipboardHelper::searchClipboardEntry("Hello");
+//    for (int i = 0; i < test.size(); ++i) {
+//        std::cout << test[i]->getContent() << std::endl;
+//    }
+//    std::cout << std::endl << "Latest User Content: " << ClipboardHelper::getLatestClipboardEntry(benzUserID)->getContent();
+//    std::cout << std::endl << "Latest Content: " << ClipboardHelper::getLatestClipboardEntry()->getContent() << std::endl;
+
+//    std::vector test1 = ClipboardHelper::getClipboardEntries(benzUserID);
+//    for (int i = 0; i < test.size(); ++i) {
+//        std::cout << test1[i]->getContent() << std::endl;
+//    }
 
     std::thread networkThread([] {
         NetworkConnection::startServer();

@@ -36,6 +36,8 @@ public:
 
     std::string registerDevice(const std::string &deviceName, const std::string &userID);
 
+    std::string reconnectDevice(const std::string &deviceName, const std::string &userID);
+
     std::unique_ptr<Wt::WApplication> associateWithSession(const Wt::WEnvironment &env);
 
     DeviceInfo* getDeviceInfo();

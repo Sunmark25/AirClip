@@ -32,7 +32,7 @@
  *
  * @note Logs the device ID to the console if a match is found or a message indicating no match if not.
  */
-std::string Device::findDevice(const std::string &deviceName, const std::string &userID){
+std::string Device::findDevice(const std::string &deviceName, const std::string &userID) {
     std::string query = "SELECT deviceID FROM Device WHERE deviceName = '" + deviceName + "' AND userID = '" + userID + "';";
 
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
@@ -63,7 +63,7 @@ std::string Device::findDevice(const std::string &deviceName, const std::string 
  *
  * @note Logs a success message to the console upon successful insertion or an error message if the insertion fails.
  */
-std::string Device::registerDevice(const std::string &deviceName, const std::string &userID){
+std::string Device::registerDevice(const std::string &deviceName, const std::string &userID) {
     std::string query = "INSERT INTO Device ('deviceName', 'userID') VALUES ('" + deviceName + "', '" + userID + "');";
 
     bool success = dbc->sqlOperation(query);
@@ -76,6 +76,23 @@ std::string Device::registerDevice(const std::string &deviceName, const std::str
         return findDevice(deviceName, userID);
     } else { // Otherwise, return an empty string
         std::cout << "Unable to add a the device " << deviceName << " into the database for userID " << userID << std::endl;
+        return "";
+    }
+}
+
+std::string Device::reconnectDevice(const std::string &deviceName, const std::string &userID) {
+    std::string query = "SELECT * FROM Device WHERE deviceName='" + deviceName + "' AND userID ='" + userID + "';";
+
+    std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
+
+    if (!DatabaseController::tableIsEmpty(tableData)) {
+        std::cout << "Successfully reconnected the device for user ID " << userID << " with the name: " << deviceName << std::endl;
+        deviceInfo->setDeviceName(deviceName);
+        deviceInfo->setUserID(userID);
+
+        return findDevice(deviceName, userID);
+    } else { // Otherwise, return an empty string
+        std::cout << "Unable to reconnected the device " << deviceName << " for userID " << userID << std::endl;
         return "";
     }
 }
