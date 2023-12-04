@@ -36,7 +36,7 @@ std::vector<ClipboardEntry*> ClipboardHelper::getClipboardEntries(const std::str
     std::string query = "SELECT ClipboardEntry.* FROM ClipboardEntry JOIN DEVICE "
                         "ON ClipboardEntry.deviceID = Device.deviceID JOIN User "
                         "ON Device.userID = User.userID "
-                        "WHERE User.userID = '" + userId + "';";
+                        "WHERE User.userID = '" + escape(userId) + "';";
 
     // Look for all clipboard entries matching the userID
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
@@ -140,7 +140,8 @@ std::string ClipboardHelper::insertClipboardEntry(std::string timeAdded,
  * @note Logs a message to the console indicating whether a matching entry was found or not.
  */
 std::string ClipboardHelper::findClipboardEntry(const std::string &deviceID, const std::string &content){
-    std::string query = "SELECT clipboardEntryID FROM ClipboardEntry WHERE deviceID = '" + deviceID + "' AND content = '" + content + "';";
+    std::string query = "SELECT clipboardEntryID FROM ClipboardEntry WHERE deviceID = '" + escape(deviceID) + "' AND content = '" +
+            escape(content) + "';";
 
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);
 
@@ -173,7 +174,7 @@ ClipboardEntry* ClipboardHelper::getLatestClipboardEntry(const std::string &user
     // Correct the order of clauses in the SQL query
     std::string query = "SELECT ClipboardEntry.* FROM ClipboardEntry "
                         "JOIN Device ON ClipboardEntry.deviceID = Device.deviceID "
-                        "WHERE Device.userID = '" + userID + "' "
+                        "WHERE Device.userID = '" + escape(userID) + "' "
                         "ORDER BY ClipboardEntry.timeAdded DESC LIMIT 1;";
 
     std::vector<std::vector<std::string>> tableData = dbc->selectData(query);

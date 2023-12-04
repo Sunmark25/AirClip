@@ -13,18 +13,22 @@
 - ~~Fix crash after clearing history (I think it happens when client requests it)~~
 - Stop user from refreshing the Wt UI page
 - Fix big that clearing history will work if you click cancel
+- Fix bug with special characters in content (mainly quotes I think)
 
 ## Should do
 
 - Improve API routes (use auth)
 - Update the UI on new change
 - Handle potential errors (with try catches)
-- Add any missing SQL injection protection
+- Add any missing SQL injection protections
 
 
 - Use a daemon to run the server
 - Fix UI for multi user
 - Allow user to set ip and login credentials
+- Fix not being able to copy from Wt UI on iOS
+- Fix iOS scaling
+- Fix scroll bar missing in Wt UI on iOS
 
 ## Future
 
