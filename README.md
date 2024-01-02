@@ -166,13 +166,13 @@ To **build and run** the AirClip server, you will need the following hardware, l
   ```
   ./AirClip >server.log 2>&1 &
   ```
-    - This will background the program and output to a log file. Note `2>&1` redirects errors to the same file,
-      alternatively you could send them to a different file by doing `2>error.log`. You could also discard the output by
-      changing what is after ">" to `/dev/null`. The ">" redirect also overwrites the file each time, you can change
-      this to ">>" to prevent that. Finally, this [StackExchange](https://askubuntu.com/a/731237) post has other ways
-      you can customize the output.
+    - This will background the program and output to a log file. See [Viewing the Log File](#viewing-the-log-file) to
+      learn how to view the log file. Note `2>&1` redirects errors to the same file, alternatively you could send them
+      to a different file by doing `2>error.log`. You could also discard the output by changing what is after ">" to
+      `/dev/null`. The ">" redirect also overwrites the file each time, you can change this to ">>" to prevent that.
+      Finally, this [StackExchange](https://askubuntu.com/a/731237) post has other ways you can customize the output.
     - Also, an **IMPORTANT NOTE** the log file could get quite big, so you should only do that for short periods as it
-      could use up a log of storage and also add **PERMANENT** wear on your storage device, this is especially
+      could use up a lot of storage and also add **PERMANENT** wear on your storage device, this is especially
       worry-some on SD cards. So running the following is better to prevent these issues:
       ```
       ./AirClip >/dev/null 2>&1 & disown
@@ -234,11 +234,11 @@ To **build and run** the AirClip server, you will need the following hardware, l
       ```
 
     - Now that you have the PID you can interact with the process similar to jobs but in a more limited manner, and by
-      that I mean the only option you have is to kill it... Seems a little harsh if you ask me... So to do this run:
+      that I mean the only option you have is to kill it... Seems a little harsh if you ask me... Anyways, to do this run:
       ```
       kill <PID>
       ```
-        - I will also mention there are ways around this limitation, such as using the program screens but that is out
+        - I will also mention there are ways around this limitation, such as using the program "screens" but that is out
           of the scope of this documentation
 
 #### Viewing the Log File
